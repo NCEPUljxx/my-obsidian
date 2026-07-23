@@ -5809,4 +5809,4 @@ public class GlobalExceptionHandler {
 
 ---
 
-> 📎 **相关笔记**：[[04-SpringBoot请求响应]] · [[06-SpringBoot事务与AOP]] · [[02-数据库与持久层]]
+> 📎 **相关笔记**：[[Redis/Redis-实战篇|Redis]] · [[04-SpringBoot请求响应]] · [[06-SpringBoot事务与AOP]] · [[02-数据库与持久层]]
