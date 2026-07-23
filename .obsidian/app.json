@@ -1,8 +1,9 @@
 {
   "newFileLocation": "folder",
-  "attachmentFolderPath": "D:\\Java\\ObsidianData",
+  "attachmentFolderPath": "D:\\Java\\data",
   "newLinkFormat": "shortest",
   "newFileFolderPath": "D:\\Java\\Obisidian笔记",
   "alwaysUpdateLinks": true,
-  "promptDelete": false
+  "promptDelete": false,
+  "defaultViewMode": "preview"
 }
