@@ -2044,4 +2044,4 @@ web后端开发现在基本上都是基于标准的三层架构进行开发的�
 
 ---
 
-> 📎 **相关笔记**：[[06-SpringBoot事务与AOP]] · [[08-Maven高级]]
+> 📎 **相关笔记**：[[06-SpringBoot事务与AOP]] · [[08-Maven高级]] · [[SSM框架/SpringBoot]]
