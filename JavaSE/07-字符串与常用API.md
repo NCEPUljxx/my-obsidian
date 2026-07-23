@@ -6,7 +6,7 @@
 
 - 什么是API
 
-  ​	API (Application Programming Interface) ：应用程序编程接口
+  ​	API 的概念贯穿整个 Java 学习，[[09-常用API]] 涵盖了更多常用类。 ：应用程序编程接口
 
 - java中的API
 
@@ -16,31 +16,31 @@
 
 - 打开帮助文档
 
-![01](../data/JavaSE/07-字符串与常用API/01.png))
+![](../data/JavaSE/07-字符串与常用API/01.png)
 
 - 找到索引选项卡中的输入框
 
-![02](../data/JavaSE/07-字符串与常用API/02.png))
+![](../data/JavaSE/07-字符串与常用API/02.png)
 
 - 在输入框中输入Random
 
-![03](../data/JavaSE/07-字符串与常用API/03.png))
+![](../data/JavaSE/07-字符串与常用API/03.png)
 
 - 看类在哪个包下
 
-![04](../data/JavaSE/07-字符串与常用API/04.png))
+![](../data/JavaSE/07-字符串与常用API/04.png)
 
 - 看类的描述
 
-![05](../data/JavaSE/07-字符串与常用API/05.png))
+![](../data/JavaSE/07-字符串与常用API/05.png)
 
 - 看构造方法
 
-![06](../data/JavaSE/07-字符串与常用API/06.png))
+![](../data/JavaSE/07-字符串与常用API/06.png)
 
 - 看成员方法
 
-![07](../data/JavaSE/07-字符串与常用API/07.png))
+![](../data/JavaSE/07-字符串与常用API/07.png)
 
 ## 2.String类
 
@@ -650,7 +650,7 @@ public class StringDemo11 {
 }
 ```
 
-## 3.StringBuilder
+## 3.StringBuilder 用于高效拼接字符串，与 [[10-集合框架]] 中的可变参数配合使用很常见。
 
 StringBuilder 可以看成是一个容器，创建之后里面的内容是可变的。
 
@@ -859,3 +859,7 @@ System.out.println(str);//[aaa, bbb, ccc]
    如果比较的是引用数据类型：比的是地址值是否相等。
 
    结论：==只能用于比较基本数据类型。不能比较引用数据类型。
+
+---
+
+> 📎 **相关笔记**：[[03-数组与方法]] · [[09-常用API]] · [[10-集合框架]]

@@ -12,7 +12,7 @@
 
 能够熟练使用BigInteger类的常见方法
 
-能够熟练使用BigDecimal类的常见方法
+能够熟练使用BigDecimal 用于精确小数计算，在涉及到金钱的业务中替代 double，见 [[10-集合框架]] 的斗地主计分场景。类的常见方法
 
 # 1 Math类
 
@@ -22,7 +22,7 @@
 
 查看API文档，我们可以看到API文档中关于Math类的定义如下：
 
- ![1576047659085](.\../data/JavaSE/09-常用API/1576047659085.png)) 
+ ![](../data/JavaSE/09-常用API/1576047659085.png)) 
 
 Math类所在包为java.lang包，因此在使用的时候不需要进行导包。并且Math类被final修饰了，因此该类是不能被继承的。
 
@@ -34,7 +34,7 @@ Math类包含执行基本数字运算的方法，我们可以使用Math类完成
 
 一下Math类的成员，如下所示：
 
-![1576047846672](.\../data/JavaSE/09-常用API/1576047846672.png)) 
+![](../data/JavaSE/09-常用API/1576047846672.png)) 
 
 在API文档中没有体现可用的构造方法，因此我们就不能直接通过new关键字去创建Math类的对象。同时我们发现Math类中的方法都是静态的，因此在使用的时候我们可以直接通过类名去调用。在Math类中
 
@@ -117,7 +117,7 @@ public class MathDemo01 {
 获取到的0-1之间的随机数为: 0.7322484131745958
 ```
 
-## 1.3 算法小题(质数)
+## 1.3 排序和查找算法不仅用在数组，[[10-集合框架]] 中 TreeMap 的底层红黑树就是自平衡二叉查找树。小题(质数)
 
 需求：
 
@@ -206,7 +206,7 @@ for (int i = 100; i <= 999; i++) {
 
 查看API文档，我们可以看到API文档中关于System类的定义如下：
 
- ![1576049347968](../data/JavaSE/09-常用API/1576049347968.png)) 
+ ![](../data/JavaSE/09-常用API/1576049347968.png) 
 
 
 
@@ -220,7 +220,7 @@ System包含了系统操作的一些常用的方法。比如获取当前时间�
 
 查看一下System类的成员，如下所示：
 
-![1576049535584](../data/JavaSE/09-常用API/1576049535584.png)) 
+![](../data/JavaSE/09-常用API/1576049535584.png) 
 
 在API文档中没有体现可用的构造方法，因此我们就不能直接通过new关键字去创建System类的对象。同时我们发现System类中的方法都是静态的，因此在使用的时候我们可以直接通过类名去调用（Nested 
 
@@ -633,7 +633,7 @@ public class RunTimeDemo1 {
 
 ​	任意一个按钮被点击之后，上方了按钮出现。当点击上方按钮之后取消关机任务
 
- ![恶搞好基友](../data/JavaSE/09-常用API/恶搞好基友.png))
+ ![](../data/JavaSE/09-常用API/恶搞好基友.png)
 
 ```java
 public class Test {
@@ -804,7 +804,7 @@ public class MyJframe extends JFrame implements ActionListener {
 
 查看API文档，我们可以看到API文档中关于Object类的定义如下：
 
-![1576053677194](../data/JavaSE/09-常用API/1576053677194.png)) 
+![](../data/JavaSE/09-常用API/1576053677194.png) 
 
 
 
@@ -814,7 +814,7 @@ Object类所在包是java.lang包。Object 是类层次结构的根，每个类�
 
 查看API文档我们可以看到，在Object类中提供了一个无参构造方法，如下所示：
 
-![1576053871503](../data/JavaSE/09-常用API/1576053871503.png)) 
+![](../data/JavaSE/09-常用API/1576053871503.png) 
 
 但是一般情况下我们很少去主动的创建Object类的对象，调用其对应的方法。更多的是创建Object类的某个子类对象，然后通过子类对象调用Object类中的方法。
 
@@ -902,11 +902,11 @@ public String toString() {		// Object类中toString方法的源码定义
 
 1. 在空白处使用快捷键：alt + insert。此时会弹出如下的对话框
 
-![1576055135105](../data/JavaSE/09-常用API/1576055135105.png)) 
+![](../data/JavaSE/09-常用API/1576055135105.png) 
 
 2. 选择toString，此时会弹出如下的对话框
 
-![1576055198877](../data/JavaSE/09-常用API/1576055198877.png)) 
+![](../data/JavaSE/09-常用API/1576055198877.png) 
 
 同时选择name和age属性，点击OK。此时就会完成toString方法的重写，代码如下所示：
 
@@ -1032,19 +1032,19 @@ public boolean equals(Object obj) {		// Object类中的equals方法的源码
 
 1. 在空白处使用快捷键：alt + insert。此时会弹出如下的对话框
 
- ![1576056718392](../data/JavaSE/09-常用API/1576056718392.png)) 
+ ![](../data/JavaSE/09-常用API/1576056718392.png) 
 
 2. 选择equals() and hashCode()方法，此时会弹出如下的对话框
 
-![1576057779458](../data/JavaSE/09-常用API/1576057779458.png)) 
+![](../data/JavaSE/09-常用API/1576057779458.png) 
 
 点击next，会弹出如下对话框：
 
-![1576057813175](../data/JavaSE/09-常用API/1576057813175.png)) 
+![](../data/JavaSE/09-常用API/1576057813175.png) 
 
 选择neme和age属性点击next，此时就会弹出如下对话框：
 
-![1576057892814](../data/JavaSE/09-常用API/1576057892814.png)) 
+![](../data/JavaSE/09-常用API/1576057892814.png) 
 
 取消name和age属性（因为此时选择的是在生成hashCode方法时所涉及到的属性，关于hashCode方法后期再做重点介绍），点击Finish完成生成操作。生成的equals方法和hashCode方法如下：
 
@@ -1092,13 +1092,13 @@ true
 
 ​	Object类默认的是浅克隆
 
-![浅克隆](../data/JavaSE/09-常用API/浅克隆.png))
+![](../data/JavaSE/09-常用API/浅克隆.png)
 
 **深克隆：**
 
 ​	基本数据类型拷贝过来，字符串复用，引用数据类型会重新创建新的
 
-![深克隆](../data/JavaSE/09-常用API/深克隆.png))
+![](../data/JavaSE/09-常用API/深克隆.png)
 
 代码实现：
 
@@ -1318,7 +1318,7 @@ public class User implements Cloneable {
 
 查看API文档，我们可以看到API文档中关于Objects类的定义如下：
 
-![1576058492444](../data/JavaSE/09-常用API/1576058492444.png)) 
+![](../data/JavaSE/09-常用API/1576058492444.png) 
 
 Objects类所在包是在java.util包下，因此在使用的时候需要进行导包。并且Objects类是被final修饰的，因此该类不能被继承。
 
@@ -1328,7 +1328,7 @@ Objects类提供了一些对象常见操作的方法。比如判断对象是否�
 
 接下来我们来查看一下API文档，看一下Objects类中的成员，如下所示：
 
-![1576058659628](../data/JavaSE/09-常用API/1576058659628.png)) 
+![](../data/JavaSE/09-常用API/1576058659628.png) 
 
 我们可以发现Objects类中无无参构造方法，因此我们不能使用new关键字去创建Objects的对象。同时我们可以发现Objects类中所提供的方法都是静态的。因此我们可以通过类名直接去调用这些方法。
 
@@ -1477,7 +1477,7 @@ public class ObjectsDemo02 {
         Student s1 = new Student("itheima" , "14") ;
 
         // 调用Objects对象的requireNonNullElseGet方法,该方法的第二个参数是Supplier类型的，查看源码我们发现Supplier是一个函数式接口,
-        // 那么我们就可以为其传递一个Lambda表达式，而在Supplier接口中所定义的方法是无参有返回值的方法，因此具体调用所传入的Lambda表达式如下所示
+        // 那么我们就可以为其传递一个Lambda 是函数式编程的基础，[[10-集合框架]] 的 Stream 流中大量使用 Lambda。，而在Supplier接口中所定义的方法是无参有返回值的方法，因此具体调用所传入的Lambda表达式如下所示
         Student student = Objects.requireNonNullElseGet(s1, () -> {
             return new Student("itcast", "14");
         });
@@ -1536,7 +1536,7 @@ public class ObjectsDemo02 {
 
 查看API文档，我们可以看到API文档中关于BigInteger类的定义如下：
 
- ![Snipaste_2022-09-04_21-36-01](../data/JavaSE/09-常用API/Snipaste_2022-09-04_21-36-01.png))
+ ![](../data/JavaSE/09-常用API/Snipaste_2022-09-04_21-36-01.png)
 
 BigInteger所在包是在java.math包下，因此在使用的时候就需要进行导包。我们可以使用BigInteger类进行大整数的计算
 
@@ -1727,7 +1727,7 @@ public class BigIntegerDemo2 {
 
 存储方式如图所示：
 
-![bigInteger的底层原理](../data/JavaSE/09-常用API/bigInteger的底层原理.png))
+![](../data/JavaSE/09-常用API/bigInteger的底层原理.png)
 
 
 
@@ -1775,7 +1775,7 @@ public class BigDecimalDemo01 {
 
 查看API文档，我们可以看到API文档中关于BigDecimal类的定义如下：
 
- ![1576132679789](.\../data/JavaSE/09-常用API/1576132679789.png))
+ ![](../data/JavaSE/09-常用API/1576132679789.png))
 
 BigDecimal所在包是在java.math包下，因此在使用的时候就需要进行导包。我们可以使用BigDecimal类进行更加精准的数据计算。
 
@@ -1785,7 +1785,7 @@ BigDecimal所在包是在java.math包下，因此在使用的时候就需要进�
 
 要用BigDecimal类，那么就需要首先学习一下如何去创建BigDecimal的对象。通过查看API文档，我们可以发现Jdk中针对BigDecimal类提供了很多的构造方法，但是最常用的构造方法是：
 
- ![1576134383441](.\../data/JavaSE/09-常用API/1576134383441.png))
+ ![](../data/JavaSE/09-常用API/1576134383441.png))
 
 了解完常见的构造方法以后，我们接下来就重点介绍一下常见的成员方法。
 
@@ -1939,7 +1939,7 @@ public class BigDecimalDemo02 {
 
 把数据看成字符串，遍历得到里面的每一个字符，把这些字符在ASCII码表上的值，都存储到数组中。
 
- ![bigdecimal存储原理](../data/JavaSE/09-常用API/bigdecimal存储原理.png))
+ ![](../data/JavaSE/09-常用API/bigdecimal存储原理.png)
 
 
 ---
@@ -1947,7 +1947,7 @@ public class BigDecimalDemo02 {
 
 ## 今日内容
 
-* 正则表达式
+* 正则表达式还可用于 [[11-IO流]] 中的文本匹配和 [[13-网络编程]] 中的协议解析。
 
 ## 教学目标  
 
@@ -4475,7 +4475,7 @@ class Block{
 
 在此不多做阐述。
 
- ![Snipaste_2022-09-05_21-36-50](../data/JavaSE/09-常用API/Snipaste_2022-09-05_21-36-50.png))
+ ![](../data/JavaSE/09-常用API/Snipaste_2022-09-05_21-36-50.png)
 
 ## 7. 树表查找 
 
@@ -4495,7 +4495,7 @@ class Block{
 
 ​        不同形态的二叉查找树如下图所示：
 
- ![20180226113852869](../data/JavaSE/09-常用API/20180226113852869.png)) 
+ ![](../data/JavaSE/09-常用API/20180226113852869.png) 
 
 
 
@@ -4533,7 +4533,7 @@ class Block{
 
 ### 1.2 动图演示
 
-![冒泡](../data/JavaSE/09-常用API/冒泡.gif))
+![](../data/JavaSE/09-常用API/冒泡.gif)
 
 ### 1.3 代码示例
 
@@ -4601,7 +4601,7 @@ public class A01_BubbleDemo {
 
 ### 2.2 动图演示
 
-![选择排序](../data/JavaSE/09-常用API/选择排序.gif))
+![](../data/JavaSE/09-常用API/选择排序.gif)
 
  
 
@@ -4685,7 +4685,7 @@ N的范围：0~最大索引
 
 ### 3.2 动图演示
 
-![插入排序](../data/JavaSE/09-常用API/插入排序.gif))
+![](../data/JavaSE/09-常用API/插入排序.gif)
 
 ```java
 package com.itheima.mysort;
@@ -4770,7 +4770,7 @@ public class A03_InsertDemo {
 
 ### 4.2 动图演示
 
-![快速排序](../data/JavaSE/09-常用API/快速排序.gif))
+![](../data/JavaSE/09-常用API/快速排序.gif)
 
  ```java
 package com.itheima.mysort;
@@ -4883,3 +4883,7 @@ public class A05_QuickSortDemo {
 
 
 其他排序方式待更新~
+
+---
+
+> 📎 **相关笔记**：[[07-字符串与常用API]] · [[10-集合框架]] · [[11-IO流]] · [[12-多线程]]
