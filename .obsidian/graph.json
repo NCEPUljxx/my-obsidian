@@ -9,43 +9,73 @@
   "colorGroups": [
     {
       "query": "path:JavaSE/JavaSE 索引",
-      "color": {"a": 1, "rgb": 16766720}
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
     },
     {
       "query": "path:JavaWeb/JavaWeb 索引",
-      "color": {"a": 1, "rgb": 16766720}
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
     },
     {
       "query": "path:MySQL/MySQL 索引",
-      "color": {"a": 1, "rgb": 16766720}
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
     },
     {
       "query": "path:SSM框架/SSM框架 索引",
-      "color": {"a": 1, "rgb": 16766720}
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
     },
     {
       "query": "path:Redis/Redis 索引",
-      "color": {"a": 1, "rgb": 16766720}
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
     },
     {
       "query": "path:JavaSE",
-      "color": {"a": 1, "rgb": 3381759}
+      "color": {
+        "a": 1,
+        "rgb": 3381759
+      }
     },
     {
       "query": "path:JavaWeb",
-      "color": {"a": 1, "rgb": 5294577}
+      "color": {
+        "a": 1,
+        "rgb": 5294577
+      }
     },
     {
       "query": "path:MySQL",
-      "color": {"a": 1, "rgb": 16751145}
+      "color": {
+        "a": 1,
+        "rgb": 16751145
+      }
     },
     {
       "query": "path:SSM框架",
-      "color": {"a": 1, "rgb": 11403055}
+      "color": {
+        "a": 1,
+        "rgb": 11403055
+      }
     },
     {
       "query": "path:Redis",
-      "color": {"a": 1, "rgb": 16729181}
+      "color": {
+        "a": 1,
+        "rgb": 16729181
+      }
     }
   ],
   "collapse-display": false,
@@ -58,6 +88,6 @@
   "repelStrength": 20,
   "linkStrength": 1,
   "linkDistance": 120,
-  "scale": 0.65,
+  "scale": 0.23587679004578666,
   "close": true
 }
