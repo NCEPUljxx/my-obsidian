@@ -437,7 +437,7 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
 | -------------- | --------------------------------- | ------------------------------------------- |
 | 关键字         | 预定义的颜色名                    | red、green、blue...                         |
 | rgb表示法      | 红绿蓝三原色，每项取值范围：0-255 | rgb(0,0,0)、rgb(255,255,255)、rgb(255,0,0)  |
-| 十六进制表示法 | #开头，将数字转换成十六进制表示   | #000000、#ff0000、#cccccc，简写：#000、#ccc |
+| 十六进制表示法 | #开头，将数字转换成十六进制表示   | `#000000`、`#ff0000`、`#cccccc`，简写：`#000`、`#ccc` |
 
 
 ##### 2.3.1.2.3 标题字体颜色
@@ -455,7 +455,7 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
         h1 {
             /* color: red; */
             /* color: rgb(0, 0, 255); */
-            color: #4D4F53;
+            color: `#4D4F53`;
         }
     </style>
 
@@ -569,7 +569,7 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
     <title>焦点访谈：中国底气 新思想夯实大国粮仓</title>
     <style>
         h1 {
-            color: #4D4F53;
+            color: `#4D4F53`;
         }
 
         /* 元素选择器 */
@@ -584,7 +584,7 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
         
         /* ID选择器 */
         #time {
-            color: #968D92;
+            color: `#968D92`;
             font-size: 13px; /* 设置字体大小 */
         }
 
@@ -642,11 +642,11 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
     <title>焦点访谈：中国底气 新思想夯实大国粮仓</title>
     <style>
         h1 {
-            color: #4D4F53;
+            color: `#4D4F53`;
         }
         
         #time {
-            color: #968D92;
+            color: `#968D92`;
             font-size: 13px; /* 设置字体大小 */
         }
 
@@ -750,11 +750,11 @@ B. 效果 : h1为一级标题，字体也是最大的 ； h6为六级标题，�
     <title>焦点访谈：中国底气 新思想夯实大国粮仓</title>
     <style>
         h1 {
-            color: #4D4F53;
+            color: `#4D4F53`;
         }
         
         #time {
-            color: #968D92;
+            color: `#968D92`;
             font-size: 13px; /* 设置字体大小 */
         }
 
@@ -992,11 +992,11 @@ CSS盒子模型，其实和日常生活中的包装盒是非常类似的，就�
     <title>焦点访谈：中国底气 新思想夯实大国粮仓</title>
     <style>
         h1 {
-            color: #4D4F53;
+            color: `#4D4F53`;
         }
         
         #time {
-            color: #968D92;
+            color: `#968D92`;
             font-size: 13px; /* 设置字体大小 */
         }
 
@@ -6419,7 +6419,7 @@ export default {
 
 ~~~html
 <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-<el-container style="height: 700px; border: 1px solid #eee">
+<el-container style="height: 700px; border: 1px solid `#eee`">
 ~~~
 
 到此我们布局功能就完成了
@@ -6448,7 +6448,7 @@ export default {
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
                 <el-aside width="200px">Aside</el-aside>
@@ -6508,7 +6508,7 @@ export default {
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
                 <el-aside width="200px">
@@ -6625,7 +6625,7 @@ export default {
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
                 <el-aside width="200px">
@@ -6787,7 +6787,7 @@ export default {
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
                 <el-aside width="200px">
@@ -6914,7 +6914,7 @@ handleSizeChange(val) {
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
                 <el-aside width="200px">
@@ -7107,10 +7107,10 @@ import axios  'axios';
 <template>
     <div>
         <!-- 设置最外层容器高度为700px,在加上一个很细的边框 -->
-        <el-container style="height: 700px; border: 1px solid #eee">
+        <el-container style="height: 700px; border: 1px solid `#eee`">
             <el-header style="font-size:40px;background-color: rgb(238, 241, 246)">tlias 智能学习辅助系统</el-header>
             <el-container>
-                <el-aside width="230px"  style="border: 1px solid #eee">
+                <el-aside width="230px"  style="border: 1px solid `#eee`">
                      <el-menu :default-openeds="['1', '3']">
                         <el-submenu index="1">
                             <template slot="title"><i class="el-icon-message"></i>系统信息管理</template>

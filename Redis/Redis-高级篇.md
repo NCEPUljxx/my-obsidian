@@ -1255,7 +1255,7 @@ OpenResty的很多功能都依赖于其目录下的Lua库，需要在nginx.conf�
 修改`/usr/local/openresty/nginx/conf/nginx.conf`文件，在其中的http下面，添加下面代码：
 
 ```nginx
-`#lua` 模块
+``#lua`` 模块
 lua_package_path "/usr/local/openresty/lualib/?.lua;;";
 #c模块     
 lua_package_cpath "/usr/local/openresty/lualib/?.so;;";  
@@ -4082,7 +4082,7 @@ nginx的默认配置文件注释太多，影响后续我们的编辑，这里将
 
 ```nginx
 
-`#user`  nobody;
+``#user``  nobody;
 worker_processes  1;
 error_log  logs/error.log;
 
@@ -4127,7 +4127,7 @@ nginx
 加载OpenResty的lua模块：
 
 ```nginx
-`#lua` 模块
+``#lua`` 模块
 lua_package_path "/usr/local/openresty/lualib/?.lua;;";
 #c模块     
 lua_package_cpath "/usr/local/openresty/lualib/?.so;;";  
@@ -4449,7 +4449,7 @@ start nginx.exe
 
 ```nginx
 
-`#user`  nobody;
+``#user``  nobody;
 worker_processes  1;
 
 events {
@@ -4461,7 +4461,7 @@ http {
     default_type  application/octet-stream;
 
     sendfile        on;
-    `#tcp_nopush`     on;
+    ``#tcp_nopush``     on;
     keepalive_timeout  65;
 
     upstream nginx-cluster{
