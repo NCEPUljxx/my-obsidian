@@ -16,31 +16,31 @@
 
 - 打开帮助文档
 
-![[JavaSE/07-字符串与常用API/01.png]]
+![](../data/JavaSE/07-字符串与常用API/01.png)
 
 - 找到索引选项卡中的输入框
 
-![[JavaSE/07-字符串与常用API/02.png]]
+![](../data/JavaSE/07-字符串与常用API/02.png)
 
 - 在输入框中输入Random
 
-![[JavaSE/07-字符串与常用API/03.png]]
+![](../data/JavaSE/07-字符串与常用API/03.png)
 
 - 看类在哪个包下
 
-![[JavaSE/07-字符串与常用API/04.png]]
+![](../data/JavaSE/07-字符串与常用API/04.png)
 
 - 看类的描述
 
-![[JavaSE/07-字符串与常用API/05.png]]
+![](../data/JavaSE/07-字符串与常用API/05.png)
 
 - 看构造方法
 
-![[JavaSE/07-字符串与常用API/06.png]]
+![](../data/JavaSE/07-字符串与常用API/06.png)
 
 - 看成员方法
 
-![[JavaSE/07-字符串与常用API/07.png]]
+![](../data/JavaSE/07-字符串与常用API/07.png)
 
 ## 2.String类
 

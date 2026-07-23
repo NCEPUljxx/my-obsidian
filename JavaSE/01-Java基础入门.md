@@ -21,7 +21,7 @@
 
 ​	cmd默认操作C盘下的users文件夹下的XXX文件夹。（XXX就是计算机名）
 
- ![[JavaSE/01-Java基础入门/cmd.png]]
+ ![](../data/JavaSE/01-Java基础入门/cmd.png)
 
 ### 1.3 常用CMD命令
 
@@ -86,21 +86,21 @@
 
 （如果无法出现第二步界面，可以打开我的电脑之后右键点击空白处）
 
-![[JavaSE/01-Java基础入门/1.png]]
+![](../data/JavaSE/01-Java基础入门/1.png)
 
 第二步：点击高级系统设置。
 
-​	 ![[JavaSE/01-Java基础入门/2.png]]
+​	 ![](../data/JavaSE/01-Java基础入门/2.png)
 
 第三步：选择高级，再点击下面的环境变量。
 
- ![[JavaSE/01-Java基础入门/3.png]]
+ ![](../data/JavaSE/01-Java基础入门/3.png)
 
 
 
 第四步：找系统变量里面的PATH
 
- ![[JavaSE/01-Java基础入门/4.png]]
+ ![](../data/JavaSE/01-Java基础入门/4.png)
 
 第五步：点击新建，把软件的完整路径，配置到PATH当中，再点击确定即可。
 
@@ -108,7 +108,7 @@
 
 移动的好处：在CMD中打开软件时，会先找当前路径，再找环境变量，在环境变量中是从上往下依次查找的，如果路径放在最上面查找的速度比较快。
 
- ![[JavaSE/01-Java基础入门/5.png]]
+ ![](../data/JavaSE/01-Java基础入门/5.png)
 
 ## 2. Java概述
 
@@ -312,7 +312,7 @@ public class HelloWorld{
 
 #### 1.5.2配置方式
 
-![[JavaSE/01-Java基础入门/image-20210923091654365.png]]
+![](../data/JavaSE/01-Java基础入门/image-20210923091654365.png)
 
 
 
@@ -320,11 +320,11 @@ public class HelloWorld{
 
 ①**JAVA_HOME**：告诉操作系统JDK安装在了哪个位置（未来其他技术要通过这个找JDK）
 
-![[JavaSE/01-Java基础入门/image-20210923091710450.png]]
+![](../data/JavaSE/01-Java基础入门/image-20210923091710450.png)
 
 ②**Path**：告诉操作系统JDK提供的javac(编译)、java(执行)命令安装到了哪个位置
 
-![[JavaSE/01-Java基础入门/image-20210923091721035.png]]
+![](../data/JavaSE/01-Java基础入门/image-20210923091721035.png)
 
 
 
@@ -429,11 +429,11 @@ public class HelloWorld{
 
 虚拟机会把Java语言翻译成操作系统能看得懂的语言。
 
-![[JavaSE/01-Java基础入门/image-20210923091350952.png]]
+![](../data/JavaSE/01-Java基础入门/image-20210923091350952.png)
 
 ### 1.10 JRE和JDK
 
-![[JavaSE/01-Java基础入门/image-20210923091544110.png]]
+![](../data/JavaSE/01-Java基础入门/image-20210923091544110.png)
 
 JVM（Java Virtual Machine），Java虚拟机
 
@@ -1001,13 +1001,13 @@ public class ScannerDemo1{
 - 到资料文件夹中，双击安装包。
 - 点击next，准备安装
 
-![[JavaSE/01-Java基础入门/idea安装1.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装1.png)
 
 - 点击Browse修改安装路径。
 
   修改完毕点击next
 
-![[JavaSE/01-Java基础入门/idea安装2.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装2.png)
 
 - 勾选64-bit launcher。表示在桌面新建一个64位的快捷方式。
 
@@ -1015,23 +1015,23 @@ public class ScannerDemo1{
 
   点击next。
 
-![[JavaSE/01-Java基础入门/idea安装4.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装4.png)
 
 - 点击Install，准备安装。
 
-![[JavaSE/01-Java基础入门/idea安装5.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装5.png)
 
 - 等进度条读取完毕之后，会有最终界面提示。
 
   点击finish即可。
 
-![[JavaSE/01-Java基础入门/idea安装6.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装6.png)
 
 - 第一次启动会询问，是否导入一些设置。
 
   选择第二个不导入，保持默认设置，再点击OK。
 
-![[JavaSE/01-Java基础入门/idea安装7.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装7.png)
 
 - 选择背景主题
 
@@ -1041,7 +1041,7 @@ public class ScannerDemo1{
 
   选择完毕点击右下角的next
 
-![[JavaSE/01-Java基础入门/idea安装8.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装8.png)
 
 - 在本界面让我们购买idea。
 
@@ -1049,17 +1049,17 @@ public class ScannerDemo1{
 
   点击第一排第二个。Evaluate for free
 
-![[JavaSE/01-Java基础入门/idea安装9.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装9.png)
 
 - 点击蓝色的Evaluate，就可以开始免费试用30天了。
 
-![[JavaSE/01-Java基础入门/idea安装10.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装10.png)
 
 - 当看到这个界面，就表示idea已经成功安装完毕
 
   可以点击右上角关闭。
 
-![[JavaSE/01-Java基础入门/idea安装11.png]]
+![](../data/JavaSE/01-Java基础入门/idea安装11.png)
 
 ### 8.3 IDEA中层级结构介绍
 
@@ -1128,13 +1128,13 @@ public class ScannerDemo1{
 
 - 双击启动图标
 
-  ![[JavaSE/01-Java基础入门/idea使用1.png]]
+  ![](../data/JavaSE/01-Java基础入门/idea使用1.png)
 
 - 首先要新建一个项目
 
   点击creat new project
 
-  ![[JavaSE/01-Java基础入门/idea1.png]]
+  ![](../data/JavaSE/01-Java基础入门/idea1.png)
 
 - 我们要从0开始写代码，所以新建一个空的什么都没有的项目。
 
@@ -1142,27 +1142,27 @@ public class ScannerDemo1{
 
   再点击右下角的next
 
-![[JavaSE/01-Java基础入门/idea2.png]]
+![](../data/JavaSE/01-Java基础入门/idea2.png)
 
 - 输入项目的名称
 
   输入项目的存放路径
 
-![[JavaSE/01-Java基础入门/idea3.png]]
+![](../data/JavaSE/01-Java基础入门/idea3.png)
 
 - 点击ok。idea会帮助我们在本地创建一个项目文件夹
 
-![[JavaSE/01-Java基础入门/idea4.png]]
+![](../data/JavaSE/01-Java基础入门/idea4.png)
 
 - 点击Module，准备新建一个模块
 
-![[JavaSE/01-Java基础入门/idea5.png]]
+![](../data/JavaSE/01-Java基础入门/idea5.png)
 
 - 点击+
 
   再点击New Module
 
-![[JavaSE/01-Java基础入门/idea6.png]]
+![](../data/JavaSE/01-Java基础入门/idea6.png)
 
 - 我们要编写Java代码，所以要新建一个Java模块。
 
@@ -1170,19 +1170,19 @@ public class ScannerDemo1{
 
   再点击右下角的next
 
-![[JavaSE/01-Java基础入门/idea7.png]]
+![](../data/JavaSE/01-Java基础入门/idea7.png)
 
 - 输入模块的名称
 
   再点击右下角的Next
 
-![[JavaSE/01-Java基础入门/idea8.png]]
+![](../data/JavaSE/01-Java基础入门/idea8.png)
 
 - 成功新建一个模块之后，中间就会出现刚刚新建的模块
 
   点击右下角的OK
 
-![[JavaSE/01-Java基础入门/idea9.png]]
+![](../data/JavaSE/01-Java基础入门/idea9.png)
 
 - 回到主界面
 
@@ -1190,13 +1190,13 @@ public class ScannerDemo1{
 
   右键点击src，选择New，选择Java Class
 
-![[JavaSE/01-Java基础入门/idea10.png]]
+![](../data/JavaSE/01-Java基础入门/idea10.png)
 
 - 输入类名
 
   再按回车
 
-![[JavaSE/01-Java基础入门/idea11.png]]
+![](../data/JavaSE/01-Java基础入门/idea11.png)
 
 - 由于字体比较小
 
@@ -1204,7 +1204,7 @@ public class ScannerDemo1{
 
   点击File，选择Setting。
 
-![[JavaSE/01-Java基础入门/idea12.png]]
+![](../data/JavaSE/01-Java基础入门/idea12.png)
 
 - 搜索一下font
 
@@ -1212,17 +1212,17 @@ public class ScannerDemo1{
 
   设置完毕后点击右下角的OK
 
-![[JavaSE/01-Java基础入门/idea13.png]]
+![](../data/JavaSE/01-Java基础入门/idea13.png)
 
 - 编写代码
 
-![[JavaSE/01-Java基础入门/idea14.png]]
+![](../data/JavaSE/01-Java基础入门/idea14.png)
 
 - 运行代码
 
   右键空白处，点击Run
 
-![[JavaSE/01-Java基础入门/idea15.png]]
+![](../data/JavaSE/01-Java基础入门/idea15.png)
 
 
 
@@ -1230,7 +1230,7 @@ public class ScannerDemo1{
 
   所有输出语句中的内容，都会在控制台上展示。
 
-![[JavaSE/01-Java基础入门/idea16.png]]
+![](../data/JavaSE/01-Java基础入门/idea16.png)
 
 ### 8.5 IDEA中类的相关操作
 
@@ -1246,15 +1246,15 @@ public class ScannerDemo1{
 
   所以，右键点击src，选择new，点击Java Class
 
-  ![[JavaSE/01-Java基础入门/新建类1.png]]
+  ![](../data/JavaSE/01-Java基础入门/新建类1.png)
 
 - 输入类名，再按回车
 
-  ![[JavaSE/01-Java基础入门/新建类2.png]]
+  ![](../data/JavaSE/01-Java基础入门/新建类2.png)
 
 - 新建完毕
 
-![[JavaSE/01-Java基础入门/新建类3.png]]
+![](../data/JavaSE/01-Java基础入门/新建类3.png)
 
 #### 8.5.3 修改类名
 
@@ -1264,17 +1264,17 @@ public class ScannerDemo1{
 
   再点击Rename
 
-![[JavaSE/01-Java基础入门/修改类名1.png]]
+![](../data/JavaSE/01-Java基础入门/修改类名1.png)
 
 - 输入想要修改的名字
 
   输入完毕点击下面的Refactor
 
-![[JavaSE/01-Java基础入门/修改类名2.png]]
+![](../data/JavaSE/01-Java基础入门/修改类名2.png)
 
 - 文件名和类名均已修改成功
 
-  ![[JavaSE/01-Java基础入门/修改类名3.png]]
+  ![](../data/JavaSE/01-Java基础入门/修改类名3.png)
 
 #### 8.5.4 删除类文件
 
@@ -1282,11 +1282,11 @@ public class ScannerDemo1{
 
   选择Delete即可
 
-![[JavaSE/01-Java基础入门/删除类文件1.png]]
+![](../data/JavaSE/01-Java基础入门/删除类文件1.png)
 
 - 在弹出的界面中点击OK，确定删除
 
-![[JavaSE/01-Java基础入门/删除类文件2.png]]
+![](../data/JavaSE/01-Java基础入门/删除类文件2.png)
 
 > 小贴士：
 >
@@ -1305,39 +1305,39 @@ public class ScannerDemo1{
 
 - 点击File，选择Project Structure
 
-![[JavaSE/01-Java基础入门/新建模块1.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块1.png)
 
 - 选择Module
 
-![[JavaSE/01-Java基础入门/新建模块2.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块2.png)
 
 - 点击+
 
   选择New Module
 
-![[JavaSE/01-Java基础入门/新建模块3.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块3.png)
 
 - 要创建一个Java模块，所以选择第一个Java
 
   点击右下角的Next
 
-![[JavaSE/01-Java基础入门/新建模块4.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块4.png)
 
 - 输入模块的名称
 
   点击右下角的Finish
 
-![[JavaSE/01-Java基础入门/新建模块5.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块5.png)
 
 - 成功新建完毕之后，在中间空白区域就出现了刚刚新建的模块
 
   点击右下角的OK
 
-![[JavaSE/01-Java基础入门/新建模块6.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块6.png)
 
 - 在主界面中，也会出现刚刚新建的模块
 
-![[JavaSE/01-Java基础入门/新建模块7.png]]
+![](../data/JavaSE/01-Java基础入门/新建模块7.png)
 
 #### 8.6.3 删除模块
 
@@ -1345,15 +1345,15 @@ public class ScannerDemo1{
 
   选择Remove Module
 
-![[JavaSE/01-Java基础入门/删除模块1.png]]
+![](../data/JavaSE/01-Java基础入门/删除模块1.png)
 
 - 选择Remove，表示确定删除
 
-![[JavaSE/01-Java基础入门/删除模块2.png]]
+![](../data/JavaSE/01-Java基础入门/删除模块2.png)
 
 - 此时发现，在IDEA列表页面，删除的模块已经不在了。
 
-![[JavaSE/01-Java基础入门/删除模块3.png]]
+![](../data/JavaSE/01-Java基础入门/删除模块3.png)
 
 > 小贴士：
 >
@@ -1367,23 +1367,23 @@ public class ScannerDemo1{
 
   再选择Rename
 
-![[JavaSE/01-Java基础入门/修改模块名1.png]]
+![](../data/JavaSE/01-Java基础入门/修改模块名1.png)
 
 - 选择第三个修改模块名和本地文件夹名
 
   点击OK
 
-![[JavaSE/01-Java基础入门/修改模块名3.png]]
+![](../data/JavaSE/01-Java基础入门/修改模块名3.png)
 
 - 输入要修改的新的模块名
 
   输入完毕点击Refactor
 
-![[JavaSE/01-Java基础入门/修改模块名4.png]]
+![](../data/JavaSE/01-Java基础入门/修改模块名4.png)
 
 - 回到主界面，就发现模块名和文件夹名都已经修改完毕
 
-![[JavaSE/01-Java基础入门/修改模块名5.png]]
+![](../data/JavaSE/01-Java基础入门/修改模块名5.png)
 
 
 
@@ -1391,7 +1391,7 @@ public class ScannerDemo1{
 
 - 点击File，选择Project Structure
 
-![[JavaSE/01-Java基础入门/导入模块1.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块1.png)
 
 - 选择Module
 
@@ -1399,35 +1399,35 @@ public class ScannerDemo1{
 
   选择Import Module
 
-![[JavaSE/01-Java基础入门/导入模块2.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块2.png)
 
 - 从本地硬盘中选择要导入的模块
 
   再点击OK
 
-![[JavaSE/01-Java基础入门/导入模块3.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块3.png)
 
 - 不断点击Next
 
-![[JavaSE/01-Java基础入门/导入模块4.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块4.png)
 
 - 如果中间出现提示框，则点击Overwrite
 
   然后继续点击右下角的Next
 
-![[JavaSE/01-Java基础入门/导入模块5.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块5.png)
 
 - 一直点到finish为止
 
-![[JavaSE/01-Java基础入门/导入模块6.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块6.png)
 
 - 成功导入后，在中间位置就会出现导入的模块信息
 
-![[JavaSE/01-Java基础入门/导入模块7.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块7.png)
 
 - 在主界面中也会出现导入的模块信息
 
-![[JavaSE/01-Java基础入门/导入模块8.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块8.png)
 
 
 
@@ -1435,7 +1435,7 @@ public class ScannerDemo1{
 
   是因为导入模块跟JDK没有关联导致。
 
-![[JavaSE/01-Java基础入门/导入模块9.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块9.png)
 
 
 
@@ -1443,11 +1443,11 @@ public class ScannerDemo1{
 
   再选择已经安装的JDK版本即可
 
-![[JavaSE/01-Java基础入门/导入模块10.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块10.png)
 
 - 导入完毕之后，代码就恢复正常不会报错了
 
-![[JavaSE/01-Java基础入门/导入模块11.png]]
+![](../data/JavaSE/01-Java基础入门/导入模块11.png)
 
 ### 8.7 IDEA中项目的相关操作
 
@@ -1462,7 +1462,7 @@ public class ScannerDemo1{
 
 - 点击File，选择Close Project即可
 
-![[JavaSE/01-Java基础入门/关闭项目1.png]]
+![](../data/JavaSE/01-Java基础入门/关闭项目1.png)
 
 - 刚刚操作的项目就已经关闭了
 
@@ -1470,13 +1470,13 @@ public class ScannerDemo1{
 
   右侧有create new project，可以再建一个新的项目
 
-![[JavaSE/01-Java基础入门/关闭项目2.png]]
+![](../data/JavaSE/01-Java基础入门/关闭项目2.png)
 
 - 鼠标放在项目上，后面会出现一个叉。
 
   如果点击了这里的叉，会在IDEA的列表中删除。不会删除本地硬盘上的项目。
 
-![[JavaSE/01-Java基础入门/关闭项目3.png]]
+![](../data/JavaSE/01-Java基础入门/关闭项目3.png)
 
 #### 8.7.3 打开项目
 
@@ -1484,23 +1484,23 @@ public class ScannerDemo1{
 
   点击Open or Import
 
-![[JavaSE/01-Java基础入门/打开项目1.png]]
+![](../data/JavaSE/01-Java基础入门/打开项目1.png)
 
 - 选择要打开的项目
 
   点击OK
 
-![[JavaSE/01-Java基础入门/打开项目2.png]]
+![](../data/JavaSE/01-Java基础入门/打开项目2.png)
 
 - 项目就被打开了。
 
-![[JavaSE/01-Java基础入门/打开项目3.png]]
+![](../data/JavaSE/01-Java基础入门/打开项目3.png)
 
 #### 8.7.4 修改项目
 
 - 点击File，选择Project Structure
 
-![[JavaSE/01-Java基础入门/修改项目1.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目1.png)
 
 - 在这个界面，默认是Module
 
@@ -1512,41 +1512,41 @@ public class ScannerDemo1{
 
   再点击OK
 
-![[JavaSE/01-Java基础入门/修改项目2.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目2.png)
 
 - 此时发现，项目名称已经修改完毕
 
-![[JavaSE/01-Java基础入门/修改项目3.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目3.png)
 
 - 但是本地文件夹的名字还没有修改
 
-![[JavaSE/01-Java基础入门/修改项目4.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目4.png)
 
 - 需要先关闭当前项目
 
-![[JavaSE/01-Java基础入门/关闭项目1.png]]
+![](../data/JavaSE/01-Java基础入门/关闭项目1.png)
 
 - 点击项目后面的叉，从列表中移除项目
 
-![[JavaSE/01-Java基础入门/关闭项目3.png]]
+![](../data/JavaSE/01-Java基础入门/关闭项目3.png)
 
 - 到本地硬盘中手动修改文件夹的名称
 
- ![[JavaSE/01-Java基础入门/修改项目5.png]]
+ ![](../data/JavaSE/01-Java基础入门/修改项目5.png)
 
 - 点击Open or Import重新打开项目
 
-![[JavaSE/01-Java基础入门/打开项目1.png]]
+![](../data/JavaSE/01-Java基础入门/打开项目1.png)
 
 - 选择修改之后的项目
 
   点击OK
 
-![[JavaSE/01-Java基础入门/修改项目6.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目6.png)
 
 - 此时会发现，项目名称和本地硬盘文件夹的名称都已经修改完毕了
 
-![[JavaSE/01-Java基础入门/修改项目7.png]]
+![](../data/JavaSE/01-Java基础入门/修改项目7.png)
 
 #### 8.7.5 新建项目
 
@@ -1556,33 +1556,33 @@ public class ScannerDemo1{
 
   点击Project
 
-![[JavaSE/01-Java基础入门/新建项目1.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目1.png)
 
 - 同样还是创建一个什么都没有的空项目
 
-![[JavaSE/01-Java基础入门/新建项目2.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目2.png)
 
 - 输入项目的名称
 
   点击右下角的finish
 
-![[JavaSE/01-Java基础入门/新建项目3.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目3.png)
 
 - IDEA循环是否需要帮我们在本地创建一个新的文件夹
 
   点击OK
 
-![[JavaSE/01-Java基础入门/新建项目4.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目4.png)
 
 - 询问是在本窗口打开还是在一个新的窗口打开。
 
   可以点击New Window，在一个新的窗口打开。
 
-![[JavaSE/01-Java基础入门/新建项目5.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目5.png)
 
 - 此时就出现了两个窗口，在一个新的窗口打开了新的项目
 
-![[JavaSE/01-Java基础入门/新建项目6.png]]
+![](../data/JavaSE/01-Java基础入门/新建项目6.png)
 
 ---
 
