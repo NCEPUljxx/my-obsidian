@@ -1586,13 +1586,11 @@ create user 'heima'@'%' identified by '123456';
 ```
 
 
-
 -- 修改用户 heima 的访问密码为 1234 ;
 
 ```sql
 alter user 'heima'@'%' identified with mysql_native_password by '1234';
 ```
-
 
 
 -- 删除itcast@localhost用户
@@ -1609,13 +1607,11 @@ show grants for 'heima'@'%';
 ```
 
 
-
 -- 授予权限
 
 ```sql
 grant all on itcast.* to 'heima'@'%';
 ```
-
 
 
 -- 撤销权限
@@ -1648,12 +1644,10 @@ insert into user(name,age,status,gender) values ('Tom3',19,'1','男');
 ```
 
 
-
 ```sql
 insert into user(name,age,status,gender) values (null,19,'1','男');
 insert into user(name,age,status,gender) values ('Tom3',19,'1','男');
 ```
-
 
 
 ```sql
@@ -1661,7 +1655,6 @@ insert into user(name,age,status,gender) values ('Tom4',80,'1','男');
 insert into user(name,age,status,gender) values ('Tom5',-1,'1','男');
 insert into user(name,age,status,gender) values ('Tom5',121,'1','男');
 ```
-
 
 
 ```sql
@@ -1727,7 +1720,6 @@ alter table emp drop foreign key fk_emp_dept_id;
 ```sql
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept(id) on update cascade on delete cascade ;
 ```
-
 
 
 ```sql
@@ -1812,7 +1804,6 @@ create table tb_user_edu(
 ) comment '用户教育信息表';
 
 
-
 ```sql
 insert into tb_user(id, name, age, gender, phone) values
 ```
@@ -1867,7 +1858,6 @@ alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references d
 ```
 
 
-
 ```sql
 INSERT INTO dept (id, name) VALUES (1, '研发部'), (2, '市场部'),(3, '财务部'), (4, '销售部'), (5, '总经办'), (6, '人事部');
 INSERT INTO emp (id, name, age, job,salary, entrydate, managerid, dept_id) VALUES
@@ -1913,11 +1903,9 @@ select emp.name , dept.name from emp , dept where emp.dept_id = dept.id ;
 ```
 
 
-
 ```sql
 select e.name,d.name from emp e , dept d where e.dept_id = d.id;
 ```
-
 
 
 -- 2. 查询每一个员工的姓名 , 及关联的部门的名称 (显式内连接实现)  --- INNER JOIN ... ON ...
@@ -1928,7 +1916,6 @@ select e.name,d.name from emp e , dept d where e.dept_id = d.id;
 ```sql
 select e.name, d.name from emp e inner join dept d  on e.dept_id = d.id;
 ```
-
 
 
 ```sql
@@ -1947,11 +1934,9 @@ select e.*, d.name from emp e left outer join dept d on e.dept_id = d.id;
 ```
 
 
-
 ```sql
 select e.*, d.name from emp e left join dept d on e.dept_id = d.id;
 ```
-
 
 
 -- 2. 查询dept表的所有数据, 和对应的员工信息(右外连接)
@@ -1960,7 +1945,6 @@ select e.*, d.name from emp e left join dept d on e.dept_id = d.id;
 ```sql
 select d.*, e.* from emp e right outer join dept d on e.dept_id = d.id;
 ```
-
 
 
 ```sql
@@ -2062,14 +2046,12 @@ select * from emp where dept_id in (select id from dept where name = '销售部'
 ```
 
 
-
 -- 2. 查询比 财务部 所有人工资都高的员工信息
 -- a. 查询所有 财务部 人员工资
 
 ```sql
 select id from dept where name = '财务部';
 ```
-
 
 
 ```sql
@@ -2082,7 +2064,6 @@ select salary from emp where dept_id = (select id from dept where name = '财务
 ```sql
 select * from emp where salary > all ( select salary from emp where dept_id = (select id from dept where name = '财务部') );
 ```
-
 
 
 -- 3. 查询比研发部其中任意一人工资高的员工信息
@@ -2132,7 +2113,6 @@ select * from emp where (job,salary) in ( select job, salary from emp where name
 ```
 
 
-
 -- 2. 查询入职日期是 "2006-01-01" 之后的员工信息 , 及其部门信息
 -- a. 入职日期是 "2006-01-01" 之后的员工信息
 
@@ -2174,7 +2154,6 @@ insert into salgrade values (8,25001,30000);
 ```
 
 
-
 -- 1. 查询员工的姓名、年龄、职位、部门信息 （隐式内连接）
 -- 表: emp , dept
 -- 连接条件: emp.dept_id = dept.id
@@ -2185,7 +2164,6 @@ select e.name , e.age , e.job , d.name from emp e , dept d where e.dept_id = d.i
 ```
 
 
-
 -- 2. 查询年龄小于30岁的员工的姓名、年龄、职位、部门信息（显式内连接）
 -- 表: emp , dept
 -- 连接条件: emp.dept_id = dept.id
@@ -2194,7 +2172,6 @@ select e.name , e.age , e.job , d.name from emp e , dept d where e.dept_id = d.i
 ```sql
 select e.name , e.age , e.job , d.name from emp e inner join dept d on e.dept_id = d.id where e.age < 30;
 ```
-
 
 
 -- 3. 查询拥有员工的部门ID、部门名称
@@ -2218,7 +2195,6 @@ select e.*, d.name from emp e left join dept d on e.dept_id = d.id where e.age >
 ```
 
 
-
 -- 5. 查询所有员工的工资等级
 -- 表: emp , salgrade
 -- 连接条件 : emp.salary >= salgrade.losal and emp.salary <= salgrade.hisal
@@ -2229,11 +2205,9 @@ select e.* , s.grade , s.losal, s.hisal from emp e , salgrade s where e.salary >
 ```
 
 
-
 ```sql
 select e.* , s.grade , s.losal, s.hisal from emp e , salgrade s where e.salary between s.losal and s.hisal;
 ```
-
 
 
 -- 6. 查询 "研发部" 所有员工的信息及 工资等级
@@ -2272,7 +2246,6 @@ select * from emp where salary > ( select salary from emp where name = '灭绝' 
 ```
 
 
-
 -- 9. 查询比平均薪资高的员工信息
 -- a. 查询员工的平均薪资
 
@@ -2305,7 +2278,6 @@ select * from emp e2 where e2.salary < ( select avg(e1.salary) from emp e1 where
 ```
 
 
-
 -- 11. 查询所有的部门信息, 并统计部门的员工人数
 
 ```sql
@@ -2313,11 +2285,9 @@ select d.id, d.name , ( select count(*) from emp e where e.dept_id = d.id ) '人
 ```
 
 
-
 ```sql
 select count(*) from emp where dept_id = 1;
 ```
-
 
 
 -- 12. 查询所有学生的选课情况, 展示出学生名称, 学号, 课程名称
@@ -2383,13 +2353,11 @@ select substring('Hello MySQL',1,5);
 ```
 
 
-
 -- 案例:  由于业务需求变更，企业员工的工号，统一为5位数，目前不足5位数的全部在前面补0。比如： 1号员工的工号应该为00001。
 
 ```sql
 update emp set workno = lpad(workno, 5, '0');
 ```
-
 
 
 -- -------------------------------------------------------------------------------------------------------------
@@ -2428,7 +2396,6 @@ select rand();
 ```sql
 select round(2.344,2);
 ```
-
 
 
 -- 案例: 通过数据库的函数，生成一个六位数的随机验证码。
@@ -2470,11 +2437,9 @@ select YEAR(now());
 ```
 
 
-
 ```sql
 select MONTH(now());
 ```
-
 
 
 ```sql
@@ -2494,7 +2459,6 @@ select date_add(now(), INTERVAL 70 YEAR );
 ```sql
 select datediff('2021-10-01', '2021-12-01');
 ```
-
 
 
 -- 案例: 查询所有员工的入职天数，并根据入职天数倒序排序。
@@ -2519,11 +2483,9 @@ select ifnull('Ok','Default');
 ```
 
 
-
 ```sql
 select ifnull('','Default');
 ```
-
 
 
 ```sql
@@ -2589,7 +2551,6 @@ insert into account(id, name, money) VALUES (null,'张三',2000),(null,'李四',
 ```
 
 
-
 -- 恢复数据
 
 ```sql
@@ -2626,7 +2587,6 @@ update account set money = money - 1000 where name = '张三';
 ```sql
 update account set money = money + 1000 where name = '李四';
 ```
-
 
 
 -- 提交事务
@@ -2674,7 +2634,6 @@ update account set money = money + 1000 where name = '李四';
 ```
 
 
-
 -- 提交事务
 
 ```sql
@@ -2700,7 +2659,6 @@ select @@transaction_isolation;
 set session transaction isolation level read uncommitted ;
 
 set session transaction isolation level repeatable read ;
-
 
 
 ---

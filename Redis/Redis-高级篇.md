@@ -5,17 +5,12 @@
 -- 基于Redis集群解决单机Redis存在的问题
 
 
-
 单机的Redis存在四大问题：
 
 ![image-20210725144240631](file:///D:/Java/data/Redis/高级篇/image-20210725144240631.png)
 
 
-
-
-
 # 0.学习目标
-
 
 
 # 1.Redis持久化
@@ -24,7 +19,6 @@ Redis有两种持久化方案：
 
 - RDB持久化
 - AOF持久化
-
 
 
 ## 1.1.RDB持久化
@@ -41,7 +35,6 @@ RDB持久化在四种情况下会执行：
 - 触发RDB条件时
 
 
-
 **1）save命令**
 
 执行下面的命令，可以立即执行一次RDB：
@@ -49,7 +42,6 @@ RDB持久化在四种情况下会执行：
 ![image-20210725144536958](file:///D:/Java/data/Redis/高级篇/image-20210725144536958.png)
 
 save命令会导致主进程执行RDB，这个过程中其它所有命令都会被阻塞。只有在数据迁移时可能用到。
-
 
 
 **2）bgsave命令**
@@ -61,11 +53,9 @@ save命令会导致主进程执行RDB，这个过程中其它所有命令都会�
 这个命令执行后会开启独立进程完成RDB，主进程可以持续处理用户请求，不受影响。
 
 
-
 **3）停机时**
 
 Redis停机时会执行一次save命令，实现RDB持久化。
-
 
 
 **4）触发RDB条件**
@@ -78,7 +68,6 @@ save 900 1
 save 300 10  
 save 60 10000 
 ```
-
 
 
 RDB的其它配置也可以在redis.conf文件中设置：
@@ -95,7 +84,6 @@ dir ./
 ```
 
 
-
 ### 1.1.2.RDB原理
 
 bgsave开始时会fork主进程得到子进程，子进程共享主进程的内存数据。完成fork后读取内存数据并写入 RDB 文件。
@@ -106,9 +94,6 @@ fork采用的是copy-on-write技术：
 - 当主进程执行写操作时，则会拷贝一份数据，执行写操作。
 
 ![image-20210725151319695](file:///D:/Java/data/Redis/高级篇/image-20210725151319695.png)
-
-
-
 
 
 ### 1.1.3.小结
@@ -130,9 +115,7 @@ RDB的缺点？
 - fork子进程、压缩、写出RDB文件都比较耗时
 
 
-
 ## 1.2.AOF持久化
-
 
 
 ### 1.2.1.AOF原理
@@ -140,7 +123,6 @@ RDB的缺点？
 AOF全称为Append Only File（追加文件）。Redis处理的每一个写命令都会记录在AOF文件，可以看做是命令日志文件。
 
 ![image-20210725151543640](file:///D:/Java/data/Redis/高级篇/image-20210725151543640.png)
-
 
 
 ### 1.2.2.AOF配置
@@ -155,7 +137,6 @@ appendfilename "appendonly.aof"
 ```
 
 
-
 AOF的命令记录的频率也可以通过redis.conf文件来配：
 
 ```properties
@@ -168,11 +149,9 @@ appendfsync no
 ```
 
 
-
 三种策略对比：
 
 ![image-20210725151654046](file:///D:/Java/data/Redis/高级篇/image-20210725151654046.png)
-
 
 
 ### 1.2.3.AOF文件重写
@@ -186,7 +165,6 @@ appendfsync no
 所以重写命令后，AOF文件内容就是：`mset name jack num 666`
 
 
-
 Redis也会在触发阈值时自动去重写AOF文件。阈值也可以在redis.conf中配置：
 
 ```properties
@@ -197,13 +175,11 @@ auto-aof-rewrite-min-size 64mb
 ```
 
 
-
 ## 1.3.RDB与AOF对比
 
 RDB和AOF各有自己的优缺点，如果对数据安全性要求较高，在实际开发中往往会**结合**两者来使用。
 
 ![image-20210725151940515](file:///D:/Java/data/Redis/高级篇/image-20210725151940515.png)
-
 
 
 # 2.Redis主从
@@ -219,11 +195,7 @@ RDB和AOF各有自己的优缺点，如果对数据安全性要求较高，在�
 ![image-20210725152052501](file:///D:/Java/data/Redis/高级篇/image-20210725152052501.png) 
 
 
-
-
-
 ## 2.2.主从数据同步原理
-
 
 
 ### 2.2.1.全量同步
@@ -231,7 +203,6 @@ RDB和AOF各有自己的优缺点，如果对数据安全性要求较高，在�
 主从第一次建立连接时，会执行**全量同步**，将master节点的所有数据都拷贝给slave节点，流程：
 
 ![image-20210725152222497](file:///D:/Java/data/Redis/高级篇/image-20210725152222497.png)
-
 
 
 这里有一个问题，master如何得知salve是第一次来连接呢？？
@@ -242,7 +213,6 @@ RDB和AOF各有自己的优缺点，如果对数据安全性要求较高，在�
 - **offset**：偏移量，随着记录在repl_baklog中的数据增多而逐渐增大。slave完成同步时也会记录当前同步的offset。如果slave的offset小于master的offset，说明slave数据落后于master，需要更新。
 
 因此slave做数据同步，必须向master声明自己的replication id 和offset，master才可以判断到底需要同步哪些数据。
-
 
 
 因为slave原本也是一个master，有自己的replid和offset，当第一次变成slave，与master建立连接时，发送的replid和offset是自己的replid和offset。
@@ -258,7 +228,6 @@ master会将自己的replid和offset都发送给这个slave，slave保存这些�
 ![image-20210725152700914](file:///D:/Java/data/Redis/高级篇/image-20210725152700914.png)
 
 
-
 完整流程描述：
 
 - slave节点请求增量同步
@@ -267,7 +236,6 @@ master会将自己的replid和offset都发送给这个slave，slave保存这些�
 - slave清空本地数据，加载master的RDB
 - master将RDB期间的命令记录在repl_baklog，并持续将log中的命令发送给slave
 - slave执行接收到的命令，保持与master之间的同步
-
 
 
 ### 2.2.2.增量同步
@@ -279,9 +247,7 @@ master会将自己的replid和offset都发送给这个slave，slave保存这些�
 ![image-20210725153201086](file:///D:/Java/data/Redis/高级篇/image-20210725153201086.png)
 
 
-
 那么master怎么知道slave与自己的数据差异在哪里呢?
-
 
 
 ### 2.2.3.repl_backlog原理
@@ -303,13 +269,11 @@ slave与master的offset之间的差异，就是salve需要增量拷贝的数据�
 ![image-20210725153524190](file:///D:/Java/data/Redis/高级篇/image-20210725153524190.png) 
 
 
-
 直到数组被填满：
 
 ![image-20210725153715910](file:///D:/Java/data/Redis/高级篇/image-20210725153715910.png) 
 
 此时，如果有新的数据写入，就会覆盖数组中的旧数据。不过，旧的数据只要是绿色的，说明是已经被同步到slave的数据，即便被覆盖了也没什么影响。因为未同步的仅仅是红色部分。
-
 
 
 但是，如果slave出现网络阻塞，导致master的offset远远超过了slave的offset： 
@@ -321,13 +285,9 @@ slave与master的offset之间的差异，就是salve需要增量拷贝的数据�
 ![image-20210725154155984](file:///D:/Java/data/Redis/高级篇/image-20210725154155984.png) 
 
 
-
 棕色框中的红色部分，就是尚未同步，但是却已经被覆盖的数据。此时如果slave恢复，需要同步，却发现自己的offset都没有了，无法完成增量同步了。只能做全量同步。
 
 ![image-20210725154216392](file:///D:/Java/data/Redis/高级篇/image-20210725154216392.png)
-
-
-
 
 
 ## 2.3.主从同步优化
@@ -346,7 +306,6 @@ slave与master的offset之间的差异，就是salve需要增量拷贝的数据�
 ![image-20210725154405899](file:///D:/Java/data/Redis/高级篇/image-20210725154405899.png)
 
 
-
 ## 2.4.小结
 
 简述全量同步和增量同步区别？
@@ -362,9 +321,6 @@ slave与master的offset之间的差异，就是salve需要增量拷贝的数据�
 什么时候执行增量同步？
 
 - slave节点断开又恢复，并且在repl_baklog中能找到offset时
-
-
-
 
 
 # 3.Redis哨兵
@@ -386,7 +342,6 @@ Redis提供了哨兵（Sentinel）机制来实现主从集群的自动故障恢�
 - **通知**：Sentinel充当Redis客户端的服务发现来源，当集群发生故障转移时，会将最新信息推送给Redis的客户端
 
 
-
 ### 3.1.2.集群监控原理
 
 Sentinel基于心跳机制监测服务状态，每隔1秒向集群的每个实例发送ping命令：
@@ -396,7 +351,6 @@ Sentinel基于心跳机制监测服务状态，每隔1秒向集群的每个实�
 •客观下线：若超过指定数量（quorum）的sentinel都认为该实例主观下线，则该实例**客观下线**。quorum值最好超过Sentinel实例数量的一半。
 
 ![image-20210725154632354](file:///D:/Java/data/Redis/高级篇/image-20210725154632354.png)
-
 
 
 ### 3.1.3.集群故障恢复原理
@@ -409,7 +363,6 @@ Sentinel基于心跳机制监测服务状态，每隔1秒向集群的每个实�
 - 最后是判断slave节点的运行id大小，越小优先级越高。
 
 
-
 当选出一个新的master后，该如何实现切换呢？
 
 流程如下：
@@ -419,17 +372,7 @@ Sentinel基于心跳机制监测服务状态，每隔1秒向集群的每个实�
 - 最后，sentinel将故障节点标记为slave，当故障节点恢复后会自动成为新的master的slave节点
 
 
-
 ![image-20210725154816841](file:///D:/Java/data/Redis/高级篇/image-20210725154816841.png)
-
-
-
-
-
-
-
-
-
 
 
 ### 3.1.4.小结
@@ -452,13 +395,11 @@ Sentinel如何判断一个redis实例是否健康？
 - 修改故障节点配置，添加slaveof 新master
 
 
-
 ## 3.2.搭建哨兵集群
 
 具体搭建流程参考课前资料《Redis集群.md》：
 
 ![image-20210725155019276](file:///D:/Java/data/Redis/高级篇/image-20210725155019276.png) 
-
 
 
 ## 3.3.RedisTemplate
@@ -474,7 +415,6 @@ Sentinel如何判断一个redis实例是否健康？
 ![image-20210725155124958](file:///D:/Java/data/Redis/高级篇/image-20210725155124958.png) 
 
 
-
 ### 3.3.2.引入依赖
 
 在项目的pom文件中引入依赖：
@@ -485,7 +425,6 @@ Sentinel如何判断一个redis实例是否健康？
     <artifactId>spring-boot-starter-data-redis</artifactId>
 </dependency>
 ```
-
 
 
 ### 3.3.3.配置Redis地址
@@ -504,7 +443,6 @@ spring:
 ```
 
 
-
 ### 3.3.4.配置读写分离
 
 在项目的启动类中，添加一个新的bean：
@@ -517,7 +455,6 @@ public LettuceClientConfigurationBuilderCustomizer clientConfigurationBuilderCus
 ```
 
 
-
 这个bean中配置的就是读写策略，包括四种：
 
 - MASTER：从主节点读取
@@ -526,11 +463,7 @@ public LettuceClientConfigurationBuilderCustomizer clientConfigurationBuilderCus
 - REPLICA _PREFERRED：优先从slave（replica）节点读取，所有的slave都不可用才读取master
 
 
-
-
-
 # 4.Redis分片集群
-
 
 
 ## 4.1.搭建分片集群
@@ -546,7 +479,6 @@ public LettuceClientConfigurationBuilderCustomizer clientConfigurationBuilderCus
 ![image-20210725155747294](file:///D:/Java/data/Redis/高级篇/image-20210725155747294.png)
 
 
-
 分片集群特征：
 
 - 集群中有多个master，每个master保存不同数据
@@ -558,11 +490,9 @@ public LettuceClientConfigurationBuilderCustomizer clientConfigurationBuilderCus
 - 客户端请求可以访问集群任意节点，最终都会被转发到正确节点
 
 
-
 具体搭建流程参考课前资料《Redis集群.md》：
 
 ![image-20210725155806288](file:///D:/Java/data/Redis/高级篇/image-20210725155806288.png) 
-
 
 
 ## 4.2.散列插槽
@@ -574,14 +504,10 @@ Redis会把每一个master节点映射到0~16383共16384个插槽（hash slot）
 ![image-20210725155820320](file:///D:/Java/data/Redis/高级篇/image-20210725155820320.png)
 
 
-
 数据key不是与节点绑定，而是与插槽绑定。redis会根据key的有效部分计算插槽值，分两种情况：
 
 - key中包含"{}"，且“{}”中至少包含1个字符，“{}”中的部分是有效部分
 - key中不包含“{}”，整个key都是有效部分
-
-
-
 
 
 例如：key是num，那么就根据num计算，如果是{itcast}num，则根据itcast计算。计算方式是利用CRC16算法得到一个hash值，然后对16384取余，得到的结果就是slot值。
@@ -591,7 +517,6 @@ Redis会把每一个master节点映射到0~16383共16384个插槽（hash slot）
 如图，在7001这个节点执行set a 1时，对a做hash运算，对16384取余，得到的结果是15495，因此要存储到103节点。
 
 到了7003后，执行`get num`时，对num做hash运算，对16384取余，得到的结果是2765，因此需要切换到7001节点
-
 
 
 ### 4.2.1.小结
@@ -607,11 +532,6 @@ Redis如何判断某个key应该在哪个实例？
 - 这一类数据使用相同的有效部分，例如key都以{typeId}为前缀
 
 
-
-
-
-
-
 ## 4.3.集群伸缩
 
 redis-cli --cluster提供了很多操作集群的命令，可以通过下面方式查看：
@@ -623,7 +543,6 @@ redis-cli --cluster提供了很多操作集群的命令，可以通过下面方�
 ![image-20210725160448139](file:///D:/Java/data/Redis/高级篇/image-20210725160448139.png)
 
 
-
 ### 4.3.1.需求分析
 
 需求：向集群中添加一个新的master节点，并向其中存储 num = 10
@@ -633,12 +552,10 @@ redis-cli --cluster提供了很多操作集群的命令，可以通过下面方�
 - 给7004节点分配插槽，使得num这个key可以存储到7004实例
 
 
-
 这里需要两个新的功能：
 
 - 添加一个节点到集群中
 - 将部分插槽分配到新插槽
-
 
 
 ### 4.3.2.创建新的redis实例
@@ -668,13 +585,11 @@ redis-server 7004/redis.conf
 ```
 
 
-
 ### 4.3.3.添加新节点到redis
 
 添加节点的语法如下：
 
 ![image-20210725160448139](file:///D:/Java/data/Redis/高级篇/image-20210725160448139.png)
-
 
 
 执行命令：
@@ -684,7 +599,6 @@ redis-cli --cluster add-node  192.168.150.101:7004 192.168.150.101:7001
 ```
 
 
-
 通过命令查看集群状态：
 
 ```sh
@@ -692,13 +606,11 @@ redis-cli -p 7001 cluster nodes
 ```
 
 
-
 如图，7004加入了集群，并且默认是一个master节点：
 
 ![image-20210725161007099](file:///D:/Java/data/Redis/高级篇/image-20210725161007099.png)
 
 但是，可以看到7004节点的插槽数量为0，因此没有任何数据可以存储到7004上
-
 
 
 ### 4.3.4.转移插槽
@@ -710,11 +622,9 @@ redis-cli -p 7001 cluster nodes
 如上图所示，num的插槽为2765.
 
 
-
 我们可以将0~3000的插槽从7001转移到7004，命令格式如下：
 
 ![image-20210725161401925](file:///D:/Java/data/Redis/高级篇/image-20210725161401925.png)
-
 
 
 具体命令如下：
@@ -726,7 +636,6 @@ redis-cli -p 7001 cluster nodes
 得到下面的反馈：
 
 ![image-20210725161540841](file:///D:/Java/data/Redis/高级篇/image-20210725161540841.png)
-
 
 
 询问要移动多少个插槽，我们计划是3000个：
@@ -752,7 +661,6 @@ redis-cli -p 7001 cluster nodes
 - done：没有了
 
 
-
 这里我们要从7001获取，因此填写7001的id：
 
 ![image-20210725162030478](file:///D:/Java/data/Redis/高级篇/image-20210725162030478.png)
@@ -774,9 +682,6 @@ redis-cli -p 7001 cluster nodes
 目的达成。
 
 
-
-
-
 ## 4.4.故障转移
 
 集群初识状态是这样的：
@@ -784,7 +689,6 @@ redis-cli -p 7001 cluster nodes
 ![image-20210727161152065](file:///D:/Java/data/Redis/高级篇/image-20210727161152065.png)
 
 其中7001、7002、7003都是master，我们计划让7002宕机。
-
 
 
 ### 4.4.1.自动故障转移
@@ -796,7 +700,6 @@ redis-cli -p 7001 cluster nodes
 ```sh
 redis-cli -p 7002 shutdown
 ```
-
 
 
 1）首先是该实例与其它实例失去连接
@@ -814,7 +717,6 @@ redis-cli -p 7002 shutdown
 ![image-20210727160803386](file:///D:/Java/data/Redis/高级篇/image-20210727160803386.png)
 
 
-
 ### 4.4.2.手动故障转移
 
 利用cluster failover命令可以手动让集群中的某个master宕机，切换到执行cluster failover命令的这个slave节点，实现无感知的数据迁移。其流程如下：
@@ -822,13 +724,11 @@ redis-cli -p 7002 shutdown
 ![image-20210725162441407](file:///D:/Java/data/Redis/高级篇/image-20210725162441407.png)
 
 
-
 这种failover命令可以指定三种模式：
 
 - 缺省：默认的流程，如图1~6歩
 - force：省略了对offset的一致性校验
 - takeover：直接执行第5歩，忽略数据一致性、忽略master状态和其它master的意见
-
 
 
 **案例需求**：在7002这个slave节点执行手动故障转移，重新夺回master地位
@@ -844,11 +744,9 @@ redis-cli -p 7002 shutdown
 ![image-20210727160037766](file:///D:/Java/data/Redis/高级篇/image-20210727160037766.png)
 
 
-
 效果：
 
 ![image-20210727161152065](file:///D:/Java/data/Redis/高级篇/image-20210727161152065.png)
-
 
 
 ## 4.5.RedisTemplate访问分片集群
@@ -881,15 +779,7 @@ spring:
 # 多级缓存
 
 
-
-
-
 # 0.学习目标
-
-
-
-
-
 
 
 # 1.什么是多级缓存
@@ -905,7 +795,6 @@ spring:
 •Redis缓存失效时，会对数据库产生冲击
 
 
-
 多级缓存就是充分利用请求处理的每个环节，分别添加缓存，减轻Tomcat压力，提升服务性能：
 
 - 浏览器访问静态资源时，优先读取浏览器本地缓存
@@ -919,9 +808,7 @@ spring:
 ![image-20210821075558137](file:///D:/Java/data/Redis/高级篇/image-20210821075558137.png)
 
 
-
 在多级缓存架构中，Nginx内部需要编写本地缓存查询、Redis查询、Tomcat查询的业务逻辑，因此这样的nginx服务不再是一个**反向代理服务器**，而是一个编写**业务的Web服务器了**。
-
 
 
 因此这样的业务Nginx服务也需要搭建集群来提高并发，再有专门的nginx服务来做反向代理，如图：
@@ -929,11 +816,9 @@ spring:
 ![image-20210821080511581](file:///D:/Java/data/Redis/高级篇/image-20210821080511581.png)
 
 
-
 另外，我们的Tomcat服务将来也会部署为集群模式：
 
 ![image-20210821080954947](file:///D:/Java/data/Redis/高级篇/image-20210821080954947.png)
-
 
 
 可见，多级缓存的关键有两个：
@@ -945,13 +830,10 @@ spring:
 其中Nginx编程则会用到OpenResty框架结合Lua这样的语言。
 
 
-
 这也是今天课程的难点和重点。
 
 
-
 # 2.JVM进程缓存
-
 
 
 为了演示多级缓存的案例，我们先准备一个商品查询的业务。
@@ -961,7 +843,6 @@ spring:
 参考课前资料的：《案例导入说明.md》
 
 ![image-20210821081418456](file:///D:/Java/data/Redis/高级篇/image-20210821081418456.png) 
-
 
 
 ## 2.2.初识Caffeine
@@ -978,7 +859,6 @@ spring:
   - 场景：性能要求较高，缓存数据量较小
 
 我们今天会利用Caffeine框架来实现JVM进程缓存。
-
 
 
 **Caffeine**是一个基于Java8开发的，提供了近乎最佳命中率的高性能的本地缓存库。目前Spring内部的缓存使用的就是Caffeine。GitHub地址：https://github.com/ben-manes/caffeine
@@ -1017,9 +897,6 @@ void testBasicOps() {
 ```
 
 
-
-
-
 Caffeine既然是缓存的一种，肯定需要有缓存的清除策略，不然的话内存总会有耗尽的时候。
 
 Caffeine提供了三种缓存驱逐策略：
@@ -1047,11 +924,7 @@ Caffeine提供了三种缓存驱逐策略：
 - **基于引用**：设置缓存为软引用或弱引用，利用GC来回收缓存数据。性能较差，不建议使用。
 
 
-
 > **注意**：在默认情况下，当一个缓存元素过期的时候，Caffeine不会自动立即将其清理和驱逐。而是在一次读或写操作后，或者在空闲时间完成对失效数据的驱逐。
-
-
-
 
 
 ## 2.3.实现JVM进程缓存
@@ -1064,7 +937,6 @@ Caffeine提供了三种缓存驱逐策略：
 - 给根据id查询商品库存的业务添加缓存，缓存未命中时查询数据库
 - 缓存初始大小为100
 - 缓存上限为10000
-
 
 
 ### 2.3.2.实现
@@ -1105,7 +977,6 @@ public class CaffeineConfig {
 ```
 
 
-
 然后，修改item-service中的`com.heima.item.web`包下的ItemController类，添加缓存逻辑：
 
 ```java
@@ -1141,9 +1012,6 @@ public class ItemController {
 ```
 
 
-
-
-
 # 3.Lua语法入门
 
 Nginx编程需要用到Lua语言，因此我们必须先入门Lua的基本语法。
@@ -1155,11 +1023,9 @@ Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码
 ![image-20210821091437975](file:///D:/Java/data/Redis/高级篇/image-20210821091437975.png)
 
 
-
 Lua经常嵌入到C语言开发的程序中，例如游戏开发、游戏插件等。
 
 Nginx本身也是C语言开发，因此也允许基于Lua做拓展。
-
 
 
 ## 3.1.HelloWorld
@@ -1177,11 +1043,9 @@ print("Hello World!")
 ```
 
 
-
 3）运行
 
 ![image-20210821091638140](file:///D:/Java/data/Redis/高级篇/image-20210821091638140.png)
-
 
 
 ## 3.2.变量和循环
@@ -1214,7 +1078,6 @@ local flag = true
 ```
 
 
-
 Lua中的table类型既可以作为数组，又可以作为Java中的map来使用。数组就是特殊的table，key是数组角标而已：
 
 ```lua
@@ -1238,7 +1101,6 @@ Lua中的table可以用key来访问：
 print(map['name'])
 print(map.name)
 ```
-
 
 
 ### 3.2.3.循环
@@ -1268,11 +1130,6 @@ end
 ```
 
 
-
-
-
-
-
 ## 3.3.条件控制、函数
 
 Lua中的条件控制和函数声明与Java类似。
@@ -1289,7 +1146,6 @@ end
 ```
 
 
-
 例如，定义一个函数，用来打印数组：
 
 ```lua
@@ -1299,7 +1155,6 @@ function printArr(arr)
     end
 end
 ```
-
 
 
 ### 3.3.2.条件控制
@@ -1317,19 +1172,14 @@ end
 ```
 
 
-
 与java不同，布尔表达式中的逻辑运算是基于英文单词：
 
 ![image-20210821092657918](file:///D:/Java/data/Redis/高级篇/image-20210821092657918.png)
 
 
-
-
-
 ### 3.3.3.案例
 
 需求：自定义一个函数，可以打印table，当参数为nil时，打印错误信息
-
 
 
 ```lua
@@ -1342,9 +1192,6 @@ function printArr(arr)
     end
 end
 ```
-
-
-
 
 
 # 4.实现多级缓存
@@ -1364,13 +1211,9 @@ OpenResty® 是一个基于 Nginx的高性能 Web 平台，用于方便地搭建
 ![image-20210821092902946](file:///D:/Java/data/Redis/高级篇/image-20210821092902946.png)
 
 
-
 安装Lua可以参考课前资料提供的《安装OpenResty.md》：
 
 ![image-20210821092941139](file:///D:/Java/data/Redis/高级篇/image-20210821092941139.png) 
-
-
-
 
 
 ## 4.2.OpenResty快速入门
@@ -1384,7 +1227,6 @@ OpenResty® 是一个基于 Nginx的高性能 Web 平台，用于方便地搭建
 - windows上的nginx用来做反向代理服务，将前端的查询商品的ajax请求代理到OpenResty集群
 
 - OpenResty集群用来编写多级缓存业务
-
 
 
 ### 4.2.1.反向代理流程
@@ -1404,7 +1246,6 @@ OpenResty® 是一个基于 Nginx的高性能 Web 平台，用于方便地搭建
 但是这次，我们先在OpenResty接收请求，返回假的商品数据。
 
 
-
 ### 4.2.2.OpenResty监听请求
 
 OpenResty的很多功能都依赖于其目录下的Lua库，需要在nginx.conf中指定依赖库的目录，并导入依赖：
@@ -1414,12 +1255,11 @@ OpenResty的很多功能都依赖于其目录下的Lua库，需要在nginx.conf�
 修改`/usr/local/openresty/nginx/conf/nginx.conf`文件，在其中的http下面，添加下面代码：
 
 ```nginx
-#lua 模块
+`#lua` 模块
 lua_package_path "/usr/local/openresty/lualib/?.lua;;";
 #c模块     
 lua_package_cpath "/usr/local/openresty/lualib/?.so;;";  
 ```
-
 
 
 2）监听/api/item路径
@@ -1436,11 +1276,9 @@ location  /api/item {
 ```
 
 
-
 这个监听，就类似于SpringMVC中的`@GetMapping("/api/item")`做路径映射。
 
 而`content_by_lua_file lua/item.lua`则相当于调用item.lua这个文件，执行其中的业务，把结果返回给用户。相当于java中调用service。
-
 
 
 ### 4.2.3.编写item.lua
@@ -1454,7 +1292,6 @@ location  /api/item {
 ![image-20210821100801756](file:///D:/Java/data/Redis/高级篇/image-20210821100801756.png)
 
 
-
 3）编写item.lua，返回假数据
 
 item.lua中，利用ngx.say()函数返回数据到Response中
@@ -1464,7 +1301,6 @@ ngx.say('{"id":10001,"name":"SALSA AIR","title":"RIMOWA 21寸托运箱拉杆箱 
 ```
 
 
-
 4）重新加载配置
 
 ```sh
@@ -1472,19 +1308,14 @@ nginx -s reload
 ```
 
 
-
 刷新商品页面：http://localhost/item.html?id=1001，即可看到效果：
 
 ![image-20210821101217089](file:///D:/Java/data/Redis/高级篇/image-20210821101217089.png)
 
 
-
-
-
 ## 4.3.请求参数处理
 
 上一节中，我们在OpenResty接收前端请求，但是返回的是假数据。
-
 
 
 要返回真实数据，必须根据前端传递来的商品id，查询商品信息才可以。
@@ -1498,7 +1329,6 @@ OpenResty中提供了一些API用来获取不同类型的前端请求参数：
 ![image-20210821101433528](file:///D:/Java/data/Redis/高级篇/image-20210821101433528.png)
 
 
-
 ### 4.3.2.获取参数并返回
 
 在前端发起的ajax请求如图：
@@ -1506,7 +1336,6 @@ OpenResty中提供了一些API用来获取不同类型的前端请求参数：
 ![image-20210821101721649](file:///D:/Java/data/Redis/高级篇/image-20210821101721649.png)
 
 可以看到商品id是以路径占位符方式传递的，因此可以利用正则表达式匹配的方式来获取ID
-
 
 
 1）获取商品id
@@ -1523,7 +1352,6 @@ location ~ /api/item/(\d+) {
 ```
 
 
-
 2）拼接ID并返回
 
 修改`/usr/loca/openresty/nginx/lua/item.lua`文件，获取id并拼接到结果中返回：
@@ -1536,7 +1364,6 @@ ngx.say('{"id":' .. id .. ',"name":"SALSA AIR","title":"RIMOWA 21寸托运箱拉
 ```
 
 
-
 3）重新加载并测试
 
 运行命令以重新加载OpenResty配置：
@@ -1546,11 +1373,9 @@ nginx -s reload
 ```
 
 
-
 刷新页面可以看到结果中已经带上了ID：
 
 ![image-20210821102235467](file:///D:/Java/data/Redis/高级篇/image-20210821102235467.png) 
-
 
 
 ## 4.4.查询Tomcat
@@ -1560,11 +1385,9 @@ nginx -s reload
 ![image-20210821102610167](file:///D:/Java/data/Redis/高级篇/image-20210821102610167.png)
 
 
-
 需要注意的是，我们的OpenResty是在虚拟机，Tomcat是在Windows电脑上。两者IP一定不要搞错了。
 
 ![image-20210821102959829](file:///D:/Java/data/Redis/高级篇/image-20210821102959829.png)
-
 
 
 ### 4.4.1.发送http请求的API
@@ -1596,19 +1419,14 @@ local resp = ngx.location.capture("/path",{
 ```
 
 
-
 原理如图：
 
 ![image-20210821104149061](file:///D:/Java/data/Redis/高级篇/image-20210821104149061.png)
 
 
-
-
-
 ### 4.4.2.封装http工具
 
 下面，我们封装一个发送Http请求的工具，基于ngx.location.capture来实现查询tomcat。
-
 
 
 1）添加反向代理，到windows的Java服务
@@ -1624,9 +1442,7 @@ location /item {
 ```
 
 
-
 以后，只要我们调用`ngx.location.capture("/item")`，就一定能发送请求到windows的tomcat服务。
-
 
 
 2）封装工具类
@@ -1636,7 +1452,6 @@ location /item {
 ![image-20210821104857413](file:///D:/Java/data/Redis/高级篇/image-20210821104857413.png)
 
 所以，自定义的http工具也需要放到这个目录下。
-
 
 
 在`/usr/local/openresty/lualib`目录下，新建一个common.lua文件：
@@ -1669,11 +1484,9 @@ return _M
 ```
 
 
-
 这个工具将read_http函数封装到_M这个table类型的变量中，并且返回，这类似于导出。
 
 使用的时候，可以利用`require('common')`来导入该函数库，这里的common是函数库的文件名。
-
 
 
 3）实现商品查询
@@ -1694,15 +1507,12 @@ local itemStockJSON = read_http("/item/stock/".. id, nil)
 ```
 
 
-
 这里查询到的结果是json字符串，并且包含商品、库存两个json字符串，页面最终需要的是把两个json拼接为一个json：
 
 ![image-20210821110441222](file:///D:/Java/data/Redis/高级篇/image-20210821110441222.png)
 
 
-
 这就需要我们先把JSON变为lua的table，完成数据整合后，再转为JSON。
-
 
 
 ### 4.4.3.CJSON工具类
@@ -1718,7 +1528,6 @@ local cjson = require "cjson"
 ```
 
 
-
 2）序列化：
 
 ```lua
@@ -1731,7 +1540,6 @@ local json = cjson.encode(obj)
 ```
 
 
-
 3）反序列化：
 
 ```lua
@@ -1740,9 +1548,6 @@ local json = '{"name": "jack", "age": 21}'
 local obj = cjson.decode(json);
 print(obj.name)
 ```
-
-
-
 
 
 ### 4.4.4.实现Tomcat查询
@@ -1776,7 +1581,6 @@ ngx.say(cjson.encode(item))
 ```
 
 
-
 ### 4.4.5.基于ID负载均衡
 
 刚才的代码中，我们的tomcat是单机部署。而实际开发中，tomcat一定是集群模式：
@@ -1794,7 +1598,6 @@ ngx.say(cjson.encode(item))
 你看，因为轮询的原因，第一次查询8081形成的JVM缓存并未生效，直到下一次再次访问到8081时才可以生效，缓存命中率太低了。
 
 
-
 怎么办？
 
 如果能让同一个商品，每次查询时都访问同一个tomcat服务，那么JVM缓存就一定能生效了。
@@ -1802,13 +1605,11 @@ ngx.say(cjson.encode(item))
 也就是说，我们需要根据商品id做负载均衡，而不是轮询。
 
 
-
 #### 1）原理
 
 nginx提供了基于请求路径做负载均衡的算法：
 
 nginx根据请求路径做hash运算，把得到的数值对tomcat服务的数量取余，余数是几，就访问第几个服务，实现负载均衡。
-
 
 
 例如：
@@ -1819,7 +1620,6 @@ nginx根据请求路径做hash运算，把得到的数值对tomcat服务的数�
 - 则访问第一个tomcat服务，也就是8081
 
 只要id不变，每次hash运算结果也不会变，那就可以保证同一个商品，一直访问同一个tomcat服务，确保JVM缓存生效。
-
 
 
 #### 2）实现
@@ -1851,9 +1651,6 @@ nginx -s reload
 ```
 
 
-
-
-
 #### 3）测试
 
 启动两台tomcat服务：
@@ -1871,11 +1668,6 @@ nginx -s reload
 ![image-20210821112637430](file:///D:/Java/data/Redis/高级篇/image-20210821112637430.png)
 
 
-
-
-
-
-
 ## 4.5.Redis缓存预热
 
 Redis缓存会面临冷启动问题：
@@ -1885,9 +1677,7 @@ Redis缓存会面临冷启动问题：
 **缓存预热**：在实际开发中，我们可以利用大数据统计用户访问的热点数据，在项目启动时将这些热点数据提前查询并保存到Redis中。
 
 
-
 我们数据量较少，并且没有数据统计相关功能，目前可以在启动时将所有数据都放入缓存中。
-
 
 
 1）利用Docker安装Redis
@@ -1895,7 +1685,6 @@ Redis缓存会面临冷启动问题：
 ```sh
 docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
 ```
-
 
 
 2）在item-service服务中引入Redis依赖
@@ -1908,7 +1697,6 @@ docker run --name redis -p 6379:6379 -d redis redis-server --appendonly yes
 ```
 
 
-
 3）配置Redis地址
 
 ```yaml
@@ -1916,7 +1704,6 @@ spring:
   redis:
     host: 192.168.150.101
 ```
-
 
 
 4）编写初始化类
@@ -1981,9 +1768,6 @@ public class RedisHandler implements InitializingBean {
 ```
 
 
-
-
-
 ## 4.6.查询Redis缓存
 
 现在，Redis缓存已经准备就绪，我们可以再OpenResty中实现查询Redis的逻辑了。如下图红框所示：
@@ -1994,7 +1778,6 @@ public class RedisHandler implements InitializingBean {
 
 - 优先查询Redis缓存
 - 如果Redis缓存未命中，再查询Tomcat
-
 
 
 ### 4.6.1.封装Redis工具
@@ -2014,7 +1797,6 @@ red:set_timeouts(1000, 1000, 1000)
 ```
 
 
-
 2）封装函数，用来释放Redis连接，其实是放入连接池
 
 ```lua
@@ -2028,7 +1810,6 @@ local function close_redis(red)
     end
 end
 ```
-
 
 
 3）封装函数，根据key查询Redis数据
@@ -2059,7 +1840,6 @@ end
 ```
 
 
-
 4）导出
 
 ```lua
@@ -2070,7 +1850,6 @@ local _M = {
 }  
 return _M
 ```
-
 
 
 完整的common.lua：
@@ -2137,9 +1916,6 @@ return _M
 ```
 
 
-
-
-
 ### 4.6.2.实现Redis查询
 
 接下来，我们就可以去修改item.lua文件，实现对Redis的查询了。
@@ -2173,11 +1949,9 @@ end
 ```
 
 
-
 2）而后修改商品查询、库存查询的业务：
 
 ![image-20210821114528954](file:///D:/Java/data/Redis/高级篇/image-20210821114528954.png)
-
 
 
 3）完整的item.lua代码：
@@ -2224,15 +1998,11 @@ ngx.say(cjson.encode(item))
 ```
 
 
-
-
-
 ## 4.7.Nginx本地缓存
 
 现在，整个多级缓存中只差最后一环，也就是nginx的本地缓存了。如图：
 
 ![image-20210821114742950](file:///D:/Java/data/Redis/高级篇/image-20210821114742950.png)
-
 
 
 ### 4.7.1.本地缓存API
@@ -2247,7 +2017,6 @@ OpenResty为Nginx提供了**shard dict**的功能，可以在nginx的多个worke
 ```
 
 
-
 2）操作共享字典：
 
 ```lua
@@ -2258,7 +2027,6 @@ item_cache:set('key', 'value', 1000)
 -- 读取
 local val = item_cache:get('key')
 ```
-
 
 
 ### 4.7.2.实现本地缓存查询
@@ -2292,9 +2060,6 @@ end
 ```
 
 
-
-
-
 2）修改item.lua中查询商品和库存的业务，实现最新的read_data函数：
 
 ![image-20210821115108528](file:///D:/Java/data/Redis/高级篇/image-20210821115108528.png)
@@ -2304,7 +2069,6 @@ end
 这里给商品基本信息设置超时时间为30分钟，库存为1分钟。
 
 因为库存更新频率较高，如果缓存时间过长，可能与数据库差异较大。
-
 
 
 3）完整的item.lua文件：
@@ -2360,15 +2124,11 @@ ngx.say(cjson.encode(item))
 ```
 
 
-
-
-
 # 5.缓存同步
 
 大多数情况下，浏览器查询到的都是缓存数据，如果缓存数据与数据库数据存在较大差异，可能会产生比较严重的后果。
 
 所以我们必须保证数据库数据、缓存数据的一致性，这就是缓存与数据库的同步。
-
 
 
 ## 5.1.数据同步策略
@@ -2394,7 +2154,6 @@ ngx.say(cjson.encode(item))
 - 场景：时效性要求一般，有多个服务需要同步
 
 
-
 而异步实现又可以基于MQ或者Canal来实现：
 
 1）基于MQ的异步通知：
@@ -2409,7 +2168,6 @@ ngx.say(cjson.encode(item))
 依然有少量的代码侵入。
 
 
-
 2）基于Canal的通知
 
 ![image-20210821115719363](file:///D:/Java/data/Redis/高级篇/image-20210821115719363.png)
@@ -2421,9 +2179,6 @@ ngx.say(cjson.encode(item))
 - 缓存服务接收到canal通知，更新缓存
 
 代码零侵入
-
-
-
 
 
 ## 5.2.安装Canal
@@ -2441,11 +2196,9 @@ Canal是基于mysql的主从同步来实现的，MySQL主从同步的原理如�
 - 3）MySQL slave 重放 relay log 中事件，将数据变更反映它自己的数据
 
 
-
 而Canal就是把自己伪装成MySQL的一个slave节点，从而监听master的binary log变化。再把得到的变化信息通知给Canal的客户端，进而完成对其它数据库的同步。
 
 ![image-20210821115948395](file:///D:/Java/data/Redis/高级篇/image-20210821115948395.png)
-
 
 
 ### 5.2.2.安装Canal
@@ -2453,7 +2206,6 @@ Canal是基于mysql的主从同步来实现的，MySQL主从同步的原理如�
 安装和配置Canal参考课前资料文档：
 
 ![image-20210821120017324](file:///D:/Java/data/Redis/高级篇/image-20210821120017324.png) 
-
 
 
 ## 5.3.监听Canal
@@ -2465,13 +2217,9 @@ Canal提供了各种语言的客户端，当Canal监听到binlog变化时，会�
 我们可以利用Canal提供的Java客户端，监听Canal通知消息。当收到变化的消息时，完成对缓存的更新。
 
 
-
-
-
 不过这里我们会使用GitHub上的第三方开源的canal-starter客户端。地址：https://github.com/NormanGyllenhaal/canal-client
 
 与SpringBoot完美整合，自动装配，比官方客户端要简单好用很多。
-
 
 
 ### 5.3.1.引入依赖：
@@ -2485,7 +2233,6 @@ Canal提供了各种语言的客户端，当Canal监听到binlog变化时，会�
 ```
 
 
-
 ### 5.3.2.编写配置：
 
 ```yaml
@@ -2493,7 +2240,6 @@ canal:
   destination: heima # canal的集群名字，要与安装canal时设置的名称一致
   server: 192.168.150.101:11111 # canal服务地址
 ```
-
 
 
 ### 5.3.3.修改Item实体类
@@ -2541,14 +2287,12 @@ public class Item {
 ```
 
 
-
 ### 5.3.4.编写监听器
 
 通过实现`EntryHandler<T>`接口编写监听器，监听Canal消息。注意两点：
 
 - 实现类通过`@CanalTable("tb_item")`指定监听的表信息
 - EntryHandler的泛型是与表对应的实体类
-
 
 
 ```java
@@ -2596,7 +2340,6 @@ public class ItemHandler implements EntryHandler<Item> {
     }
 }
 ```
-
 
 
 在这里对Redis的操作都封装到了RedisHandler这个对象中，是我们之前做缓存预热时编写的一个类，内容如下：
@@ -3439,7 +3182,6 @@ Redis底层分配并不是这个key有多大，他就会分配多大，而是有
 2、增加我们带宽的大小，避免我们出现大量数据从而直接超过了redis的承受能力
 
 
-
 ## 7、服务器端集群优化-集群还是主从
 
 集群虽然具备高可用特性，能实现自动故障恢复，但是如果使用不当，也会存在一些问题：
@@ -3481,7 +3223,6 @@ Redis底层分配并不是这个key有多大，他就会分配多大，而是有
 lua和事务都是要保证原子性问题，如果你的key不在一个节点，那么是无法保证lua的执行和事务的特性的，所以在集群模式是没有办法执行lua和事务的
 
 
-
 **那我们到底是集群还是主从**
 
 单体Redis（主从Redis）已经能达到万级别的QPS，并且也具备很强的高可用特性。如果主从能满足业务需求的情况下，所以如果不是在万不得已的情况下，尽量不搭建Redis集群
@@ -3501,7 +3242,6 @@ lua和事务都是要保证原子性问题，如果你的key不在一个节点�
 - Redis分片集群
 
 
-
 # 1.单机安装Redis
 
 首先需要安装Redis所需要的依赖：
@@ -3509,7 +3249,6 @@ lua和事务都是要保证原子性问题，如果你的key不在一个节点�
 ```sh
 yum install -y gcc tcl
 ```
-
 
 
 然后将课前资料提供的Redis安装包上传到虚拟机的任意目录：
@@ -3537,7 +3276,6 @@ cd redis-6.2.4
 ```
 
 
-
 运行编译命令：
 
 ```sh
@@ -3558,7 +3296,6 @@ databases 1
 ```
 
 
-
 启动Redis：
 
 ```sh
@@ -3572,13 +3309,7 @@ redis-cli shutdown
 ```
 
 
-
-
-
-
-
 # 2.Redis主从集群
-
 
 
 ## 2.1.集群结构
@@ -3632,7 +3363,6 @@ appendonly no
 ```
 
 
-
 3）拷贝配置文件到每个实例目录
 
 然后将redis-6.2.4/redis.conf文件拷贝到三个目录中（在/tmp目录执行下列命令）：
@@ -3648,7 +3378,6 @@ echo 7001 7002 7003 | xargs -t -n 1 cp redis-6.2.4/redis.conf
 ```
 
 
-
 4）修改每个实例的端口、工作目录
 
 修改每个文件夹内的配置文件，将端口分别修改为7001、7002、7003，将rdb文件保存位置都修改为自己所在目录（在/tmp目录执行下列命令）：
@@ -3660,7 +3389,6 @@ sed -i -e 's/6379/7003/g' -e 's/dir .\//dir \/tmp\/7003\//g' 7003/redis.conf
 ```
 
 
-
 5）修改每个实例的声明IP
 
 虚拟机本身有多个IP，为了避免将来混乱，我们需要在redis.conf文件中指定每一个实例的绑定ip信息，格式如下：
@@ -3669,7 +3397,6 @@ sed -i -e 's/6379/7003/g' -e 's/dir .\//dir \/tmp\/7003\//g' 7003/redis.conf
 # redis实例的声明 IP
 replica-announce-ip 192.168.150.101
 ```
-
 
 
 每个目录都要改，我们一键完成修改（在/tmp目录执行下列命令）：
@@ -3683,11 +3410,6 @@ sed -i '1a replica-announce-ip 192.168.150.101' 7003/redis.conf
 # 或者一键修改
 printf '%s\n' 7001 7002 7003 | xargs -I{} -t sed -i '1a replica-announce-ip 192.168.150.101' {}/redis.conf
 ```
-
-
-
-
-
 
 
 ## 2.3.启动
@@ -3704,13 +3426,9 @@ redis-server 7003/redis.conf
 ```
 
 
-
 启动后：
 
 ![image-20210630183914491](file:///D:/Java/data/Redis/高级篇/image-20210630183914491.png)
-
-
-
 
 
 如果要一键停止，可以运行下面命令：
@@ -3718,9 +3436,6 @@ redis-server 7003/redis.conf
 ```sh
 printf '%s\n' 7001 7002 7003 | xargs -I{} -t redis-cli -p {} shutdown
 ```
-
-
-
 
 
 ## 2.4.开启主从关系
@@ -3740,9 +3455,7 @@ printf '%s\n' 7001 7002 7003 | xargs -I{} -t redis-cli -p {} shutdown
   ```
 
 
-
 <strong><font color='red'>注意</font></strong>：在5.0以后新增命令replicaof，与salveof效果一致。
-
 
 
 这里我们为了演示方便，使用方式二。
@@ -3757,7 +3470,6 @@ slaveof 192.168.150.101 7001
 ```
 
 
-
 通过redis-cli命令连接7003，执行下面命令：
 
 ```sh
@@ -3766,7 +3478,6 @@ redis-cli -p 7003
 # 执行slaveof
 slaveof 192.168.150.101 7001
 ```
-
 
 
 然后连接 7001节点，查看集群状态：
@@ -3783,7 +3494,6 @@ info replication
 ![image-20210630201258802](file:///D:/Java/data/Redis/高级篇/image-20210630201258802.png)
 
 
-
 ## 2.5.测试
 
 执行下列操作以测试：
@@ -3795,13 +3505,10 @@ info replication
 - 利用redis-cli连接7003，执行```get num```，再执行```set num 888```
 
 
-
 可以发现，只有在7001这个master节点上可以执行写操作，7002和7003这两个slave节点只能执行读操作。
 
 
-
 # 3.搭建哨兵集群
-
 
 
 ## 3.1.集群结构
@@ -3809,7 +3516,6 @@ info replication
 这里我们搭建一个三节点形成的Sentinel集群，来监管之前的Redis主从集群。如图：
 
 ![image-20210701215227018](file:///D:/Java/data/Redis/高级篇/image-20210701215227018.png)
-
 
 
 三个sentinel实例信息如下：
@@ -3857,7 +3563,6 @@ dir "/tmp/s1"
   - `2`：选举master时的quorum值
 
 
-
 然后将s1/sentinel.conf文件拷贝到s2、s3两个目录中（在/tmp目录执行下列命令）：
 
 ```sh
@@ -3869,14 +3574,12 @@ echo s2 s3 | xargs -t -n 1 cp s1/sentinel.conf
 ```
 
 
-
 修改s2、s3两个文件夹内的配置文件，将端口分别修改为27002、27003：
 
 ```sh
 sed -i -e 's/27001/27002/g' -e 's/s1/s2/g' s2/sentinel.conf
 sed -i -e 's/27001/27003/g' -e 's/s1/s3/g' s3/sentinel.conf
 ```
-
 
 
 ## 3.3.启动
@@ -3893,11 +3596,9 @@ redis-sentinel s3/sentinel.conf
 ```
 
 
-
 启动后：
 
 ![image-20210701220714104](file:///D:/Java/data/Redis/高级篇/image-20210701220714104.png)
-
 
 
 ## 3.4.测试
@@ -3915,9 +3616,7 @@ redis-sentinel s3/sentinel.conf
 ![image-20210701223131264](file:///D:/Java/data/Redis/高级篇/image-20210701223131264.png)
 
 
-
 # 4.搭建分片集群
-
 
 
 ## 4.1.集群结构
@@ -3925,7 +3624,6 @@ redis-sentinel s3/sentinel.conf
 分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：
 
 ![image-20210702164116027](file:///D:/Java/data/Redis/高级篇/image-20210702164116027.png)
-
 
 
 这里我们会在同一台虚拟机中开启6个redis实例，模拟分片集群，信息如下：
@@ -3940,7 +3638,6 @@ redis-sentinel s3/sentinel.conf
 | 192.168.150.101 | 8003 | slave  |
 
 
-
 ## 4.2.准备实例和配置
 
 删除之前的7001、7002、7003这几个目录，重新创建出7001、7002、7003、8001、8002、8003目录：
@@ -3953,7 +3650,6 @@ rm -rf 7001 7002 7003
 # 创建目录
 mkdir 7001 7002 7003 8001 8002 8003
 ```
-
 
 
 在/tmp下准备一个新的redis.conf文件，内容如下：
@@ -3992,7 +3688,6 @@ echo 7001 7002 7003 8001 8002 8003 | xargs -t -n 1 cp redis.conf
 ```
 
 
-
 修改每个目录下的redis.conf，将其中的6379修改为与所在目录一致：
 
 ```sh
@@ -4001,7 +3696,6 @@ cd /tmp
 # 修改配置文件
 printf '%s\n' 7001 7002 7003 8001 8002 8003 | xargs -I{} -t sed -i 's/6379/{}/g' {}/redis.conf
 ```
-
 
 
 ## 4.3.启动
@@ -4026,7 +3720,6 @@ ps -ef | grep redis
 ![image-20210702174255799](file:///D:/Java/data/Redis/高级篇/image-20210702174255799.png)
 
 
-
 如果要关闭所有进程，可以执行命令：
 
 ```sh
@@ -4040,15 +3733,11 @@ printf '%s\n' 7001 7002 7003 8001 8002 8003 | xargs -I{} -t redis-cli -p {} shut
 ```
 
 
-
-
-
 ## 4.4.创建集群
 
 虽然服务启动了，但是目前每个服务之间都是独立的，没有任何关联。
 
 我们需要执行命令来创建集群，在Redis5.0之前创建集群比较麻烦，5.0之后集群管理命令都集成到了redis-cli中。
-
 
 
 1）Redis5.0之前
@@ -4062,7 +3751,6 @@ Redis5.0之前集群命令都是用redis安装包下的src/redis-trib.rb来实�
  ```
 
 
-
 然后通过命令来管理集群：
 
 ```sh
@@ -4071,7 +3759,6 @@ cd /tmp/redis-6.2.4/src
 # 创建集群
 ./redis-trib.rb create --replicas 1 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 192.168.150.101:8001 192.168.150.101:8002 192.168.150.101:8003
 ```
-
 
 
 2）Redis5.0以后
@@ -4089,7 +3776,6 @@ redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150
 - `--replicas 1`或者`--cluster-replicas 1` ：指定集群中每个master的副本个数为1，此时`节点总数 ÷ (replicas + 1)` 得到的就是master的数量。因此节点列表中的前n个就是master，其它节点都是slave节点，随机分配到不同master
 
 
-
 运行后的样子：
 
 ![image-20210702181101969](file:///D:/Java/data/Redis/高级篇/image-20210702181101969.png)
@@ -4099,7 +3785,6 @@ redis-cli --cluster create --cluster-replicas 1 192.168.150.101:7001 192.168.150
 ![image-20210702181215705](file:///D:/Java/data/Redis/高级篇/image-20210702181215705.png)
 
 
-
 通过命令可以查看集群状态：
 
 ```sh
@@ -4107,7 +3792,6 @@ redis-cli -p 7001 cluster nodes
 ```
 
 ![image-20210702181922809](file:///D:/Java/data/Redis/高级篇/image-20210702181922809.png)
-
 
 
 ## 4.5.测试
@@ -4142,7 +3826,6 @@ redis-cli -c -p 7001
 ---
 
 # 安装和配置Canal
-
 
 
 下面我们就开启mysql的主从同步机制，让Canal来模拟salve
@@ -4190,7 +3873,6 @@ binlog-do-db=heima
 ```
 
 
-
 ## 1.2.设置用户权限
 
 接下来添加一个仅用于数据同步的账户，出于安全考虑，这里仅提供对heima这个库的操作权限。
@@ -4202,13 +3884,11 @@ FLUSH PRIVILEGES;
 ```
 
 
-
 重启mysql容器即可
 
 ```
 docker restart mysql
 ```
-
 
 
 测试设置是否成功：在mysql控制台，或者Navicat中，输入命令：
@@ -4220,9 +3900,7 @@ show master status;
 ![image-20200327094735948](file:///D:/Java/data/Redis/高级篇/image-20200327094735948.png) 
 
 
-
 # 2.安装Canal
-
 
 
 ## 2.1.创建网络
@@ -4240,9 +3918,6 @@ docker network connect heima mysql
 ```
 
 
-
-
-
 ## 2.3.安装Canal
 
 课前资料中提供了canal的镜像压缩包:
@@ -4254,7 +3929,6 @@ docker network connect heima mysql
 ```
 docker load -i canal.tar
 ```
-
 
 
 然后运行命令创建Canal容器：
@@ -4272,7 +3946,6 @@ docker run -p 11111:11111 --name canal \
 --network heima \
 -d canal/canal-server:v1.1.5
 ```
-
 
 
 说明:
@@ -4301,7 +3974,6 @@ mysql 数据解析关注的表，Perl正则表达式.
 # 安装OpenResty
 
 
-
 # 1.安装
 
 首先你的Linux虚拟机必须联网
@@ -4315,7 +3987,6 @@ yum install -y pcre-devel openssl-devel gcc --skip-broken
 ```
 
 
-
 ## **2）安装OpenResty仓库**
 
 你可以在你的 CentOS 系统中添加 `openresty` 仓库，这样就可以便于未来安装或更新我们的软件包（通过 `yum check-update` 命令）。运行下面的命令就可以添加我们的仓库：
@@ -4323,7 +3994,6 @@ yum install -y pcre-devel openssl-devel gcc --skip-broken
 ```
 yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
 ```
-
 
 
 如果提示说命令不存在，则运行：
@@ -4335,7 +4005,6 @@ yum install -y yum-utils
 然后再重复上面的命令
 
 
-
 ## **3）安装OpenResty**
 
 然后就可以像下面这样安装软件包，比如 `openresty`：
@@ -4343,7 +4012,6 @@ yum install -y yum-utils
 ```bash
 yum install -y openresty
 ```
-
 
 
 ## **4）安装opm工具**
@@ -4357,7 +4025,6 @@ yum install -y openresty-opm
 ```
 
 
-
 ## **5）目录结构**
 
 默认情况下，OpenResty安装的目录是：/usr/local/openresty
@@ -4365,7 +4032,6 @@ yum install -y openresty-opm
 ![image-20200310225539214](file:///D:/Java/data/Redis/高级篇/image-20200310225539214.png) 
 
 看到里面的nginx目录了吗，OpenResty就是在Nginx基础上集成了一些Lua模块。
-
 
 
 ## **6）配置nginx的环境变量**
@@ -4392,7 +4058,6 @@ source /etc/profile
 ```
 
 
-
 # 2.启动和运行
 
 OpenResty底层是基于Nginx的，查看OpenResty目录的nginx目录，结构与windows中安装的nginx基本一致：
@@ -4411,16 +4076,13 @@ nginx -s stop
 ```
 
 
-
-
-
 nginx的默认配置文件注释太多，影响后续我们的编辑，这里将nginx.conf中的注释部分删除，保留有效部分。
 
 修改`/usr/local/openresty/nginx/conf/nginx.conf`文件，内容如下：
 
 ```nginx
 
-#user  nobody;
+`#user`  nobody;
 worker_processes  1;
 error_log  logs/error.log;
 
@@ -4450,7 +4112,6 @@ http {
 ```
 
 
-
 在Linux的控制台输入命令以启动nginx：
 
 ```sh
@@ -4458,15 +4119,7 @@ nginx
 ```
 
 
-
 然后访问页面：http://192.168.150.101:8081，注意ip地址替换为你自己的虚拟机IP：
-
-
-
-
-
-
-
 
 
 # 3.备注
@@ -4474,12 +4127,11 @@ nginx
 加载OpenResty的lua模块：
 
 ```nginx
-#lua 模块
+`#lua` 模块
 lua_package_path "/usr/local/openresty/lualib/?.lua;;";
 #c模块     
 lua_package_cpath "/usr/local/openresty/lualib/?.so;;";  
 ```
-
 
 
 common.lua
@@ -4504,7 +4156,6 @@ local _M = {
 }  
 return _M
 ```
-
 
 
 释放Redis连接API：
@@ -4549,7 +4200,6 @@ end
 ```
 
 
-
 开启共享词典：
 
 ```nginx
@@ -4562,9 +4212,7 @@ lua_shared_dict item_cache 150m; 
 # 案例导入说明
 
 
-
 为了演示多级缓存，我们先导入一个商品管理的案例，其中包含商品的CRUD功能。我们将来会给查询商品添加多级缓存。
-
 
 
 # 1.安装MySQL
@@ -4585,7 +4233,6 @@ cd mysql
 ```
 
 
-
 ## 1.2.运行命令
 
 进入mysql目录后，执行下面的Docker命令：
@@ -4604,7 +4251,6 @@ docker run \
 ```
 
 
-
 ## 1.3.修改配置
 
 在/tmp/mysql/conf目录添加一个my.cnf文件，作为mysql的配置文件：
@@ -4613,7 +4259,6 @@ docker run \
 # 创建文件
 touch /tmp/mysql/conf/my.cnf
 ```
-
 
 
 文件的内容如下：
@@ -4627,7 +4272,6 @@ server-id=1000
 ```
 
 
-
 ## 1.4.重启
 
 配置修改后，必须重启容器：
@@ -4635,7 +4279,6 @@ server-id=1000
 ```sh
 docker restart mysql
 ```
-
 
 
 # 2.导入SQL
@@ -4652,7 +4295,6 @@ docker restart mysql
 之所以将库存分离出来，是因为库存是更新比较频繁的信息，写操作较多。而其他信息修改的频率非常低。
 
 
-
 # 3.导入Demo工程
 
 下面导入课前资料提供的工程：
@@ -4660,11 +4302,9 @@ docker restart mysql
 ![image-20210809181147502](file:///D:/Java/data/Redis/高级篇/image-20210809181147502.png) 
 
 
-
 项目结构如图所示：
 
 ![image-20210809181346450](file:///D:/Java/data/Redis/高级篇/image-20210809181346450.png)
-
 
 
 其中的业务包括：
@@ -4678,9 +4318,7 @@ docker restart mysql
 - 根据id查询库存
 
 
-
 业务全部使用mybatis-plus来实现，如有需要请自行修改业务逻辑。
-
 
 
 ## 3.1.分页查询商品
@@ -4690,13 +4328,11 @@ docker restart mysql
 ![image-20210809181554563](file:///D:/Java/data/Redis/高级篇/image-20210809181554563.png)
 
 
-
 ## 3.2.新增商品
 
 在`com.heima.item.web`包的`ItemController`中可以看到接口定义：
 
 ![image-20210809181646907](file:///D:/Java/data/Redis/高级篇/image-20210809181646907.png)
-
 
 
 ## 3.3.修改商品
@@ -4706,15 +4342,11 @@ docker restart mysql
 ![image-20210809181714607](file:///D:/Java/data/Redis/高级篇/image-20210809181714607.png)
 
 
-
 ## 3.4.修改库存
 
 在`com.heima.item.web`包的`ItemController`中可以看到接口定义：
 
 ![image-20210809181744011](file:///D:/Java/data/Redis/高级篇/image-20210809181744011.png)
-
-
-
 
 
 ## 3.5.删除商品
@@ -4726,7 +4358,6 @@ docker restart mysql
 这里是采用了逻辑删除，将商品状态修改为3
 
 
-
 ## 3.6.根据id查询商品
 
 在`com.heima.item.web`包的`ItemController`中可以看到接口定义：
@@ -4734,9 +4365,7 @@ docker restart mysql
 ![image-20210809181901823](file:///D:/Java/data/Redis/高级篇/image-20210809181901823.png)
 
 
-
 这里只返回了商品信息，不包含库存
-
 
 
 ## 3.7.根据id查询库存
@@ -4744,7 +4373,6 @@ docker restart mysql
 在`com.heima.item.web`包的`ItemController`中可以看到接口定义：
 
 ![image-20210809181932805](file:///D:/Java/data/Redis/高级篇/image-20210809181932805.png)
-
 
 
 ## 3.8.启动
@@ -4756,9 +4384,7 @@ docker restart mysql
 需要修改为自己的虚拟机地址信息、还有账号和密码。
 
 
-
 修改后，启动服务，访问：http://localhost:8081/item/10001即可查询数据
-
 
 
 # 4.导入商品查询页面
@@ -4772,9 +4398,6 @@ docker restart mysql
 我们需要准备一个反向代理的nginx服务器，如上图红框所示，将静态的商品页面放到nginx目录中。
 
 页面需要的数据通过ajax向服务端（nginx业务集群）查询。
-
-
-
 
 
 ## 4.1.运行nginx服务
@@ -4794,11 +4417,9 @@ start nginx.exe
 ```
 
 
-
 然后访问 http://localhost/item.html?id=10001即可：
 
 ![image-20210816112323632](file:///D:/Java/data/Redis/高级篇/image-20210816112323632.png)
-
 
 
 ## 4.2.反向代理
@@ -4824,12 +4445,11 @@ start nginx.exe
 ![image-20210816114554645](file:///D:/Java/data/Redis/高级篇/image-20210816114554645.png)
 
 
-
 完整内容如下：
 
 ```nginx
 
-#user  nobody;
+`#user`  nobody;
 worker_processes  1;
 
 events {
@@ -4841,7 +4461,7 @@ http {
     default_type  application/octet-stream;
 
     sendfile        on;
-    #tcp_nopush     on;
+    `#tcp_nopush`     on;
     keepalive_timeout  65;
 
     upstream nginx-cluster{
@@ -4883,7 +4503,6 @@ Docker CE 分为 `stable` `test` 和 `nightly` 三个更新频道。
 Docker CE 支持 64 位版本 CentOS 7，并且要求内核版本不低于 3.10， CentOS 7 满足最低内核的要求，所以我们在CentOS 7安装Docker。
 
 
-
 ## 1.1.卸载（可选）
 
 如果之前安装过旧版本的Docker，可以使用下面命令卸载：
@@ -4903,7 +4522,6 @@ yum remove docker \
 ```
 
 
-
 ## 1.2.安装docker
 
 首先需要大家虚拟机联网，安装yum工具
@@ -4913,7 +4531,6 @@ yum install -y yum-utils \
            device-mapper-persistent-data \
            lvm2 --skip-broken
 ```
-
 
 
 然后更新本地镜像源：
@@ -4930,9 +4547,6 @@ yum makecache fast
 ```
 
 
-
-
-
 然后输入命令：
 
 ```shell
@@ -4940,7 +4554,6 @@ yum install -y docker-ce
 ```
 
 docker-ce为社区免费版本。稍等片刻，docker即可安装成功。
-
 
 
 ## 1.3.启动docker
@@ -4954,14 +4567,12 @@ Docker应用需要用到各种端口，逐一去修改防火墙设置。非常�
 启动docker前，一定要关闭防火墙！！
 
 
-
 ```sh
 # 关闭
 systemctl stop firewalld
 # 禁止开机启动防火墙
 systemctl disable firewalld
 ```
-
 
 
 通过命令启动docker：
@@ -4975,7 +4586,6 @@ systemctl restart docker  # 重启docker服务
 ```
 
 
-
 然后输入命令，可以查看docker版本：
 
 ```
@@ -4987,7 +4597,6 @@ docker -v
 ![image-20210418154704436](file:///D:/Java/data/Redis/高级篇/image-20210418154704436.png) 
 
 
-
 ## 1.4.配置镜像加速
 
 docker官方镜像仓库网速较差，我们需要设置国内镜像服务：
@@ -4995,11 +4604,7 @@ docker官方镜像仓库网速较差，我们需要设置国内镜像服务：
 参考阿里云的镜像加速文档：https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors
 
 
-
-
-
 # 2.Docker安装MySQL
-
 
 
 ## 2.1.上传
@@ -5019,7 +4624,6 @@ docker load -i mysql.tar
 ![image-20220317114737275](file:///D:/Java/data/Redis/高级篇/image-20220317114737275.png)
 
 
-
 ## 2.2.创建目录
 
 创建两个目录，作为数据库的数据卷：
@@ -5035,11 +4639,9 @@ mkdir -p /tmp/mysql/conf
 ```
 
 
-
 将课前资料提供的my.cnf文件上传到/tmp/mysql/conf，如图：
 
 ![image-20220317115941738](file:///D:/Java/data/Redis/高级篇/image-20220317115941738.png)
-
 
 
 ## 2.3.运行docker命令

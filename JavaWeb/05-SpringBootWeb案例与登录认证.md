@@ -9,11 +9,9 @@
 在这个案例中，前端开发人员已经将前端工程开发完毕了。 我们需要做的，就是参考接口文档完成后端功能的开发，然后结合前端工程进行联调测试即可。
 
 
-
 **完成后的成品效果展示：**
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904103734643.png)
-
 
 
 > **今天的主要内容如下：**
@@ -23,15 +21,7 @@
 > - 员工管理
 
 
-
 下面我们就进入到今天的第1个内容`准备工作`的学习。
-
-
-
-
-
-
-
 
 
 ## 1. 准备工作
@@ -54,7 +44,6 @@
 - 修改部门
 
 
-
 **2、员工管理**
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213205737307.png)
@@ -67,11 +56,9 @@
 - 修改员工
 
 
-
 #### 1.1.2 环境搭建
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213230710821.png)
-
 
 
 步骤：
@@ -80,7 +67,6 @@
 2. 创建springboot工程，引入对应的起步依赖（web、mybatis、mysql驱动、lombok）
 3. 配置文件application.properties中引入mybatis的配置信息，准备对应的实体类
 4. 准备对应的Mapper、Service(接口、实现类)、Controller基础结构
-
 
 
 第1步：准备数据库表
@@ -95,7 +81,6 @@ create table dept(
 ) comment '部门表';
 -- 部门表测试数据
 insert into dept (id, name, create_time, update_time) values(1,'学工部',now(),now()),(2,'教研部',now(),now()),(3,'咨询部',now(),now()), (4,'就业部',now(),now()),(5,'人事部',now(),now());
-
 
 
 -- 员工管理(带约束)
@@ -133,7 +118,6 @@ INSERT INTO emp
 	(16,'songyuanqiao','123456','宋远桥',1,'16.jpg',2,'2007-01-01',2,now(),now()),
 	(17,'chenyouliang','123456','陈友谅',1,'17.jpg',NULL,'2015-03-21',NULL,now(),now());
 ~~~
-
 
 
 第2步：创建一个SpringBoot工程，选择引入对应的起步依赖（web、mybatis、mysql驱动、lombok） (版本选择2.7.5版本，可以创建完毕之后，在pom.xml文件中更改版本号)
@@ -216,7 +200,6 @@ INSERT INTO emp
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213222039985.png)
 
 
-
 第3步：配置文件application.properties中引入mybatis的配置信息，准备对应的实体类
 
 - application.properties （直接把之前项目中的复制过来）
@@ -271,7 +254,6 @@ public class Emp {
 ~~~
 
 
-
 第4步：准备对应的Mapper、Service(接口、实现类)、Controller基础结构
 
 数据访问层：
@@ -298,7 +280,6 @@ public interface EmpMapper {
 }
 
 ~~~
-
 
 
 业务层：
@@ -354,7 +335,6 @@ public class EmpServiceImpl implements EmpService {
 ~~~
 
 
-
 控制层：
 
 - DeptController
@@ -386,9 +366,6 @@ public class EmpController {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213224927868.png)
 
 
-
-
-
 ### 1.2 开发规范
 
 了解完需求也完成了环境搭建了，我们下面开始学习开发的一些规范。
@@ -408,13 +385,11 @@ public class EmpController {
 > ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213231519551.png)
 
 
-
 而在前后端进行交互的时候，我们需要基于当前主流的REST风格的API接口进行交互。
 
 什么是REST风格呢?
 
 - REST（Representational State Transfer），表述性状态转换，它是一种软件架构风格。
-
 
 
 **传统URL风格如下：**
@@ -429,7 +404,6 @@ http://localhost:8080/user/deleteUser?id=1  GET：删除id为1的用户
 我们看到，原始的传统URL呢，定义比较复杂，而且将资源的访问行为对外暴露出来了。
 
 
-
 **基于REST风格URL如下：**
 
 ```
@@ -440,7 +414,6 @@ http://localhost:8080/users/1  DELETE：删除id为1的用户
 ```
 
 其中总结起来，就一句话：通过URL定位要操作的资源，通过HTTP动词(请求方式)来描述具体的操作。
-
 
 
 在REST风格的URL中，通过四种请求方式，来操作数据的增删改查。 
@@ -456,11 +429,6 @@ http://localhost:8080/users/1  DELETE：删除id为1的用户
 >
 > - REST是风格，是约定方式，约定不是规定，可以打破
 > - 描述模块的功能通常使用复数，也就是加s的格式来描述，表示此类资源，而非单个资源。如：users、emps、books…
-
-
-
-
-
 
 
 **2、开发规范-统一响应结果**
@@ -498,9 +466,6 @@ public class Result {
 ~~~
 
 
-
-
-
 **3、开发流程**
 
 我们在进行功能开发时，都是根据如下流程进行：
@@ -518,15 +483,6 @@ public class Result {
    - 功能开发完毕后，先通过Postman进行功能接口测试，测试通过后，再和前端进行联调测试
 6. 前后端联调测试
    - 和前端开发人员开发好的前端工程一起测试
-
-
-
-
-
-
-
-
-
 
 
 ## 2. 部门管理
@@ -549,7 +505,6 @@ public class Result {
 > 查询的部门的信息：部门ID、部门名称、修改时间
 >
 > 通过页面原型以及需求描述，我们可以看到，部门查询，是不需要考虑分页操作的。
-
 
 
 #### 2.1.2 接口文档
@@ -610,11 +565,9 @@ public class Result {
   ~~~
 
 
-
 #### 2.1.3 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221213235157345.png)
-
 
 
 #### 2.1.4 功能开发
@@ -693,17 +646,11 @@ public interface DeptMapper {
 ```
 
 
-
-
-
 #### 2.1.5 功能测试
 
 功能开发完成后，我们就可以启动项目，然后打开postman，发起GET请求，访问 ：http://localhost:8080/depts
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904130315247.png)
-
-
-
 
 
 ### 2.2 前后端联调
@@ -715,11 +662,9 @@ public interface DeptMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214100230484.png) 
 
 
-
 2、拷贝到一个没有中文不带空格的目录后，进行解压（解压到当前目录）
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214100039074.png) 
-
 
 
 3、启动nginx
@@ -729,11 +674,9 @@ public interface DeptMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214101711107.png)
 
 
-
 4、打开浏览器，访问：http://localhost:90
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214100918557.png)
-
 
 
 5、测试：部门管理 - 查询部门列表
@@ -746,11 +689,6 @@ public interface DeptMapper {
 > - 前端：严格遵守接口文档访问功能接口
 
 
-
-
-
-
-
 ### 2.3 删除部门
 
 查询部门的功能我们搞定了，下面我们开始完成`删除部门`的功能开发。
@@ -760,7 +698,6 @@ public interface DeptMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904132440220.png)
 
 点击部门列表后面操作栏的 "删除" 按钮，就可以删除该部门信息。 此时，前端只需要给服务端传递一个ID参数就可以了。 我们从接口文档中也可以看得出来。
-
 
 
 #### 2.3.2 接口文档
@@ -814,7 +751,6 @@ public interface DeptMapper {
   ~~~
 
 
-
 #### 2.3.3 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214102705490.png)
@@ -835,7 +771,6 @@ public interface DeptMapper {
 > ~~~
 > @DeleteMapping
 > ~~~
-
 
 
 #### 2.3.4 功能开发
@@ -924,13 +859,11 @@ public interface DeptMapper {
 ~~~
 
 
-
 #### 2.3.5 功能测试
 
 删除功能开发完成后，重新启动项目，使用postman，发起DELETE请求：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214112451600.png)
-
 
 
 #### 2.3.6 前后端联调
@@ -942,11 +875,6 @@ public interface DeptMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214113941657.png)
 
 
-
-
-
-
-
 ### 2.4 新增部门
 
 我们前面已完成了`查询部门`、`删除部门`两个功能，也熟悉了开发的流程。下面我们继续完成`新增部门`功能。
@@ -956,7 +884,6 @@ public interface DeptMapper {
 <img src="assets/image-20220904150427982.png" style="zoom:80%;" />
 
 点击 "新增部门" 按钮，弹出新增部门对话框，输入部门名称，点击 "保存" ，将部门信息保存到数据库。
-
 
 
 #### 2.4.2 接口文档
@@ -1014,7 +941,6 @@ public interface DeptMapper {
   ~~~
 
 
-
 #### 2.4.3 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214115519648.png)
@@ -1036,7 +962,6 @@ public interface DeptMapper {
 > ~~~java
 > @RequestBody  //把前端传递的json数据填充到实体类中
 > ~~~
-
 
 
 #### 2.4.4 功能开发
@@ -1127,13 +1052,11 @@ public interface DeptMapper {
 ~~~
 
 
-
 #### 2.4.5 功能测试
 
 新增功能开发完成后，重新启动项目，使用postman，发起POST请求：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214153758708.png)
-
 
 
 #### 2.4.6 前后端联调
@@ -1143,7 +1066,6 @@ public interface DeptMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215105446189.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221214154645746.png)
-
 
 
 #### 2.4.7 请求路径
@@ -1165,13 +1087,6 @@ public interface DeptMapper {
 > ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215111309042.png)
 
 > 注意事项：一个完整的请求路径，应该是类上@RequestMapping的value属性 + 方法上的 @RequestMapping的value属性
-
-
-
-
-
-
-
 
 
 ## 3. 员工管理
@@ -1250,7 +1165,6 @@ public interface DeptMapper {
 >  private List rows; //当前页数据列表
 > }
 > ~~~
-
 
 
 ##### 3.1.1.2 接口文档
@@ -1354,7 +1268,6 @@ public interface DeptMapper {
   ~~~
 
 
-
 ##### 3.1.1.3 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215153413290.png)
@@ -1362,7 +1275,6 @@ public interface DeptMapper {
 分页查询需要的数据，封装在PageBean对象中：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215154036047.png)
-
 
 
 ##### 3.1.1.4 功能开发
@@ -1413,7 +1325,6 @@ public class EmpController {
 ~~~
 
 > @RequestParam(defaultValue="默认值")   //设置请求参数默认值
-
 
 
 **EmpService**
@@ -1481,7 +1392,6 @@ public interface EmpMapper {
 ~~~
 
 
-
 ##### 3.1.1.5 功能测试
 
 功能开发完成后，重新启动项目，使用postman，发起POST请求：
@@ -1489,15 +1399,11 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215162008339.png)
 
 
-
 ##### 3.1.1.6 前后端联调
 
 打开浏览器，测试后端功能接口：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215183413504.png)
-
-
-
 
 
 #### 3.1.2 分页插件
@@ -1522,7 +1428,6 @@ public interface EmpMapper {
 解决方案：可以使用一些现成的分页插件完成。对于Mybatis来讲现在最主流的就是PageHelper。
 
 
-
 > PageHelper是Mybatis的一款功能强大、方便易用的分页插件，支持任何形式的单标、多表的分页查询。
 >
 > 官网：https://pagehelper.github.io/
@@ -1540,7 +1445,6 @@ public interface EmpMapper {
 > 5. 执行改造后的SQL语句：select  *  from  emp  limit  ? , ? 
 
 
-
 ##### 3.1.2.2 代码实现
 
 当使用了PageHelper分页插件进行分页，就无需再Mapper中进行手动分页了。 在Mapper中我们只需要进行正常的列表查询即可。在Service层中，调用Mapper的方法之前设置分页参数，在调用Mapper方法执行查询之后，解析分页结果，并将结果封装到PageBean对象中返回。
@@ -1556,7 +1460,6 @@ public interface EmpMapper {
 ```
 
 
-
 2、EmpMapper
 
 ```java
@@ -1567,7 +1470,6 @@ public interface EmpMapper {
     public List<Emp> page(Integer start, Integer pageSize);
 }
 ```
-
 
 
 3、EmpServiceImpl
@@ -1588,7 +1490,6 @@ public PageBean page(Integer page, Integer pageSize) {
 ```
 
 
-
 ##### 3.1.2.3 测试
 
 功能开发完成后，我们重启项目工程，打开postman，发起GET请求，访问 ：http://localhost:8080/emps?page=1&pageSize=5
@@ -1598,11 +1499,6 @@ public PageBean page(Integer page, Integer pageSize) {
 > 后端程序SQL输出：
 >
 > ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215174820377.png)
-
-
-
-
-
 
 
 ### 3.2 分页查询(带条件)
@@ -1634,11 +1530,9 @@ order by update_time desc;
 而且上述的三个条件，都是可以传递，也可以不传递的，也就是动态的。 我们需要使用前面学习的Mybatis中的动态SQL 。
 
 
-
 #### 3.2.2 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215180528415.png)
-
 
 
 #### 3.2.3 功能开发
@@ -1659,7 +1553,6 @@ order by update_time desc;
 > | end      | 否       | 2020-01-01 | 范围匹配的结束时间(入职日期)               |
 > | page     | 是       | 1          | 分页查询的页码，如果未指定，默认为1        |
 > | pageSize | 是       | 10         | 分页查询的每页记录数，如果未指定，默认为10 |
-
 
 
 在原有分页查询的代码基础上进行改造：
@@ -1773,7 +1666,6 @@ public interface EmpMapper {
 ~~~
 
 
-
 #### 3.2.4 功能测试
 
 功能开发完成后，重启项目工程，打开postman，发起GET请求：
@@ -1785,25 +1677,11 @@ public interface EmpMapper {
 > ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215182952789.png)
 
 
-
 #### 3.2.5 前后端联调
 
 打开浏览器，测试后端功能接口：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215183510458.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ### 3.3 删除员工
@@ -1819,7 +1697,6 @@ public interface EmpMapper {
 问题：我们需要开发两个功能接口吗？一个删除单个员工，一个删除多个员工
 
 答案：不需要。 只需要开发一个功能接口即可（删除多个员工包含只删除一个员工）
-
 
 
 #### 3.3.2 接口文档
@@ -1902,7 +1779,6 @@ public interface EmpMapper {
 > ~~~
 > Mybatis中的动态SQL：foreach
 > ~~~
-
 
 
 #### 3.3.4 功能开发
@@ -2020,7 +1896,6 @@ public interface EmpMapper {
 ~~~
 
 
-
 #### 3.3.5 功能测试
 
 功能开发完成后，重启项目工程，打开postman，发起DELETE请求：
@@ -2030,7 +1905,6 @@ public interface EmpMapper {
 > 控制台SQL语句：
 >
 > ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221215190948723.png)
-
 
 
 #### 3.3.6 前后端联调
@@ -2066,13 +1940,6 @@ public interface EmpMapper {
 - 配置文件
 
 
-
-
-
-
-
-
-
 ## 1. 新增员工
 
 ### 1.1 需求
@@ -2080,7 +1947,6 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216162622582.png) 
 
 在新增用户时，我们需要保存用户的基本信息，并且还需要上传的员工的图片，目前我们先完成第一步操作，保存用户的基本信息。 
-
 
 
 ### 1.2 接口文档
@@ -2150,7 +2016,6 @@ public interface EmpMapper {
   ~~~
 
 
-
 ### 1.3 思路分析
 
 新增员工的具体的流程：
@@ -2175,7 +2040,6 @@ public interface EmpMapper {
 > ~~~java
 > @RequestBody  //把前端传递的json数据填充到实体类中
 > ~~~
-
 
 
 ### 1.4 功能开发
@@ -2260,13 +2124,11 @@ public interface EmpMapper {
 ~~~
 
 
-
 ### 1.5 功能测试
 
 代码开发完成后，重启服务器，打开Postman发送 POST 请求，请求路径：http://localhost:8080/emps
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216181017910.png)
-
 
 
 ### 1.6 前后端联调
@@ -2276,13 +2138,6 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216181511401.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216181628331.png)
-
-
-
-
-
-
-
 
 
 ## 2. 文件上传
@@ -2296,7 +2151,6 @@ public interface EmpMapper {
 文件上传技术这块我们主要讲解三个方面：首先我们先对文件上传做一个整体的介绍，接着再学习文件上传的本地存储方式，最后学习云存储方式。
 
 接下来我们就先来学习下什么是文件上传。
-
 
 
 ### 2.1 简介 
@@ -2313,7 +2167,6 @@ public interface EmpMapper {
 
 1. 前端程序
 2. 服务端程序
-
 
 
 我们先来看看在前端程序中要完成哪些代码：
@@ -2344,17 +2197,11 @@ public interface EmpMapper {
   > 普通默认的编码格式是不适合传输大型的二进制数据的，所以在文件上传时，表单的编码格式必须设置为multipart/form-data
 
 
-
-
-
 前端页面的3要素我们了解后，接下来我们就来验证下所讲解的文件上传3要素。
 
 在提供的"课程资料"中有一个名叫"文件上传"的文件夹，直接将里的"upload.html"文件，复制到springboot项目工程下的static目录里面。
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216210054136.png)
-
-
-
 
 
 下面我们来验证：删除form表单中enctype属性值，会是什么情况？
@@ -2364,11 +2211,9 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216210643628.png)
 
 
-
 2. 选择要上传的本地文件
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216210938612.png)
-
 
 
 3. 点击"提交"按钮，进入到开发者模式观察
@@ -2376,9 +2221,6 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216211629307.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216212152607.png)
-
-
-
 
 
 我们再来验证：设置form表单中enctype属性值为multipart/form-data，会是什么情况？
@@ -2395,7 +2237,6 @@ public interface EmpMapper {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216215320623.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221216215041710.png)
-
 
 
 知道了前端程序中需要设置上传文件页面三要素，那我们的后端程序又是如何实现的呢？
@@ -2427,7 +2268,6 @@ public interface EmpMapper {
 >                        Integer age, 
 >                        @RequestParam("image") MultipartFile file)
 >   ~~~
-
 
 
 **UploadController代码：**
@@ -2469,7 +2309,6 @@ public class UploadController {
 > 当我们程序运行完毕之后，这个临时文件会自动删除。 
 >
 > 所以，我们如果想要实现文件上传，需要将这个临时文件，要转存到我们的磁盘目录中。
-
 
 
 ### 2.2 本地存储
@@ -2523,7 +2362,6 @@ public class UploadController {
 通过postman测试，我们发现文件上传是没有问题的。但是由于我们是使用原始文件名作为所上传文件的存储名字，当我们再次上传一个名为1.jpg文件时，发现会把之前已经上传成功的文件覆盖掉。
 
 
-
 解决方案：保证每次上传文件时文件名都唯一的（使用UUID获取随机文件名）
 
 ~~~java
@@ -2568,7 +2406,6 @@ spring.servlet.multipart.max-request-size=100MB
 ~~~
 
 
-
 到时此，我们文件上传的本地存储方式已完成了。但是这种本地存储方式还存在一问题： 
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904200320964.png) 
@@ -2583,11 +2420,6 @@ spring.servlet.multipart.max-request-size=100MB
 
 - 自己搭建存储服务器，如：fastDFS 、MinIO
 - 使用现成的云服务，如：阿里云，腾讯云，华为云
-
-
-
-
-
 
 
 ### 2.3 阿里云OSS
@@ -2611,7 +2443,6 @@ spring.servlet.multipart.max-request-size=100MB
 在我们使用了阿里云OSS对象存储服务之后，我们的项目当中如果涉及到文件上传这样的业务，在前端进行文件上传并请求到服务端时，在服务器本地磁盘当中就不需要再来存储文件了。我们直接将接收到的文件上传到oss，由 oss帮我们存储和管理，同时阿里云的oss存储服务还保障了我们所存储内容的安全可靠。
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221229095709505.png)
-
 
 
 那我们学习使用这类云服务，我们主要学习什么呢？其实我们主要学习的是如何在项目当中来使用云服务完成具体的业务功能。而无论使用什么样的云服务，阿里云也好，腾讯云、华为云也罢，在使用第三方的服务时，操作的思路都是一样的。
@@ -2656,11 +2487,6 @@ spring.servlet.multipart.max-request-size=100MB
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904202824901.png)
 
 > 大家可以参照"资料\04. 阿里云oss\"中提供的文档，开通阿里云OSS服务。
-
-
-
-
-
 
 
 #### 2.3.2 入门
@@ -2761,11 +2587,6 @@ public class AliOssTest {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221229161326919.png)
 
 
-
-
-
-
-
 #### 2.3.3 集成
 
 阿里云oss对象存储服务的准备工作以及入门程序我们都已经完成了，接下来我们就需要在案例当中集成oss对象存储服务，来存储和管理案例中上传的图片。
@@ -2777,7 +2598,6 @@ public class AliOssTest {
 > 1. 需要上传员工的图像，并把图像保存起来（存储到阿里云OSS）
 > 2. 访问员工图像（通过图像在阿里云OSS的存储地址访问图像）
 >    - OSS中的每一个文件都会分配一个访问的url，通过这个url就可以访问到存储在阿里云上的图片。所以需要把url返回给前端，这样前端就可以通过url获取到图像。
-
 
 
 我们参照接口文档来开发文件上传功能：
@@ -2823,7 +2643,6 @@ public class AliOssTest {
       "data": "https://web-framework.oss-cn-hangzhou.aliyuncs.com/2022-09-02-00-27-0400.jpg"
   }
   ~~~
-
 
 
 引入阿里云OSS上传文件工具类（由官方的示例代码改造而来）
@@ -2907,13 +2726,6 @@ public class UploadController {
  
 
 
-
-
-
-
-
-
-
 ## 3. 修改员工
 
 需求：修改员工信息
@@ -2926,7 +2738,6 @@ public class UploadController {
 
 1. 根据ID查询员工信息
 2. 保存修改的员工信息
-
 
 
 ### 3.1 查询回显
@@ -3007,11 +2818,9 @@ public class UploadController {
   ~~~
 
 
-
 #### 3.1.2 实现思路
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221230161841795.png)
-
 
 
 #### 3.1.3 代码实现
@@ -3090,15 +2899,9 @@ public class EmpController {
 ~~~
 
 
-
 #### 3.1.4 postman测试
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221230170926513.png)
-
-
-
-
-
 
 
 ### 3.2 修改员工
@@ -3174,11 +2977,9 @@ public class EmpController {
   ~~~
 
 
-
 #### 3.2.2 实现思路
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20221230171342318.png)
-
 
 
 #### 3.2.3 代码实现
@@ -3301,23 +3102,14 @@ public class EmpController {
 ~~~
 
 
-
 #### 3.2.4 postman测试
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904221941144.png) 
 
 
-
 #### 3.2.5 前后端联调测试
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220904222028501.png) 
-
-
-
-
-
-
-
 
 
 ## 4. 配置文件
@@ -3336,12 +3128,10 @@ public class EmpController {
 - bucketName      //存储空间的名字
 
 
-
 关于以上的这些阿里云相关配置信息，我们是直接写死在java代码中了(硬编码)，如果我们在做项目时每涉及到一个第三方技术服务，就将其参数硬编码，那么在Java程序中会存在两个问题：
 
 1. 如果这些参数发生变化了，就必须在源程序代码中改动这些参数，然后需要重新进行代码的编译，将Java代码编译成class字节码文件再重新运行程序。（比较繁琐）
 2. 如果我们开发的是一个真实的企业级项目， Java类可能会有很多，如果将这些参数分散的定义在各个Java类当中，我们要修改一个参数值，我们就需要在众多的Java代码当中来定位到对应的位置，再来修改参数，修改完毕之后再重新编译再运行。（参数配置过于分散，是不方便集中的管理和维护）
-
 
 
 为了解决以上分析的问题，我们可以将参数配置在配置文件中。如下：
@@ -3353,7 +3143,6 @@ aliyun.oss.accessKeyId=LTAI4GCH1vX6DKqJWxd6nEuW
 aliyun.oss.accessKeySecret=yBshYweHOpqDuhCArrVHwIiBKpyqSL
 aliyun.oss.bucketName=web-tlias
 ~~~
-
 
 
 在将阿里云OSS配置参数交给properties配置文件来管理之后，我们的AliOSSUtils工具类就变为以下形式：
@@ -3374,7 +3163,6 @@ public class AliOSSUtils {
 > 而此时如果直接调用AliOSSUtils类当中的upload方法进行文件上传时，这4项参数全部为null，原因是因为并没有给它赋值。
 >
 > 此时我们是不是需要将配置文件当中所配置的属性值读取出来，并分别赋值给AliOSSUtils工具类当中的各个属性呢？那应该怎么做呢？
-
 
 
 因为application.properties是springboot项目默认的配置文件，所以springboot程序在启动时会默认读取application.properties配置文件，而我们可以使用一个现成的注解：@Value，获取配置文件中的数据。
@@ -3406,13 +3194,6 @@ public class AliOSSUtils {
 使用postman测试：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230102175353270.png)
-
-
-
-
-
-
-
 
 
 ### 4.2 yml配置文件
@@ -3459,7 +3240,6 @@ public class AliOSSUtils {
 - 以数据为核心，重数据轻格式
 
 
-
 简单的了解过springboot所支持的配置文件，以及不同类型配置文件之间的优缺点之后，接下来我们就来了解下yml配置文件的基本语法：
 
 - 大小写敏感
@@ -3469,7 +3249,6 @@ public class AliOSSUtils {
 - `#`表示注释，从这个字符一直到行尾，都会被解析器忽略
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230103084645450.png)
-
 
 
 了解完yml格式配置文件的基本语法之后，接下来我们再来看下yml文件中常见的数据格式。在这里我们主要介绍最为常见的两类：
@@ -3494,7 +3273,6 @@ hobby:
   - game
   - sport
 ```
-
 
 
 熟悉完了yml文件的基本语法后，我们修改下之前案例中使用的配置文件，变更为application.yml配置方式：
@@ -3534,11 +3312,6 @@ aliyun:
 ~~~
 
 
-
-
-
-
-
 ### 4.3 @ConfigurationProperties
 
 讲解完了yml配置文件之后，最后再来介绍一个注解`@ConfigurationProperties`。在介绍注解之前，我们先来看一个场景，分析下代码当中可能存在的问题：
@@ -3548,7 +3321,6 @@ aliyun:
 我们在application.properties或者application.yml中配置了阿里云OSS的四项参数之后，如果java程序中需要这四项参数数据，我们直接通过@Value注解来进行注入。这种方式本身没有什么问题问题，但是如果说需要注入的属性较多(例：需要20多个参数数据)，我们写起来就会比较繁琐。
 
 那么有没有一种方式可以简化这些配置参数的注入呢？答案是肯定有，在Spring中给我们提供了一种简化方式，可以直接将配置文件中配置项的值自动的注入到对象的属性中。
-
 
 
 Spring提供的简化方式套路：
@@ -3562,7 +3334,6 @@ Spring提供的简化方式套路：
 3. 在实体类上添加`@ConfigurationProperties`注解，并通过perfect属性来指定配置参数项的前缀
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230103210827003.png)
-
 
 
 实体类：AliOSSProperties
@@ -3587,7 +3358,6 @@ public class AliOSSProperties {
     private String bucketName;
 }
 ~~~
-
 
 
 AliOSSUtils工具类：
@@ -3638,7 +3408,6 @@ public class AliOSSUtils {
 ~~~
 
 
-
 在我们添加上注解后，会发现idea窗口上面出现一个红色警告：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230103212042823.png) 
@@ -3655,7 +3424,6 @@ public class AliOSSUtils {
 当我们在pom.xml文件当中配置了这项依赖之后，我们重新启动服务，大家就会看到在properties或者是yml配置文件当中，就会提示阿里云 OSS 相关的配置项。所以这项依赖它的作用就是会自动的识别被`@Configuration Properties`注解标识的bean对象。
 
 
-
 > 刚才的红色警告，已经变成了一个灰色的提示，提示我们需要重新运行springboot服务
 
 @ConfigurationProperties注解我们已经介绍完了，接下来我们就来区分一下@ConfigurationProperties注解以及我们前面所介绍的另外一个@Value注解：
@@ -3667,7 +3435,6 @@ public class AliOSSUtils {
 - @Value注解只能一个一个的进行外部属性的注入。
 
 - @ConfigurationProperties可以批量的将外部的属性配置注入到bean对象的属性中。
-
 
 
 如果要注入的属性非常的多，并且还想做到复用，就可以定义这么一个bean对象。通过 configuration properties 批量的将外部的属性配置直接注入到 bin 对象的属性当中。在其他的类当中，我要想获取到注入进来的属性，我直接注入 bin 对象，然后调用 get 方法，就可以获取到对应的属性值了
@@ -3683,9 +3450,6 @@ public class AliOSSUtils {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105085212629.png)
 
 
-
-
-
 ## 1. 登录功能
 
 ### 1.1 需求
@@ -3693,7 +3457,6 @@ public class AliOSSUtils {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105085404855.png)
 
 在登录界面中，我们可以输入用户的用户名以及密码，然后点击 "登录" 按钮就要请求服务器，服务端判断用户输入的用户名或者密码是否正确。如果正确，则返回成功结果，前端跳转至系统首页面。
-
 
 
 ### 1.2 接口文档
@@ -3753,13 +3516,11 @@ public class AliOSSUtils {
   ~~~
 
 
-
 ### 1.3 思路分析
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105175310401.png)
 
 登录服务端的核心逻辑就是：接收前端请求传递的用户名和密码 ，然后再根据用户名和密码查询用户信息，如果用户信息存在，则说明用户输入的用户名和密码正确。如果查询到的用户不存在，则说明用户输入的用户名和密码错误。
-
 
 
 ### 1.4 功能开发
@@ -3835,7 +3596,6 @@ public interface EmpMapper {
 ~~~
 
 
-
 ### 1.5 测试
 
 功能开发完毕后，我们就可以启动服务，打开postman进行测试了。 
@@ -3859,17 +3619,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105192918098.png)
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## 2. 登录校验
 
 ### 2.1 问题分析
@@ -3881,7 +3630,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20220907133329021.png)
 
 
-
 而真正的登录功能应该是：登陆后才能访问后端系统页面，不登陆则跳转登陆页面进行登陆。
 
 为什么会出现这个问题？其实原因很简单，就是因为针对于我们当前所开发的部门管理、员工管理以及文件上传等相关接口来说，我们在服务器端并没有做任何的判断，没有去判断用户是否登录了。所以无论用户是否登录，都可以访问部门管理以及员工管理的相关数据。所以我们目前所开发的登录功能，它只是徒有其表。而我们要想解决这个问题，我们就需要完成一步非常重要的操作：登录校验。
@@ -3889,15 +3637,12 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105180811717.png)
 
 
-
 什么是登录校验？
 
 - 所谓登录校验，指的是我们在服务器端接收到浏览器发送过来的请求之后，首先我们要对请求进行校验。先要校验一下用户登录了没有，如果用户已经登录了，就直接执行对应的业务操作就可以了；如果用户没有登录，此时就不允许他执行相关的业务操作，直接给前端响应一个错误的结果，最终跳转到登录页面，要求他登录成功之后，再来访问对应的数据。
 
 
-
 了解完什么是登录校验之后，接下来我们分析一下登录校验大概的实现思路。
-
 
 
 首先我们在宏观上先有一个认知：
@@ -3905,7 +3650,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 前面在讲解HTTP协议的时候，我们提到HTTP协议是无状态协议。什么又是无状态的协议？
 
 所谓无状态，指的是每一次请求都是独立的，下一次请求并不会携带上一次请求的数据。而浏览器与服务器之间进行交互，基于HTTP协议也就意味着现在我们通过浏览器来访问了登陆这个接口，实现了登陆的操作，接下来我们在执行其他业务操作时，服务器也并不知道这个员工到底登陆了没有。因为HTTP协议是无状态的，两次请求之间是独立的，所以是无法判断这个员工到底登陆了没有。
-
 
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230105194710533.png)
@@ -3924,12 +3668,10 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 > 通过统一拦截的技术，我们可以来拦截浏览器发送过来的所有的请求，拦截到这个请求之后，就可以通过请求来获取之前所存入的登录标记，在获取到登录标记且标记为登录成功，就说明员工已经登录了。如果已经登录，我们就直接放行(意思就是可以访问正常的业务接口了)。
 
 
-
 我们要完成以上操作，会涉及到web开发中的两个技术：
 
 1. 会话技术
 2. 统一拦截技术
-
 
 
 而统一拦截技术现实方案也有两种：
@@ -3938,11 +3680,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 2. Spring提供的interceptor拦截器
 
 下面我们先学习会话技术，然后再学习统一拦截技术。
-
-
-
-
-
 
 
 ### 2.2 会话技术
@@ -3972,7 +3709,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 需要注意的是：会话是和浏览器关联的，当有三个浏览器客户端和服务器建立了连接时，就会有三个会话。同一个浏览器在未关闭之前请求了多次服务器，这多次请求是属于同一个会话。比如：1、2、3这三个请求都是属于同一个会话。当我们关闭浏览器之后，这次会话就结束了。而如果我们是直接把web服务器关了，那么所有的会话就都结束了。
 
 
-
 知道了会话的概念了，接下来我们再来了解下会话跟踪。
 
 会话跟踪：一种维护浏览器状态的方法，服务器需要识别多次请求是否来自于同一浏览器，以便在同一次会话的多次请求间共享数据。
@@ -3986,7 +3722,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 > 由于HTTP是无状态协议，在后面请求中怎么拿到前一次请求生成的数据呢？此时就需要在一次会话的多次请求之间进行数据共享
 
 
-
 会话跟踪技术有两种：
 
 1. Cookie（客户端会话跟踪技术）
@@ -3994,9 +3729,6 @@ postman测试通过了，那接下来，我们就可以结合着前端工程进�
 2. Session（服务端会话跟踪技术）
    - 数据存储在储在服务端
 3. 令牌技术
-
-
-
 
 
 #### 2.2.2 会话跟踪方案
@@ -4014,7 +3746,6 @@ cookie 是客户端会话跟踪技术，它是存储在客户端浏览器的，�
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112101901417.png) 
 
 接下来在服务端我们就可以获取到 cookie 的值。我们可以去判断一下这个 cookie 的值是否存在，如果不存在这个cookie，就说明客户端之前是没有访问登录接口的；如果存在 cookie 的值，就说明客户端之前已经登录完成了。这样我们就可以基于 cookie 在同一次会话的不同请求之间来共享数据。
-
 
 
 我刚才在介绍流程的时候，用了 3 个自动：
@@ -4036,7 +3767,6 @@ cookie 是客户端会话跟踪技术，它是存储在客户端浏览器的，�
 - 请求头 Cookie：携带Cookie数据的
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112101804878.png) 
-
 
 
 **代码测试**
@@ -4068,7 +3798,6 @@ public class SessionController {
 ```
 
 
-
 A. 访问c1接口，设置Cookie，http://localhost:8080/c1
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112105410076.png) 
@@ -4078,13 +3807,9 @@ A. 访问c1接口，设置Cookie，http://localhost:8080/c1
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112105538131.png) 
 
 
-
 B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cookie携带到服务端，是通过**请求头Cookie**，携带的。
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112105658486.png) 
-
-
-
 
 
 **优缺点**
@@ -4128,7 +3853,6 @@ B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cooki
 > ​    http://192.168.150.200/login.html ----------> http://192.168.150.200/login    		 [不跨域]   
 
 
-
 ##### 2.2.2.2 方案二 - Session
 
 前面介绍的时候，我们提到Session，它是服务器端会话跟踪技术，所以它是存储在服务器端的。而 Session 的底层其实就是基于我们刚才所介绍的 Cookie 来实现的。
@@ -4150,7 +3874,6 @@ B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cooki
   接下来，服务器端在给浏览器响应数据的时候，它会将 Session 的 ID 通过 Cookie 响应给浏览器。其实在响应头当中增加了一个 Set-Cookie 响应头。这个  Set-Cookie  响应头对应的值是不是cookie？ cookie 的名字是固定的 JSESSIONID 代表的服务器端会话对象 Session 的 ID。浏览器会自动识别这个响应头，然后自动将Cookie存储在浏览器本地。
 
 
-
 - 查找Session
 
   ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112101943835.png) 
@@ -4160,7 +3883,6 @@ B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cooki
   
 
   这样我们是不是就可以通过 Session 会话对象在同一次会话的多次请求之间来共享数据了？好，这就是基于 Session 进行会话跟踪的流程。
-
 
 
 **代码测试**
@@ -4191,13 +3913,11 @@ public class SessionController {
 ```
 
 
-
 A. 访问 s1 接口，http://localhost:8080/s1
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112111004447.png) 
 
 请求完成之后，在响应头中，就会看到有一个Set-Cookie的响应头，里面响应回来了一个Cookie，就是JSESSIONID，这个就是服务端会话对象 Session 的ID。
-
 
 
 B. 访问 s2 接口，http://localhost:8080/s2
@@ -4207,13 +3927,11 @@ B. 访问 s2 接口，http://localhost:8080/s2
 接下来，在后续的每次请求时，都会将Cookie的值，携带到服务端，那服务端呢，接收到Cookie之后，会自动的根据JSESSIONID的值，找到对应的会话对象Session。
 
 
-
 那经过这两步测试，大家也会看到，在控制台中输出如下日志：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112111328117.png) 
 
 两次请求，获取到的Session会话对象的hashcode是一样的，就说明是同一个会话对象。而且，第一次请求时，往Session会话对象中存储的值，第二次请求时，也获取到了。 那这样，我们就可以通过Session会话对象，在同一个会话的多次请求之间来进行数据共享了。
-
 
 
 **优缺点**
@@ -4226,7 +3944,6 @@ B. 访问 s2 接口，http://localhost:8080/s2
   - Cookie不能跨域
 
 > PS：Session 底层是基于Cookie实现的会话跟踪，如果Cookie不可用，则该方案，也就失效了。
-
 
 
 > 服务器集群环境为何无法使用Session？
@@ -4252,11 +3969,7 @@ B. 访问 s2 接口，http://localhost:8080/s2
 >   我想请问在第二台服务器当中有没有这个ID的会话对象 Session， 是没有的。此时是不是就出现问题了？我同一个浏览器发起了 2 次请求，结果获取到的不是同一个会话对象，这就是Session这种会话跟踪方案它的缺点，在服务器集群环境下无法直接使用Session。
 
 
-
-
-
 大家会看到上面这两种传统的会话技术，在现在的企业开发当中是不是会存在很多的问题。 为了解决这些问题，在现在的企业开发当中，基本上都会采用第三种方案，通过令牌技术来进行会话跟踪。接下来我们就来介绍一下令牌技术，来看一下令牌技术又是如何跟踪会话的。
-
 
 
 ##### 2.2.2.3 方案三 - 令牌技术
@@ -4274,7 +3987,6 @@ B. 访问 s2 接口，http://localhost:8080/s2
 此时，如果是在同一次会话的多次请求之间，我们想共享数据，我们就可以将共享的数据存储在令牌当中就可以了。
 
 
-
 **优缺点**
 
 - 优点：
@@ -4284,13 +3996,7 @@ B. 访问 s2 接口，http://localhost:8080/s2
 - 缺点：需要自己实现（包括令牌的生成、令牌的传递、令牌的校验）
 
 
-
-
-
 **针对于这三种方案，现在企业开发当中使用的最多的就是第三种令牌技术进行会话跟踪。而前面的这两种传统的方案，现在企业项目开发当中已经很少使用了。所以在我们的课程当中，我们也将会采用令牌技术来解决案例项目当中的会话跟踪问题。**
-
-
-
 
 
 ### 2.3 JWT令牌
@@ -4308,7 +4014,6 @@ JWT全称：JSON Web Token  （官网：https://jwt.io/）
   > 自包含：指的是jwt令牌，看似是一个随机的字符串，但是我们是可以根据自身的需求在jwt令牌中存储自定义的数据内容。如：可以直接在jwt令牌中存储用户的相关信息。
   >
   > 简单来讲，jwt就是将原始的json数据格式进行了安全的封装，这样就可以直接基于jwt在通信双方安全的进行信息传输了。
-
 
 
 JWT的组成： （JWT令牌由三个部分组成，三个部分之间使用英文的点来分割）
@@ -4332,7 +4037,6 @@ JWT的组成： （JWT令牌由三个部分组成，三个部分之间使用英�
 > 需要注意的是Base64是编码方式，而不是加密方式。
 
 
-
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112114319773.png) 
 
 JWT令牌最典型的应用场景就是登录认证：
@@ -4342,20 +4046,12 @@ JWT令牌最典型的应用场景就是登录认证：
 3. 服务端统一拦截请求之后，先来判断一下这次请求有没有把令牌带过来，如果没有带过来，直接拒绝访问，如果带过来了，还要校验一下令牌是否是有效。如果有效，就直接放行进行请求的处理。
 
 
-
 在JWT登录认证的场景中我们发现，整个流程当中涉及到两步操作：
 
 1. 在登录成功之后，要生成令牌。
 2. 每一次请求当中，要接收令牌并对令牌进行校验。
 
 稍后我们再来学习如何来生成jwt令牌，以及如何来校验jwt令牌。
-
-
-
-
-
-
-
 
 
 #### 2.3.2 生成和校验
@@ -4376,7 +4072,6 @@ JWT令牌最典型的应用场景就是登录认证：
 > 在引入完JWT来赖后，就可以调用工具包中提供的API来完成JWT令牌的生成和校验
 >
 > 工具类：Jwts
-
 
 
 生成JWT代码实现：
@@ -4415,9 +4110,6 @@ eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjcyNzI5NzMwfQ.fHi0Ub8npbyt71UqLXDdLyip
 > 由于前两个部分是base64编码，所以是可以直接解码出来。但最后一个部分并不是base64编码，是经过签名算法计算出来的，所以最后一个部分是不会解析的。
 
 
-
-
-
 实现了JWT令牌的生成，下面我们接着使用Java代码来校验JWT令牌(解析生成的令牌)：
 
 ~~~java
@@ -4441,7 +4133,6 @@ public void parseJwt(){
 > 令牌解析后，我们可以看到id和过期时间，如果在解析的过程当中没有报错，就说明解析成功了。
 
 
-
 下面我们做一个测试：把令牌header中的数字9变为8，运行测试方法后发现报错：
 
 > 原header： eyJhbGciOiJIUzI1NiJ9
@@ -4451,7 +4142,6 @@ public void parseJwt(){
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106205045658.png)
 
 结论：篡改令牌中的任何一个字符，在对令牌进行解析时都会报错，所以JWT令牌是非常安全可靠的。
-
 
 
 我们继续测试：修改生成令牌的时指定的过期时间，修改为1分钟
@@ -4492,9 +4182,6 @@ public void parseJwt(){
 - 如果JWT令牌解析校验时报错，则说明 JWT令牌被篡改 或 失效了，令牌非法。 
 
 
-
-
-
 #### 2.3.3 登录下发令牌
 
 JWT令牌的生成和校验的基本操作我们已经学习完了，接下来我们就需要在案例当中通过JWT令牌技术来跟踪会话。具体的思路我们前面已经分析过了，主要就是两步操作：
@@ -4505,9 +4192,7 @@ JWT令牌的生成和校验的基本操作我们已经学习完了，接下来�
    - 拦截前端请求，从请求中获取到令牌，对令牌进行解析校验
 
 
-
 那我们首先来完成：登录成功之后生成JWT令牌，并且把令牌返回给前端。
-
 
 
 JWT令牌怎么返回给前端呢？此时我们就需要再来看一下接口文档当中关于登录接口的描述（主要看响应数据）：
@@ -4551,15 +4236,11 @@ JWT令牌怎么返回给前端呢？此时我们就需要再来看一下接口�
 解读完接口文档中的描述了，目前我们先来完成令牌的生成和令牌的下发，我们只需要生成一个令牌返回给前端就可以了。
 
 
-
-
-
 **实现步骤：**
 
 1. 引入JWT工具类
    - 在项目工程下创建com.itheima.utils包，并把提供JWT工具类复制到该包下
 2. 登录完成后，调用工具类生成JWT令牌并返回
-
 
 
 **JWT工具类**
@@ -4601,7 +4282,6 @@ public class JwtUtils {
 ~~~
 
 
-
 **登录成功，生成JWT令牌并返回**
 
 ~~~java
@@ -4635,7 +4315,6 @@ public class LoginController {
 ~~~
 
 
-
 重启服务，打开postman测试登录接口：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106212805480.png)
@@ -4647,7 +4326,6 @@ public class LoginController {
 > 登录请求完成后，可以看到JWT令牌已经响应给了前端，此时前端就会将JWT令牌存储在浏览器本地。
 
 
-
 服务器响应的JWT令牌存储在本地浏览器哪里了呢？
 
 - 在当前案例中，JWT令牌存储在浏览器的本地存储空间local storage中了。 local storage是浏览器的本地存储，在移动端也是支持的。
@@ -4655,17 +4333,9 @@ public class LoginController {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106213910049.png)
 
 
-
 我们在发起一个查询部门数据的请求，此时我们可以看到在请求头中包含一个token(JWT令牌)，后续的每一次请求当中，都会将这个令牌携带到服务端。
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106214331443.png)
-
-
-
-
-
-
-
 
 
 ### 2.4 过滤器Filter
@@ -4677,7 +4347,6 @@ public class LoginController {
 2. Interceptor拦截器
 
 我们首先来学习过滤器Filter。
-
 
 
 #### 2.4.1 快速入门
@@ -4692,12 +4361,10 @@ public class LoginController {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112120955145.png) 
 
 
-
 下面我们通过Filter快速入门程序掌握过滤器的基本使用操作：
 
 - 第1步，定义过滤器 ：1.定义一个类，实现 Filter 接口，并重写其所有方法。
 - 第2步，配置过滤器：Filter类上加 @WebFilter 注解，配置拦截资源的路径。引导类上加 @ServletComponentScan 开启Servlet组件支持。
-
 
 
 **定义过滤器**
@@ -4729,7 +4396,6 @@ public class DemoFilter implements Filter {
 > - doFilter方法：这个方法是在每一次拦截到请求之后都会被调用，所以这个方法是会被调用多次的，每拦截到一次请求就会调用一次doFilter()方法。
 >
 > - destroy方法： 是销毁的方法。当我们关闭服务器的时候，它会自动的调用销毁方法destroy，而这个销毁方法也只会被调用一次。
-
 
 
 在定义完Filter之后，Filter其实并不会生效，还需要完成Filter的配置，Filter的配置非常简单，只需要在Filter类上添加一个注解：@WebFilter，并指定属性urlPatterns，通过这个属性指定过滤器要拦截哪些请求
@@ -4771,11 +4437,9 @@ public class TliasWebManagementApplication {
 ~~~
 
 
-
 重新启动服务，打开浏览器，执行部门管理的请求，可以看到控制台输出了过滤器中的内容：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112121205697.png) 
-
 
 
 > 注意事项：
@@ -4783,11 +4447,7 @@ public class TliasWebManagementApplication {
 > ​	在过滤器Filter中，如果不执行放行操作，将无法访问后面的资源。 放行操作：chain.doFilter(request, response);
 
 
-
 现在我们已完成了Filter过滤器的基本使用，下面我们将学习Filter过滤器在使用过程中的一些细节。
-
-
-
 
 
 #### 2.4.2 Filter详解
@@ -4799,7 +4459,6 @@ Filter过滤器的快速入门程序我们已经完成了，接下来我们就�
 3. 过滤器链
 
 
-
 ##### 2.4.2.1 执行流程
 
 首先我们先来看下过滤器的执行流程：
@@ -4807,11 +4466,9 @@ Filter过滤器的快速入门程序我们已经完成了，接下来我们就�
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106222559935.png)
 
 
-
 过滤器当中我们拦截到了请求之后，如果希望继续访问后面的web资源，就要执行放行操作，放行就是调用 FilterChain对象当中的doFilter()方法，在调用doFilter()这个方法之前所编写的代码属于放行之前的逻辑。
 
 在放行后访问完 web 资源之后还会回到过滤器当中，回到过滤器之后如有需求还可以执行放行之后的逻辑，放行之后的逻辑我们写在doFilter()这行代码之后。
-
 
 
 ~~~java
@@ -4843,7 +4500,6 @@ public class DemoFilter implements Filter {
 ~~~
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106224322625.png)
-
 
 
 ##### 2.4.2.2 拦截路径
@@ -4885,7 +4541,6 @@ public class DemoFilter implements Filter {
 ~~~
 
 
-
 测试1：访问部门管理请求，发现过滤器没有拦截请求
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106225658525.png)
@@ -4893,13 +4548,9 @@ public class DemoFilter implements Filter {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106230332510.png)
 
 
-
 测试2：访问登录请求/login，发现过滤器拦截请求
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106230520229.png)
-
-
-
 
 
 下面我们来测试"目录拦截"：
@@ -4931,17 +4582,14 @@ public class DemoFilter implements Filter {
 ~~~
 
 
-
 测试1：访问部门管理请求，发现过滤器拦截了请求
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106231144348.png)
 
 
-
 测试2：访问登录请求/login，发现过滤器没有拦截请求
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230106231220802.png)
-
 
 
 ##### 2.4.2.3 过滤器链
@@ -4957,7 +4605,6 @@ public class DemoFilter implements Filter {
 访问完web资源之后，按照我们刚才所介绍的过滤器的执行流程，还会回到过滤器当中来执行过滤器放行后的逻辑，而在执行放行后的逻辑的时候，顺序是反着的。
 
 先要执行过滤器2放行之后的逻辑，再来执行过滤器1放行之后的逻辑，最后在给浏览器响应数据。
-
 
 
 以上就是当我们在web应用当中配置了多个过滤器，形成了这样一个过滤器链以及过滤器链的执行顺序。下面我们通过idea来验证下过滤器链。
@@ -5010,13 +4657,11 @@ public class DemoFilter implements Filter {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107090425999.png)
 
 
-
 通过控制台日志的输出，大家发现AbcFilter先执行DemoFilter后执行，这是为什么呢？
 
 其实是和过滤器的类名有关系。以注解方式配置的Filter过滤器，它的执行优先级是按时过滤器类名的自动排序确定的，类名排名越靠前，优先级越高。
 
 假如我们想让DemoFilter先执行，怎么办呢？答案就是修改类名。
-
 
 
 测试：修改AbcFilter类名为XbcFilter，运行程序查看控制台日志
@@ -5042,17 +4687,11 @@ public class XbcFilter implements Filter {
 到此，关于过滤器的使用细节，我们已经全部介绍完毕了。
 
 
-
-
-
-
-
 #### 2.4.3 登录校验-Filter
 
 ##### 2.4.3.1 分析
 
 过滤器Filter的快速入门以及使用细节我们已经介绍完了，接下来最后一步，我们需要使用过滤器Filter来完成案例当中的登录校验功能。
-
 
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107095010089.png)
@@ -5066,7 +4705,6 @@ public class XbcFilter implements Filter {
 - 对于校验令牌的这一块操作，我们使用登录校验的过滤器，在过滤器当中来校验令牌的有效性。如果令牌是无效的，就响应一个错误的信息，也不会再去放行访问对应的资源了。如果令牌存在，并且它是有效的，此时就会放行去访问对应的web资源，执行相应的业务操作。
 
 
-
 大概清楚了在Filter过滤器的实现步骤了，那在正式开发登录校验过滤器之前，我们思考两个问题：
 
 1. 所有的请求，拦截到了之后，都需要校验令牌吗？
@@ -5076,13 +4714,11 @@ public class XbcFilter implements Filter {
    - 答案：**有令牌，且令牌校验通过(合法)；否则都返回未登录错误结果**
 
 
-
 ##### 2.4.3.2 具体流程
 
 我们要完成登录校验，主要是利用Filter过滤器实现，而Filter过滤器的流程步骤：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112122130564.png) 
-
 
 
 基于上面的业务流程，我们分析出具体的操作步骤：
@@ -5095,11 +4731,9 @@ public class XbcFilter implements Filter {
 6. 放行
 
 
-
 ##### 2.4.3.3 代码实现
 
 分析清楚了以上的问题后，我们就参照接口文档来开发登录功能了，登录接口描述如下：
-
 
 
 - 基本信息
@@ -5167,7 +4801,6 @@ public class XbcFilter implements Filter {
   	"data": null
   }
   ~~~
-
 
 
 **登录校验过滤器：LoginCheckFilter**
@@ -5249,7 +4882,6 @@ public class LoginCheckFilter implements Filter {
 ```
 
 
-
 登录校验的过滤器我们编写完成了，接下来我们就可以重新启动服务来做一个测试：
 
 > 测试前先把之前所编写的测试使用的过滤器，暂时注释掉。直接将@WebFilter注解给注释掉即可。
@@ -5273,11 +4905,6 @@ public class LoginCheckFilter implements Filter {
  
 
 
-
-
-
-
-
 ### 2.5 拦截器Interceptor
 
 学习完了过滤器Filter之后，接下来我们继续学习拦截器Interseptor。
@@ -5289,7 +4916,6 @@ public class LoginCheckFilter implements Filter {
 3. 通过拦截器Interceptor完成登录校验功能
 
 我们先学习第一块内容：拦截器快速入门
-
 
 
 #### 2.5.1 快速入门
@@ -5304,9 +4930,7 @@ public class LoginCheckFilter implements Filter {
 - 拦截请求，在指定方法调用前后，根据业务需要执行预先设定的代码。
 
 
-
 在拦截器当中，我们通常也是做一些通用性的操作，比如：我们可以通过拦截器来拦截前端发起的请求，将登录校验的逻辑全部编写在拦截器当中。在校验的过程当中，如发现用户登录了(携带JWT令牌且是合法令牌)，就可以直接放行，去访问spring当中的资源。如果校验时发现并没有登录或是非法令牌，就可以直接给前端响应未登录的错误信息。
-
 
 
 下面我们通过快速入门程序，来学习下拦截器的基本使用。拦截器的使用步骤和过滤器类似，也分为两步：
@@ -5346,7 +4970,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 ~~~
 
 
-
 > 注意：
 >
 > ​	preHandle方法：目标资源方法执行前执行。 返回true：放行    返回false：不放行
@@ -5354,7 +4977,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 > ​	postHandle方法：目标资源方法执行后执行
 >
 > ​	afterCompletion方法：视图渲染完毕后执行，最后执行
-
 
 
 **注册配置拦截器**：实现WebMvcConfigurer接口，并重写addInterceptors方法
@@ -5377,13 +4999,11 @@ public class WebConfig implements WebMvcConfigurer {
 ~~~
 
 
-
 重新启动SpringBoot服务，打开postman测试：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107105224741.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107105415120.png)
-
 
 
 接下来我们再来做一个测试：将拦截器中返回值改为false
@@ -5393,20 +5013,12 @@ public class WebConfig implements WebMvcConfigurer {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107105815511.png)
 
 
-
-
-
-
-
-
-
 #### 2.5.2 Interceptor详解
 
 拦截器的入门程序完成之后，接下来我们来介绍拦截器的使用细节。拦截器的使用细节我们主要介绍两个部分：
 
 1. 拦截器的拦截路径配置
 2. 拦截器的执行流程
-
 
 
 ##### 2.5.2.1 拦截路径
@@ -5434,7 +5046,6 @@ public class WebConfig implements WebMvcConfigurer {
 ~~~
 
 
-
 在拦截器中除了可以设置`/**`拦截所有资源外，还有一些常见拦截路径设置：
 
 | 拦截路径  | 含义                 | 举例                                                |
@@ -5443,7 +5054,6 @@ public class WebConfig implements WebMvcConfigurer {
 | /**       | 任意级路径           | 能匹配/depts，/depts/1，/depts/1/2                  |
 | /depts/*  | /depts下的一级路径   | 能匹配/depts/1，不能匹配/depts/1/2，/depts          |
 | /depts/** | /depts下的任意级路径 | 能匹配/depts，/depts/1，/depts/1/2，不能匹配/emps/1 |
-
 
 
 下面主要来演示下`/**`与`/*`的区别： 
@@ -5477,11 +5087,6 @@ public class WebConfig implements WebMvcConfigurer {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107111812963.png)
 
 
-
-
-
-
-
 ##### 2.5.2.2 执行流程
 
 介绍完拦截路径的配置之后，接下来我们再来介绍拦截器的执行流程。通过执行流程，大家就能够清晰的知道过滤器与拦截器的执行时机。
@@ -5495,7 +5100,6 @@ public class WebConfig implements WebMvcConfigurer {
 - 当我们定义了拦截器后，会在执行Controller的方法之前，请求被拦截器拦截住。执行`preHandle()`方法，这个方法执行完成后需要返回一个布尔类型的值，如果返回true，就表示放行本次操作，才会继续访问controller中的方法；如果返回false，则不会放行（controller中的方法也不会执行）。
 
 - 在controller当中的方法执行完毕之后，再回过来执行`postHandle()`这个方法以及`afterCompletion()` 方法，然后再返回给DispatcherServlet，最终再来执行过滤器当中放行后的这一部分逻辑的逻辑。执行完毕之后，最终给浏览器响应数据。
-
 
 
 接下来我们就来演示下过滤器和拦截器同时存在的执行流程：
@@ -5543,7 +5147,6 @@ public class WebConfig implements WebMvcConfigurer {
 ~~~
 
 
-
 - 开启DemoFilter过滤器
 
 ~~~java
@@ -5562,15 +5165,11 @@ public class DemoFilter implements Filter {
 ~~~
 
 
-
 重启SpringBoot服务后，清空日志，打开Postman，测试查询部门：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107113653871.png)
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107114008004.png)
-
-
-
 
 
 以上就是拦截器的执行流程。通过执行流程分析，大家应该已经清楚了过滤器和拦截器之间的区别，其实它们之间的区别主要是两点：
@@ -5579,17 +5178,12 @@ public class DemoFilter implements Filter {
 - 拦截范围不同：过滤器Filter会拦截所有的资源，而Interceptor只会拦截Spring环境中的资源。
 
 
-
-
-
 #### 2.5.3 登录校验- Interceptor
 
 讲解完了拦截器的基本操作之后，接下来我们需要完成最后一步操作：通过拦截器来完成案例当中的登录校验功能。
 
 
-
 登录校验的业务逻辑以及操作步骤我们前面已经分析过了，和登录校验Filter过滤器当中的逻辑是完全一致的。现在我们只需要把这个技术方案由原来的过滤器换成拦截器interceptor就可以了。
-
 
 
 **登录校验拦截器**
@@ -5670,7 +5264,6 @@ public class WebConfig implements WebMvcConfigurer {
 ~~~
 
 
-
 登录校验的拦截器编写完成后，接下来我们就可以重新启动服务来做一个测试： （**关闭登录校验Filter过滤器**）
 
 - 测试1：未登录是否可以访问部门管理页面
@@ -5692,21 +5285,11 @@ public class WebConfig implements WebMvcConfigurer {
 到此我们也就验证了所开发的登录校验的拦截器也是没问题的。登录校验的过滤器和拦截器，我们只需要使用其中的一种就可以了。
 
 
-
-
-
-
-
-
-
-
-
 ## 3. 异常处理
 
 ### 3.1 当前问题
 
 登录功能和登录校验功能我们都实现了，下面我们学习下今天最后一块技术点：异常处理。首先我们先来看一下系统出现异常之后会发生什么现象，再来介绍异常处理的方案。
-
 
 
 我们打开浏览器，访问系统中的新增部门操作，系统中已经有了 "就业部" 这个部门，我们再来增加一个就业部，看看会发生什么现象。
@@ -5724,9 +5307,6 @@ public class WebConfig implements WebMvcConfigurer {
 上述错误信息的含义是，dept部门表的name字段的值 就业部 重复了，因为在数据库表dept中已经有了就业部，我们之前设计这张表时，为name字段建议了唯一约束，所以该字段的值是不能重复的。
 
 而当我们再添加就业部，这个部门时，就违反了唯一约束，此时就会报错。
-
-
-
 
 
 我们来看一下出现异常之后，最终服务端给前端响应回来的数据长什么样。
@@ -5748,7 +5328,6 @@ public class WebConfig implements WebMvcConfigurer {
 - 而在controller当中，我们也没有做任何的异常处理，所以最终异常会再往上抛。最终抛给框架之后，框架就会返回一个JSON格式的数据，里面封装的就是错误的信息，但是框架返回的JSON格式的数据并不符合我们的开发规范。
 
 
-
 ### 3.2 解决方案
 
 那么在三层构架项目中，出现了异常，该如何处理?
@@ -5759,7 +5338,6 @@ public class WebConfig implements WebMvcConfigurer {
   - 好处：简单、优雅（推荐）
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230107122904214.png)
-
 
 
 ### 3.3 全局异常处理器
@@ -5789,7 +5367,6 @@ public class GlobalExceptionHandler {
 > 处理异常的方法返回值会转换为json后再响应给前端
 
 
-
 重新启动SpringBoot服务，打开浏览器，再来测试一下添加部门这个操作，我们依然添加已存在的 "就业部" 这个部门：
 
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112131232032.png) 
@@ -5797,9 +5374,6 @@ public class GlobalExceptionHandler {
 ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112131135272.png) 
 
 此时，我们可以看到，出现异常之后，异常已经被全局异常处理器捕获了。然后返回的错误信息，被前端程序正常解析，然后提示出了对应的错误提示信息。
-
-
-
 
 
 以上就是全局异常处理器的使用，主要涉及到两个注解：

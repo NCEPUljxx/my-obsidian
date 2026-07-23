@@ -4530,7 +4530,6 @@ public DataSource dataSource(BookDao bookDao){
 ![1630125475609](file:///D:/Java/data/SSM/Spring框架/1630125475609.png)
 
 
-
 ## 5，注解开发总结
 
 前面我们已经完成了XML配置和注解的开发实现，至于两者之间的差异，咱们放在一块去对比回顾下:
@@ -5230,7 +5229,6 @@ public class BookDaoImpl implements BookDao {
 * 目前打印save方法的时候，因为方法中有打印系统时间，所以运行的时候是可以看到系统时间
 * 对于update方法来说，就没有该功能
 * 我们要使用SpringAOP的方式在不改变update方法的前提下让其具有打印系统时间的功能。
-
 
 
 ### 2.4 AOP实现步骤
@@ -6010,7 +6008,6 @@ public class MyAdvice {
 ![1630169124446](file:///D:/Java/data/SSM/Spring框架/1630169124446.png)
 
 
-
 **注意：**返回后通知是需要在原始方法`select`正常执行后才会被执行，如果`select()`方法执行的过程中出现了异常，那么返回后通知是不会被执行。后置通知是不管原始方法有没有抛出异常都会被执行。这个案例大家下去可以自己练习验证下。
 
 ##### 异常后通知
@@ -6442,7 +6439,6 @@ public class ProjectAdvice {
 ![1630215743444](file:///D:/Java/data/SSM/Spring框架/1630215743444.png)
 
 
-
 ==补充说明==
 
 当前测试的接口执行效率仅仅是一个理论值，并不是一次完整的执行过程。
@@ -6833,7 +6829,6 @@ public class BookDaoImpl implements BookDao {
 运行App后，查看控制台，就能看的异常信息被打印到控制台
 
 ![1630239997560](file:///D:/Java/data/SSM/Spring框架/1630239997560.png)
-
 
 
 至此，AOP通知如何获取数据就已经讲解完了，数据中包含`参数`、`返回值`、`异常(了解)`。
@@ -7556,7 +7551,6 @@ public class SpringConfig {
 通过上面例子的分析，我们就可以得到如下概念:
 
 
-
 - 事务管理员：发起事务方，在Spring中通常指代业务层开启事务的方法
 - 事务协调员：加入事务方，在Spring中通常指代数据层方法，也可以是业务层方法
 
@@ -7807,4 +7801,4 @@ public class LogServiceImpl implements LogService {
 
 ---
 
-> 📎 **相关笔记**：[[SpringMVC]] · [[SpringBoot]] · [[JavaWeb/06-SpringBoot事务与AOP|JavaWeb AOP]]
+> 📎 **相关笔记**：[[SSM框架 索引]] · [[SpringMVC]] · [[SpringBoot]] · [[JavaWeb/06-SpringBoot事务与AOP|JavaWeb AOP]]

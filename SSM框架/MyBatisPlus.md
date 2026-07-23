@@ -1949,7 +1949,6 @@ class Mybatisplus03DqlApplicationTests {
 ![1631243810974](file:///D:/Java/data/SSM/MyBatisPlus/1631243810974.png)
 
 
-
 接下来我们来聊一聊雪花算法:
 
 雪花算法(SnowFlake),是Twitter官方给出的算法实现 是用Scala写的。其生成的结果是一个64bit大小整数，它的结构如下图:
@@ -2229,7 +2228,6 @@ UPDATE tbl_user SET ==deleted===1 where id = ? AND ==deleted===0
 执行数据结果为:
 
 ![1631248494929](file:///D:/Java/data/SSM/MyBatisPlus/1631248494929.png)
-
 
 
 #### 知识点1：@TableLogic

@@ -3,13 +3,6 @@
 # SpringBootWeb请求响应
 
 
-
-
-
-
-
-
-
 ## 前言
 
 在上一次的课程中，我们开发了springbootweb的入门程序。 基于SpringBoot的方式开发一个web应用，浏览器发起请求 /hello 后 ，给浏览器返回字符串 “Hello World ~”。
@@ -39,15 +32,6 @@
 > - 请求
 > - 响应
 > - 分层解耦
-
-
-
-
-
-
-
-
-
 
 
 ## 1. 请求
@@ -91,7 +75,6 @@
   - 大方
 
 
-
 #### 1.1.2 安装
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20220826173919556.png) 
@@ -109,7 +92,6 @@
 界面介绍:
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20220826175306141.png) 
-
 
 
 **如果我们需要将测试的请求信息保存下来，就需要创建一个postman的账号，然后登录之后才可以。**
@@ -145,11 +127,6 @@
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203115041949.png)
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203115110440.png)
-
-
-
-
-
 
 
 ### 1.2 简单参数
@@ -202,7 +179,6 @@ public class RequestController {
 > 以上这种方式，我们仅做了解。（在以后的开发中不会使用到）
 
 
-
 #### 1.2.2 SpringBoot方式
 
 在Springboot的环境中，对原始的API进行了封装，接收参数的形式更加简单。 如果是简单参数，参数名与形参变量名相同，定义同名的形参即可接收参数。
@@ -232,7 +208,6 @@ public class RequestController {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20220826181117898.png)
 
 > **结论：不论是GET请求还是POST请求，对于简单参数来讲，只要保证==请求参数名和Controller方法中的形参名保持一致==，就可以获取到请求参数中的数据值。**
-
 
 
 #### 1.2.3 参数名不一致
@@ -294,11 +269,6 @@ public class RequestController {
 >  return "OK";
 > }
 > ~~~
-
-
-
-
-
 
 
 ### 1.3 实体参数
@@ -368,9 +338,6 @@ Postman测试：
 - 参数名和实体类属性名不一致时
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203161004349.png)
-
-
-
 
 
 #### 1.3.2 复杂实体对象
@@ -484,9 +451,6 @@ Postman测试：
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203162706175.png) 
 
 
-
-
-
 ### 1.4 数组集合参数
 
 数组集合参数的使用场景：在HTML的表单中，有一个表单项是支持多选的(复选框)，可以提交选择的多个值。
@@ -501,7 +465,6 @@ Postman测试：
 
 1. 数组
 2. 集合
-
 
 
 #### 1.4.1 数组
@@ -535,7 +498,6 @@ Postman测试：
 方式二：xxxxxxxxxxxxx?hobby=game,java
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203191822996.png)
-
 
 
  
@@ -573,9 +535,6 @@ Postman测试：
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203212024679.png)
 
 
-
-
-
 ### 1.5 日期参数
 
 上述演示的都是一些普通的参数，在一些特殊的需求中，可能会涉及到日期类型数据的封装。比如，如下需求：
@@ -606,9 +565,6 @@ public class RequestController {
 Postman测试：
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203214600716.png)
-
-
-
 
 
 ### 1.6 JSON参数
@@ -673,9 +629,6 @@ public class RequestController {
 Postman测试：
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221203231803000.png) 
-
-
-
 
 
 ### 1.7 路径参数
@@ -743,9 +696,6 @@ public class RequestController {
 ~~~
 
 
-
-
-
 ## 2. 响应
 
 前面我们学习过HTTL协议的交互方式：请求响应模式（有请求就有响应）
@@ -808,7 +758,6 @@ public @interface RestController {
   - 方法的返回值，如果是一个POJO对象或集合时，会先转换为JSON格式，在响应给浏览器
 
 
-
 下面我们来测试下响应数据：
 
 ~~~java
@@ -853,7 +802,6 @@ public class ResponseController {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204172339375.png)
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204172705426.png)
-
 
 
 ### 2.2 统一响应结果
@@ -981,9 +929,6 @@ public class ResponseController {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204180744084.png)
 
 
-
-
-
 ### 2.3 案例
 
 下面我们通过一个案例，来加强对请求响应的学习。
@@ -995,7 +940,6 @@ public class ResponseController {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204185928260.png)  
 
 - 获取员工数据，返回统一响应结果，在页面渲染展示
-
 
 
 #### 2.3.2 准备工作
@@ -1025,7 +969,6 @@ Springboot项目的静态资源(html，css，js等前端资源)默认存放目�
 > - 代表的是类路径，在maven的项目中，其实指的就是 src/main/resources 或者 src/main/java，但是java目录是存放java代码的，所以相关的配置文件及静态资源文档，就放在 src/main/resources下。
 
 
-
 #### 2.3.3 实现步骤
 
 1. 在pom.xml文件中引入dom4j的依赖，用于解析XML文件
@@ -1049,7 +992,6 @@ Springboot项目的静态资源(html，css，js等前端资源)默认存放目�
 4. 创建EmpController类，编写Controller程序，处理请求，响应数据
 
    ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204184313822.png) 
-
 
 
 #### 2.3.4 代码实现
@@ -1138,7 +1080,6 @@ public class Result {
 ~~~
 
 
-
 #### 2.3.5 测试
 
 代码编写完毕之后，我们就可以运行引导类，启动服务进行测试了。 
@@ -1150,9 +1091,6 @@ public class Result {
 打开浏览器，在浏览器地址栏输入： http://localhost:8080/emp.html
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204185455556.png) 
-
-
-
 
 
 #### 2.3.6 问题分析
@@ -1170,9 +1108,6 @@ public class Result {
 - 当我们需要修改数据响应的代码，还是需要改动Controller
 
 这样呢，就会造成我们整个工程代码的复用性比较差，而且代码难以维护。 那如何解决这个问题呢？其实在现在的开发中，有非常成熟的解决思路，那就是分层开发。
-
-
-
 
 
 ## 3. 分层解耦
@@ -1206,7 +1141,6 @@ public class Result {
 - Dao：数据访问层(Data Access Object)，也称为持久层。负责数据访问操作，包括数据的增、删、改、查。
 
 
-
 基于三层架构的程序执行流程：
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204194207812.png)
@@ -1219,9 +1153,6 @@ public class Result {
 > 思考：按照三层架构的思想，如何要对业务逻辑(Service层)进行变更，会影响到Controller层和Dao层吗？ 
 >
 > 答案：不会影响。 （程序的扩展性、维护性变得更好了）
-
-
-
 
 
 #### 3.1.2 代码拆分
@@ -1340,9 +1271,6 @@ public class EmpDaoA implements EmpDao {
 3. 利用扩展
 
 
-
-
-
 ### 3.2 分层解耦
 
 刚才我们学习过程序分层思想了，接下来呢，我们来学习下程序的解耦思想。
@@ -1380,9 +1308,6 @@ public class EmpDaoA implements EmpDao {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20220828215549593.png)
 
 
-
-
-
 #### 3.2.2  解耦思路
 
 之前我们在编写代码时，需要什么对象，就直接new一个就可以了。 这种做法呢，层与层之间代码就耦合了，当service层的实现变了之后， 我们还需要修改controller层的代码。
@@ -1415,9 +1340,6 @@ public class EmpDaoA implements EmpDao {
 IOC容器中创建、管理的对象，称之为：bean对象
 
 
-
-
-
 ### 3.3 IOC&DI
 
 上面我们引出了Spring中IOC和DI的基本概念，下面我们就来具体学习下IOC和DI的代码实现。
@@ -1434,11 +1356,9 @@ IOC容器中创建、管理的对象，称之为：bean对象
      - Service程序中注入依赖的Dao层对象
 
 
-
 第1步：删除Controller层、Service层中new对象的代码
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204212807207.png)
-
 
 
 第2步：Service层及Dao层的实现类，交给IOC容器管理
@@ -1448,13 +1368,11 @@ IOC容器中创建、管理的对象，称之为：bean对象
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204213328034.png)
 
 
-
 第3步：为Controller及Service注入运行时依赖的对象
 
 - 使用Spring提供的注解：@Autowired ，就可以实现程序运行时IOC容器自动注入需要的依赖对象
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204213859112.png)
-
 
 
 完整的三层代码：
@@ -1535,7 +1453,6 @@ public class EmpDaoA implements EmpDao {
 ~~~
 
 
-
 运行测试：
 
 - 启动SpringBoot引导类，打开浏览器，输入：http://localhost:8080/emp.html
@@ -1543,9 +1460,7 @@ public class EmpDaoA implements EmpDao {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204185455556.png)
 
 
-
  
-
 
 
 #### 3.3.2 IOC详解
@@ -1563,7 +1478,6 @@ public class EmpDaoA implements EmpDao {
 - @Controller    （标注在控制层类上）
 - @Service          （标注在业务层类上）
 - @Repository    （标注在数据访问层类上）
-
 
 
 修改入门案例代码：
@@ -1644,7 +1558,6 @@ public class EmpDaoA implements EmpDao {
 ~~~
 
 
-
 要把某个对象交给IOC容器管理，需要在对应的类上加上如下注解之一：
 
 | 注解        | 说明                 | 位置                                            |
@@ -1666,15 +1579,11 @@ public class EmpDaoA implements EmpDao {
 > - 使用以上四个注解都可以声明bean，但是在springboot集成web开发中，声明控制器bean只能用@Controller。
 
 
-
-
-
 ##### 3.3.2.2 组件扫描
 
 问题：使用前面学习的四个注解声明的bean，一定会生效吗？
 
 答案：不一定。（原因：bean想要生效，还需要被组件扫描）
-
 
 
  下面我们通过修改项目工程的目录结构，来测试bean对象是否生效：
@@ -1698,15 +1607,11 @@ public class EmpDaoA implements EmpDao {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204225437297.png)
 
 
-
 推荐做法（如下图）：
 
 - 将我们定义的controller，service，dao这些包呢，都放在引导类所在包com.itheima的子包下，这样我们定义的bean就会被自动的扫描到
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204225815624.png)
-
-
-
 
 
 #### 3.3.3 DI详解
@@ -1722,7 +1627,6 @@ public class EmpDaoA implements EmpDao {
 > 入门程序举例：在EmpController运行的时候，就要到IOC容器当中去查找EmpService这个类型的对象，而我们的IOC容器中刚好有一个EmpService这个类型的对象，所以就找到了这个类型的对象完成注入操作。
 
 
-
 那如果在IOC容器中，存在多个相同类型的bean对象，会出现什么情况呢？
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204232154445.png)
@@ -1730,7 +1634,6 @@ public class EmpDaoA implements EmpDao {
 - 程序运行会报错
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204231616724.png)
-
 
 
 如何解决上述问题呢？Spring提供了以下几种解决方案：
@@ -1742,11 +1645,9 @@ public class EmpDaoA implements EmpDao {
 - @Resource
 
 
-
 使用@Primary注解：当存在多个相同类型的Bean注入时，加上@Primary注解，来确定默认的实现。
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204232501679.png) 
-
 
 
 使用@Qualifier注解：指定当前要注入的bean对象。 在@Qualifier的value属性中，指定注入的bean的名称。
@@ -1756,11 +1657,9 @@ public class EmpDaoA implements EmpDao {
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204233333606.png)
 
 
-
 使用@Resource注解：是按照bean的名称进行注入。通过name属性指定要注入的bean的名称。
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20221204233637735.png)
-
 
 
 > 面试题 ： @Autowird 与 @Resource的区别

@@ -29,7 +29,6 @@ Math类所在包为java.lang包，因此在使用的时候不需要进行导包�
 Math类包含执行基本数字运算的方法，我们可以使用Math类完成基本的数学运算。
 
 
-
 要想使用Math类我们就需要先创建该类的对象，那么创建对象就需要借助于构造方法。因此我们就需要首先查看一下API文档，看看API文档中针对Math类有没有提供对应的构造方法。通过API文档来查看
 
 一下Math类的成员，如下所示：
@@ -117,7 +116,11 @@ public class MathDemo01 {
 获取到的0-1之间的随机数为: 0.7322484131745958
 ```
 
-## 1.3 排序和查找算法不仅用在数组，[[10-集合框架]] 中 TreeMap 的底层红黑树就是自平衡二叉查找树。小题(质数)
+## 1.3 排序和查找算法不仅用在数组，
+
+[[10-集合框架]]
+中 TreeMap 的底层红黑树就是自平衡二叉查找树。小题(质数)
+
 
 需求：
 
@@ -197,7 +200,6 @@ for (int i = 100; i <= 999; i++) {
 要求3：（课后作业）分别统计有多少个四叶玫瑰数和五角星数。（答案：都是3个）
 
 
-
 # 2 System类
 
 ## 2.1 概述
@@ -209,11 +211,9 @@ for (int i = 100; i <= 999; i++) {
  ![](file:///D:/Java/data/JavaSE/09-常用API/1576049347968.png) 
 
 
-
 System类所在包为java.lang包，因此在使用的时候不需要进行导包。并且System类被final修饰了，因此该类是不能被继承的。
 
 System包含了系统操作的一些常用的方法。比如获取当前时间所对应的毫秒值，再比如终止当前JVM等等。
-
 
 
 要想使用System类我们就需要先创建该类的对象，那么创建对象就需要借助于构造方法。因此我们就需要首先查看一下API文档，看看API文档中针对System类有没有提供对应的构造方法。通过API文档来
@@ -807,9 +807,7 @@ public class MyJframe extends JFrame implements ActionListener {
 ![](file:///D:/Java/data/JavaSE/09-常用API/1576053677194.png) 
 
 
-
 Object类所在包是java.lang包。Object 是类层次结构的根，每个类都可以将 Object 作为超类。所有类都直接或者间接的继承自该类；换句话说，该类所具备的方法，其他所有类都继承了。
-
 
 
 查看API文档我们可以看到，在Object类中提供了一个无参构造方法，如下所示：
@@ -929,7 +927,6 @@ s1对象的字符串表现形式为：Student{name='itheima', age='14'}
 此时我们就可以清楚的查看Student的成员变量值，因此重写toString方法的意义就是以良好的格式，更方便的展示对象中的属性值
 
 
-
 我们再来查看一下如下代码的输出：
 
 ```java
@@ -957,7 +954,6 @@ System.out.println(s1.toString());
 ```
 
 因此后期为了方便进行测试，我们常常是通过输出语句直接输出一个对象的名称。
-
 
 
 小结：
@@ -999,7 +995,6 @@ false
 ```
 
 因为"=="号比较的是对象的地址值，而我们通过new关键字创建了两个对象，它们的地址值是不相同的。因此比较结果就是false。
-
 
 
 我们尝试调用Object类中的equals方法进行比较，代码如下所示：
@@ -1154,7 +1149,6 @@ package com.itheima.a04objectdemo;
 import java.util.StringJoiner;
 
 
-
 //Cloneable
 //如果一个接口里面没有抽象方法
 //表示当前的接口是一个标记性接口
@@ -1166,8 +1160,6 @@ public class User implements Cloneable {
     private String password;
     private String path;
     private int[] data;
-
-
 
 
     public User() {
@@ -1309,7 +1301,6 @@ public class User implements Cloneable {
 ```
 
 
-
 # 5 Objects类
 
 ## 5.1 概述
@@ -1323,7 +1314,6 @@ public class User implements Cloneable {
 Objects类所在包是在java.util包下，因此在使用的时候需要进行导包。并且Objects类是被final修饰的，因此该类不能被继承。
 
 Objects类提供了一些对象常见操作的方法。比如判断对象是否相等，判断对象是否为null等等。
-
 
 
 接下来我们来查看一下API文档，看一下Objects类中的成员，如下所示：
@@ -1346,7 +1336,6 @@ public static boolean equals(Object a, Object b)			// 比较两个对象是否�
 public static boolean isNull(Object obj)					// 判断对象是否为null
 public static boolean nonNull(Object obj)					// 判断对象是否不为null
 ```
-
 
 
 我们要了解的Objects类中的常见方法如下所示：
@@ -1477,7 +1466,7 @@ public class ObjectsDemo02 {
         Student s1 = new Student("itheima" , "14") ;
 
         // 调用Objects对象的requireNonNullElseGet方法,该方法的第二个参数是Supplier类型的，查看源码我们发现Supplier是一个函数式接口,
-        // 那么我们就可以为其传递一个Lambda 是函数式编程的基础，[[10-集合框架]] 的 Stream 流中大量使用 Lambda。，而在Supplier接口中所定义的方法是无参有返回值的方法，因此具体调用所传入的Lambda表达式如下所示
+        // 那么我们就可以为其传递一个Lambda 是函数式编程的基础，[[10-集合框架] ] 的 Stream 流中大量使用 Lambda。，而在Supplier接口中所定义的方法是无参有返回值的方法，因此具体调用所传入的Lambda表达式如下所示
         Student student = Objects.requireNonNullElseGet(s1, () -> {
             return new Student("itcast", "14");
         });
@@ -1559,7 +1548,6 @@ public static BigInteger valueOf(long val) 	//静态方法获取BigInteger的对
 * 如果BigInteger表示的超出long的范围，可以用构造方法获取。
 * 对象一旦创建，BigInteger内部记录的值不能发生改变。
 * 只要进行计算都会产生一个新的BigInteger对象
-
 
 
 <font color="red" size="3">**常见成员方法**</font>
@@ -1712,7 +1700,6 @@ public class BigIntegerDemo2 {
 ```
 
 
-
 ## 6.4 底层存储方式：
 
 对于计算机而言，其实是没有数据类型的概念的，都是0101010101，数据类型是编程语言自己规定的，所以在实际存储的时候，先把具体的数字变成二进制，每32个bit为一组，存储在数组中。 
@@ -1728,13 +1715,6 @@ public class BigIntegerDemo2 {
 存储方式如图所示：
 
 ![](file:///D:/Java/data/JavaSE/09-常用API/bigInteger的底层原理.png)
-
-
-
-
-
-
-
 
 
 # 7 BigDecimal类
@@ -2067,32 +2047,32 @@ public class RegexDemo2 {
         System.out.println("0".matches("[a-zA-Z0-9]"));//true
 
 
-        // [a-d[m-p]] a到d，或m到p
+        // [a-d[m-p] ] a到d，或m到p
         System.out.println("-----------4-------------");
-        System.out.println("a".matches("[a-d[m-p]]"));//true
-        System.out.println("d".matches("[a-d[m-p]]")); //true
-        System.out.println("m".matches("[a-d[m-p]]")); //true
-        System.out.println("p".matches("[a-d[m-p]]")); //true
-        System.out.println("e".matches("[a-d[m-p]]")); //false
-        System.out.println("0".matches("[a-d[m-p]]")); //false
+        System.out.println("a".matches("[a-d[m-p] ]"));//true
+        System.out.println("d".matches("[a-d[m-p] ]")); //true
+        System.out.println("m".matches("[a-d[m-p] ]")); //true
+        System.out.println("p".matches("[a-d[m-p] ]")); //true
+        System.out.println("e".matches("[a-d[m-p] ]")); //false
+        System.out.println("0".matches("[a-d[m-p] ]")); //false
 
-        // [a-z&&[def]] a-z和def的交集。为:d，e，f
+        // [a-z&&[def] ] a-z和def的交集。为:d，e，f
         System.out.println("----------5------------");
-        System.out.println("a".matches("[a-z&[def]]")); //false
-        System.out.println("d".matches("[a-z&&[def]]")); //true
-        System.out.println("0".matches("[a-z&&[def]]")); //false
+        System.out.println("a".matches("[a-z&[def] ]")); //false
+        System.out.println("d".matches("[a-z&&[def] ]")); //true
+        System.out.println("0".matches("[a-z&&[def] ]")); //false
 
-        // [a-z&&[^bc]] a-z和非bc的交集。(等同于[ad-z])
+        // [a-z&&[^bc] ] a-z和非bc的交集。(等同于[ad-z])
         System.out.println("-----------6------------_");
-        System.out.println("a".matches("[a-z&&[^bc]]"));//true
-        System.out.println("b".matches("[a-z&&[^bc]]")); //false
-        System.out.println("0".matches("[a-z&&[^bc]]")); //false
+        System.out.println("a".matches("[a-z&&[^bc] ]"));//true
+        System.out.println("b".matches("[a-z&&[^bc] ]")); //false
+        System.out.println("0".matches("[a-z&&[^bc] ]")); //false
 
-        // [a-z&&[^m-p]] a到z和除了m到p的交集。(等同于[a-1q-z])
+        // [a-z&&[^m-p] ] a到z和除了m到p的交集。(等同于[a-1q-z])
         System.out.println("-----------7-------------");
-        System.out.println("a".matches("[a-z&&[^m-p]]")); //true
-        System.out.println("m".matches("[a-z&&[^m-p]]")); //false
-        System.out.println("0".matches("[a-z&&[^m-p]]")); //false
+        System.out.println("a".matches("[a-z&&[^m-p] ]")); //true
+        System.out.println("m".matches("[a-z&&[^m-p] ]")); //false
+        System.out.println("0".matches("[a-z&&[^m-p] ]")); //false
 
     }
 }
@@ -2113,7 +2093,7 @@ public class Demo {
 		String str = "had";
 		
 		//1.要求字符串是小写辅音字符开头，后跟ad
-		String regex = "[a-z&&[^aeiou]]ad";
+		String regex = "[a-z&&[^aeiou] ]ad";
 		System.out.println("1." + str.matches(regex));
 		
 		//2.要求字符串是aeiou中的某个字符开头，后跟ad
@@ -2142,13 +2122,10 @@ public class RegexDemo3 {
         System.out.println("c:Users\\moon\\IdeaProjects\\basic-code\\myapi\\src\\com\\itheima\\a08regexdemo\\RegexDemo1.java");
 
 
-
-
     }
 }
 
 ```
-
 
 
 ## 1.4 正则表达式-预定义字符
@@ -2197,8 +2174,8 @@ public class Demo {
         // 必须是数字和字符 必须是4位
         System.out.println("23dF".matches("[a-zA-Z0-9]{4}"));//true
         System.out.println("23 F".matches("[a-zA-Z0-9]{4}"));//false
-        System.out.println("23dF".matches("[\\w&&[^_]]{4}"));//true
-        System.out.println("23_F".matches("[\\w&&[^_]]{4}"));//false
+        System.out.println("23dF".matches("[\\w&&[^_] ]{4}"));//true
+        System.out.println("23_F".matches("[\\w&&[^_] ]{4}"));//false
 		
 	}
 }
@@ -2225,8 +2202,8 @@ public class Demo {
         // 必须是数字和字符 必须是4位
         System.out.println("23dF".matches("[a-zA-Z0-9]{4}"));//true
         System.out.println("23 F".matches("[a-zA-Z0-9]{4}"));//false
-        System.out.println("23dF".matches("[\\w&&[^_]]{4}"));//true
-        System.out.println("23_F".matches("[\\w&&[^_]]{4}"));//false
+        System.out.println("23dF".matches("[\\w&&[^_] ]{4}"));//true
+        System.out.println("23_F".matches("[\\w&&[^_] ]{4}"));//false
 	}
 }
 
@@ -2300,12 +2277,12 @@ public class RegexDemo4 {
         //      任意的字母数字下划线，至少出现一次就可以了
         //第二部分:@ 只能出现一次
         //第三部分:
-        //      3.1         .的左边[\\w&&[^_]]{2,6}
+        //      3.1         .的左边[\\w&&[^_] ]{2,6}
         //                  任意的字母加数字，总共出现2-6次(此时不能出现下划线)
         //      3.2         . \\.
         //      3.3         大写字母，小写字母都可以，只能出现2-3次[a-zA-Z]{2,3}
         //      我们可以把3.2和3.3看成一组，这一组可以出现1次或者两次
-        String regex3 = "\\w+@[\\w&&[^_]]{2,6}(\\.[a-zA-Z]{2,3}){1,2}";
+        String regex3 = "\\w+@[\\w&&[^_] ]{2,6}(\\.[a-zA-Z]{2,3}){1,2}";
         System.out.println("3232323@qq.com".matches(regex3));
         System.out.println("zhangsan@itcast.cnn".matches(regex3));
         System.out.println("dlei0009@163.com".matches(regex3));
@@ -2567,7 +2544,7 @@ public class RegexDemo8 {
             热线电话:400-618-9090 ，400-618-4000，4006184000，4006189090
 
             手机号的正则表达式:1[3-9]\d{9}
-            邮箱的正则表达式:\w+@[\w&&[^_]]{2,6}(\.[a-zA-Z]{2,3}){1,2}座机电话的正则表达式:θ\d{2,3}-?[1-9]\d{4,9}
+            邮箱的正则表达式:\w+@[\w&&[^_] ]{2,6}(\.[a-zA-Z]{2,3}){1,2}座机电话的正则表达式:θ\d{2,3}-?[1-9]\d{4,9}
             热线电话的正则表达式:400-?[1-9]\\d{2}-?[1-9]\\d{3}
 
         */
@@ -2579,7 +2556,7 @@ public class RegexDemo8 {
 
         System.out.println("400-618-9090");
 
-        String regex = "(1[3-9]\\d{9})|(\\w+@[\\w&&[^_]]{2,6}(\\.[a-zA-Z]{2,3}){1,2})" +
+        String regex = "(1[3-9]\\d{9})|(\\w+@[\\w&&[^_] ]{2,6}(\\.[a-zA-Z]{2,3}){1,2})" +
                 "|(0\\d{2,3}-?[1-9]\\d{4,9})" +
                 "(400-?[1-9]\\d{2}-?[1-9]\\d{3})";
 
@@ -2728,7 +2705,7 @@ String s = "小诗诗dqwefqwfqwfwq12312小丹丹dqwefqwfqwfwq12312小惠惠";
 //细节:
 //方法在底层跟之前一样也会创建文本解析器的对象
 //然后从头开始去读取字符串中的内容，只要有满足的，那么就切割。
-String[] arr = s.split("[\\w&&[^_]]+");
+String[] arr = s.split("[\\w&&[^_] ]+");
 for (int i = 0; i < arr.length; i++) {
     System.out.println(arr[i]);
 }
@@ -2755,7 +2732,7 @@ String s = "小诗诗dqwefqwfqwfwq12312小丹丹dqwefqwfqwfwq12312小惠惠";
 //细节:
 //方法在底层跟之前一样也会创建文本解析器的对象
 //然后从头开始去读取字符串中的内容，只要有满足的，那么就用第一个参数去替换。
-String result1 = s.replaceAll("[\\w&&[^_]]+", "vs");
+String result1 = s.replaceAll("[\\w&&[^_] ]+", "vs");
 System.out.println(result1);
 ```
 
@@ -2860,7 +2837,7 @@ System.out.println("41080119930228457x".matches(regex2));
 ```java
 手机号码:1[3-9]\\d{9}
 座机号码：0\\d{2,3}-?[1-9]\\d{4,9}
-邮箱号码：\\w+@[\\w&&[^_]]{2,6}(\\.[a-zA-Z]{2,3}){1,2}
+邮箱号码：\\w+@[\\w&&[^_] ]{2,6}(\\.[a-zA-Z]{2,3}){1,2}
 24小时：([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d
 	   ([01]\\d|2[0-3])(:[0-5]\\d){2}
 用户名:	\\w{4,16}
@@ -2874,7 +2851,6 @@ System.out.println("41080119930228457x".matches(regex2));
 
 
 ---
-
 
 
 ## 今日内容
@@ -3187,7 +3163,6 @@ public class Demo {
 ```
 
 
-
 ## 3.5 add方法示例：
 
 ```java
@@ -3307,7 +3282,6 @@ System.out.println(instant7);//1970-01-01T00:00:02Z
 ```
 
 
-
 ## 4.3 ZoneDateTime  带时区的时间
 
 ```java
@@ -3348,7 +3322,6 @@ System.out.println(time5);
 ```
 
 
-
 ## 4.4DateTimeFormatter   用于时间的格式化和解析
 
 ```java
@@ -3364,7 +3337,6 @@ DateTimeFormatter dtf1=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm;ss EE a");
 // 格式化
 System.out.println(dtf1.format(time));
 ```
-
 
 
 ## 4.5LocalDate  年、月、日
@@ -3434,7 +3406,6 @@ System.out.println("今天是你的生日吗? " + birMd.equals(nowMd));//今天�
 ```
 
 
-
 ## 4.6 LocalTime  时、分、秒
 
 ```java
@@ -3471,7 +3442,6 @@ System.out.println(nowTime.plusHours(10));
 ```
 
 
-
 ## 4.7 LocalDateTime  年、月、日、时、分、秒
 
 ```java
@@ -3505,7 +3475,6 @@ System.out.println(lt.getSecond());
 ```
 
 
-
 ## 4.8 Duration  时间间隔（秒，纳，秒）
 
 ```java
@@ -3529,7 +3498,6 @@ System.out.println(duration.toNanos());//两个时间差的纳秒数
 ```
 
 
-
 ## 4.9 Period  时间间隔（年，月，日）
 
 ```java
@@ -3550,7 +3518,6 @@ System.out.println(period.getDays());
 
 System.out.println(period.toTotalMonths());
 ```
-
 
 
 ## 4.10 ChronoUnit  时间间隔（所有单位）
@@ -4193,7 +4160,6 @@ public class A02_BinarySearchDemo1 {
 代码跟二分查找类似，只要修改一下mid的计算方式即可。
 
 
-
 ## 4. 斐波那契查找
 
 在介绍斐波那契查找算法之前，我们先介绍一下很它紧密相连并且大家都熟知的一个概念——黄金分割。
@@ -4338,7 +4304,6 @@ public class A03_BlockSearchDemo {
         System.out.println(index);
 
 
-
     }
 
     //利用分块查找的原理，查询number的索引
@@ -4380,7 +4345,6 @@ public class A03_BlockSearchDemo {
         }
         return -1;
     }
-
 
 
 }
@@ -4498,7 +4462,6 @@ class Block{
  ![](file:///D:/Java/data/JavaSE/09-常用API/20180226113852869.png) 
 
 
-
 　　基于二叉查找树进行优化，进而可以得到其他的树表查找算法，如平衡树、红黑树等高效算法。
 
 具体细节大家可以参见B站阿玮讲解课程：从入门到起飞。在集合章节详细讲解了树数据结构。全程采取动画形式讲解，让大家一目了然。
@@ -4506,11 +4469,6 @@ class Block{
 在此不多做阐述。
 
 ​	不管是二叉查找树，还是平衡二叉树，还是红黑树，查找的性能都比较高
-
-
-
-
-
 
 
 # 十大排序算法：
@@ -4572,8 +4530,6 @@ public class A01_BubbleDemo {
         printArr(arr);
 
 
-
-
     }
 
     private static void printArr(int[] arr) {
@@ -4585,7 +4541,6 @@ public class A01_BubbleDemo {
     }
 }
 ```
-
 
 
 ## 2. 选择排序
@@ -4668,7 +4623,6 @@ public class A02_SelectionDemo {
 ```
 
 
-
 ## 3. 插入排序
 
 插入排序的代码实现虽然没有冒泡排序和选择排序那么简单粗暴，但它的原理应该是最容易理解的了，因为只要打过扑克牌的人都应该能够秒懂。插入排序是一种最简单直观的排序算法，它的工作原理是通过创建有序序列和无序序列，然后再遍历无序序列得到里面每一个数字，把每一个数字插入到有序序列中正确的位置。
@@ -4741,9 +4695,6 @@ public class A03_InsertDemo {
 }
 
 ```
-
-
-
 
 
 ## 4. 快速排序 
@@ -4833,7 +4784,6 @@ public class A05_QuickSortDemo {
         }
 
 
-
         //记录基准数
         int baseNumber = arr[i];
         //利用循环找到要交换的数字
@@ -4854,7 +4804,6 @@ public class A05_QuickSortDemo {
                 }
                 start++;
             }
-
 
 
             //把end和start指向的元素进行交换
@@ -4879,7 +4828,6 @@ public class A05_QuickSortDemo {
     }
 }
  ```
-
 
 
 其他排序方式待更新~

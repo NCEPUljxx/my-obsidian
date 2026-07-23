@@ -2554,11 +2554,9 @@ show create view stu_v_1;
 ```
 
 
-
 ```sql
 select * from stu_v_1;
 ```
-
 
 
 ```sql
@@ -2573,11 +2571,9 @@ create or replace view stu_v_1 as select id,name,no from student where id <= 10;
 ```
 
 
-
 ```sql
 alter view stu_v_1 as select id,name from student where id <= 10;
 ```
-
 
 
 -- 删除视图
@@ -2587,7 +2583,6 @@ drop view if exists stu_v_1;
 ```
 
 
-
 -- ----------------------------------------------------------------------------------------
 
 ```sql
@@ -2595,17 +2590,14 @@ create or replace view stu_v_1 as select id,name from student where id <= 10 wit
 ```
 
 
-
 ```sql
 select * from stu_v_1;
 ```
 
 
-
 ```sql
 insert into stu_v_1 values(6,'Tom');
 ```
-
 
 
 ```sql
@@ -2620,11 +2612,9 @@ create or replace view stu_v_1 as select id,name from student where id <= 15 ;
 ```
 
 
-
 ```sql
 insert into stu_v_1 values(5,'Tom');
 ```
-
 
 
 ```sql
@@ -2637,11 +2627,9 @@ create or replace view stu_v_2 as select id,name from stu_v_1 where id >= 10 wit
 ```
 
 
-
 ```sql
 insert into stu_v_2 values(13,'Tom');
 ```
-
 
 
 ```sql
@@ -2654,11 +2642,9 @@ create or replace view stu_v_3 as select id,name from stu_v_2 where id < 20 ;
 ```
 
 
-
 ```sql
 insert into stu_v_3 values(14,'Tom');
 ```
-
 
 
 -- local
@@ -2668,11 +2654,9 @@ create or replace view stu_v_4 as select id,name from student where id <= 15 wit
 ```
 
 
-
 ```sql
 insert into stu_v_4 values(5,'Tom');
 ```
-
 
 
 ```sql
@@ -2685,11 +2669,9 @@ create or replace view stu_v_5 as select id,name from stu_v_4 where id >= 10 wit
 ```
 
 
-
 ```sql
 insert into stu_v_5 values(13,'Tom');
 ```
-
 
 
 ```sql
@@ -2697,17 +2679,14 @@ insert into stu_v_5 values(17,'Tom');
 ```
 
 
-
 ```sql
 insert into stu_v_5 values(18,'Tom');
 ```
 
 
-
 ```sql
 create or replace view stu_v_6 as select id,name from stu_v_5 where id < 20 ;
 ```
-
 
 
 ```sql
@@ -2722,11 +2701,9 @@ create view stu_v_count as select count(*) from student;
 ```
 
 
-
 ```sql
 insert into stu_v_count values(10);
 ```
-
 
 
 -- 案例 :
@@ -2735,7 +2712,6 @@ insert into stu_v_count values(10);
 ```sql
 create view tb_user_view as select id,name,profession,age,gender,status,createtime from tb_user;
 ```
-
 
 
 ```sql
@@ -2749,7 +2725,6 @@ select * from tb_user_view;
 ```sql
 create view tb_stu_course_view as select s.name student_name , s.no student_no , c.name course_name from student s, student_course sc , course c where s.id = sc.studentid and sc.courseid = c.id;
 ```
-
 
 
 ```sql
@@ -2784,7 +2759,6 @@ select * from information_schema.ROUTINES where ROUTINE_SCHEMA = 'itcast';
 ```
 
 
-
 ```sql
 show create procedure p1;
 ```
@@ -2805,19 +2779,16 @@ show session variables ;
 ```
 
 
-
 ```sql
 show session variables like 'auto%';
 show global variables like 'auto%';
 ```
 
 
-
 ```sql
 select @@global.autocommit;
 select @@session.autocommit;
 ```
-
 
 
 -- 设置系统变量
@@ -2835,7 +2806,6 @@ set global autocommit  = 0;
 ```sql
 select @@global.autocommit;
 ```
-
 
 
 -- 变量: 用户变量
@@ -2858,17 +2828,14 @@ select @myname,@myage,@mygender,@myhobby;
 ```
 
 
-
 ```sql
 select @mycolor , @mycount;
 ```
 
 
-
 ```sql
 select @abc;
 ```
-
 
 
 -- 变量: 局部变量
@@ -3261,11 +3228,9 @@ begin
 end;
 
 
-
 ```sql
 select fun1(50);
 ```
-
 
 
 -- 触发器
@@ -3347,11 +3312,9 @@ show triggers ;
 ```
 
 
-
 ```sql
 update tb_user set profession = '会计' where id = 23;
 ```
-
 
 
 ```sql
@@ -3409,11 +3372,9 @@ VALUES (25,'二皇子','18809091212','erhuangzi@163.com','软件工程',23,'1','
 ```
 
 
-
 ```sql
 update tb_user set age = 32 where id = 23;
 ```
-
 
 
 ```sql
@@ -3474,7 +3435,6 @@ load data local infile '/root/sql/tb_sku1.sql' into table `tb_sku` fields termin
 	由于1000w的数据量较大 , 如果直接加载1000w , 会非常耗费CPU及内存 ; 
 	
 	已经拆分为5个部分 , 每一个部分为200w数据 , load 5次即可 ;
-
 
 
 ---

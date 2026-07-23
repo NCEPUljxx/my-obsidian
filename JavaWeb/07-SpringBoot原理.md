@@ -5,13 +5,11 @@
 在前面十多天的课程当中，我们学习的都是web开发的技术使用，都是面向应用层面的，我们学会了怎么样去用。而我们今天所要学习的是web后端开发的最后一个篇章springboot原理篇，主要偏向于底层原理。
 
 
-
 我们今天的课程安排包括这么三个部分：
 
 1. 配置优先级：Springboot项目当中属性配置的常见方式以及配置的优先级
 2. Bean的管理
 3. 剖析Springboot的底层原理
-
 
 
 ## 1. 配置优先级
@@ -45,7 +43,6 @@ server:
 ~~~
 
 
-
 我们启动SpringBoot程序，测试下三个配置文件中哪个Tomcat端口号生效：
 
 - properties、yaml、yml三种配置文件同时存在
@@ -53,7 +50,6 @@ server:
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230113144757856.png)
 
 > properties、yaml、yml三种配置文件，优先级最高的是properties
-
 
 
 - yaml、yml两种配置文件同时存在
@@ -67,7 +63,6 @@ server:
 > 3. yaml配置文件
 
 注意事项：虽然springboot支持多种格式配置文件，但是在项目开发时，推荐统一使用一种格式的配置。（yml是主流）
-
 
 
 在SpringBoot项目当中除了以上3种配置文件外，SpringBoot为了增强程序的扩展性，除了支持配置文件的配置方式以外，还支持另外两种常见的配置方式：
@@ -85,7 +80,6 @@ server:
    ~~~
 
 
-
 那在idea当中运行程序时，如何来指定Java系统属性和命令行参数呢？
 
 - 编辑启动程序的配置信息
@@ -99,13 +93,11 @@ server:
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230113165006550.png)
 
 
-
 删除命令行参数配置，重启SpringBoot服务：
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230113170841253.png)
 
 > 优先级： 命令行参数 >  系统属性参数 > properties参数 > yml参数 > yaml参数
-
 
 
 思考：如果项目已经打包上线了，这个时候我们又如何来设置Java系统属性和命令行参数呢？
@@ -118,7 +110,6 @@ java -Dserver.port=9000 -jar XXXXX.jar --server.port=10010
 
 1. 执行maven打包指令package，把项目打成jar文件
 2. 使用命令：java -jar 方式运行jar文件程序
-
 
 
 项目打包：
@@ -142,7 +133,6 @@ java -Dserver.port=9000 -jar XXXXX.jar --server.port=10010
 > - Springboot项目进行打包时，需要引入插件 spring-boot-maven-plugin (基于官网骨架创建项目，会自动添加该插件)
 
 
-
 在SpringBoot项目当中，常见的属性配置方式有5种， 3种配置文件，加上2种外部属性的配置(Java系统属性、命令行参数)。通过以上的测试，我们也得出了优先级(从低到高)：
 
 - application.yaml（忽略）
@@ -150,9 +140,6 @@ java -Dserver.port=9000 -jar XXXXX.jar --server.port=10010
 - application.properties
 - java系统属性（-Dxxx=xxx）
 - 命令行参数（--xxx=xxx）
-
-
-
 
 
 ## 2. Bean管理
@@ -164,7 +151,6 @@ java -Dserver.port=9000 -jar XXXXX.jar --server.port=10010
 1. 如何从IOC容器中手动的获取到bean对象
 2. bean的作用域配置
 3. 管理第三方的bean对象
-
 
 
 接下来我们先来学习第一方面，从IOC容器中获取bean对象。
@@ -192,7 +178,6 @@ java -Dserver.port=9000 -jar XXXXX.jar --server.port=10010
    ~~~java
    <T> T getBean(String name, Class<T> requiredType)
    ~~~
-
 
 
 思考：要从IOC容器当中来获取到bean对象，需要先拿到IOC容器对象，怎么样才能拿到IOC容器呢？
@@ -283,7 +268,6 @@ public interface DeptMapper {
 ~~~
 
 
-
 测试类：
 
 ~~~java
@@ -330,7 +314,6 @@ class SpringbootWebConfig2ApplicationTests {
 - 上述所说的 【Spring项目启动时，会把其中的bean都创建好】还会受到作用域及延迟初始化影响，这里主要针对于默认的单例非延迟加载的bean而言。
 
 
-
 ### 2.2 Bean作用域
 
 在前面我们提到的IOC容器当中，默认bean对象是单例模式(只有一个实例对象)。那么如何设置bean对象为非单例呢？需要设置bean的作用域。
@@ -350,9 +333,6 @@ class SpringbootWebConfig2ApplicationTests {
 - 可以借助Spring中的@Scope注解来进行配置作用域
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230113214244144.png)
-
-
-
 
 
 **1). 测试一**
@@ -408,9 +388,6 @@ class SpringbootWebConfig2ApplicationTests {
 > - 默认singleton的bean，在容器启动时被创建，可以使用@Lazy注解来延迟初始化(延迟到第一次使用时)
 
 
-
-
-
 **2). 测试二**
 
 修改控制器DeptController代码：
@@ -443,14 +420,12 @@ public class DeptController {
 > - 实际开发当中，绝大部分的Bean是单例的，也就是说绝大部分Bean不需要配置scope属性
 
 
-
 ### 2.3 第三方Bean
 
 学习完bean的获取、bean的作用域之后，接下来我们再来学习第三方bean的配置。
 
 之前我们所配置的bean，像controller、service，dao三层体系下编写的类，这些类都是我们在项目当中自己定义的类(自定义类)。当我们要声明这些bean，也非常简单，我们只需要在类上加上@Component以及它的这三个衍生注解（@Controller、@Service、@Repository），就可以来声明这个bean对象了。
 但是在我们项目开发当中，还有一种情况就是这个类它不是我们自己编写的，而是我们引入的第三方依赖当中提供的。
-
 
 
 在pom.xml文件中，引入dom4j：
@@ -467,7 +442,6 @@ public class DeptController {
 > dom4j就是第三方组织提供的。 dom4j中的SAXReader类就是第三方编写的。
 
 
-
 当我们需要使用到SAXReader对象时，直接进行依赖注入是不是就可以了呢？
 
 - 按照我们之前的做法，需要在SAXReader类上添加一个注解@Component（将当前类交给IOC容器管理）
@@ -475,7 +449,6 @@ public class DeptController {
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114003903285.png)
 
 > 结论：第三方提供的类是只读的。无法在第三方类上添加@Component注解或衍生注解。
-
 
 
 那么我们应该怎样使用并定义第三方的bean呢？
@@ -548,7 +521,6 @@ Tom : 18
 > **说明：以上在启动类中声明第三方Bean的作法，不建议使用（项目中要保证启动类的纯粹性）**
 
 
-
 **解决方案2：在配置类中定义@Bean标识的方法**
 
 - 如果需要定义第三方Bean时， 通常会单独定义一个配置类
@@ -578,7 +550,6 @@ Tom : 18
 在方法上加上一个@Bean注解，Spring 容器在启动的时候，它会自动的调用这个方法，并将方法的返回值声明为Spring容器当中的Bean对象。
 
 
-
 > 注意事项 ：
 >
 > - 通过@Bean注解的name或value属性可以声明bean的名称，如果不指定，默认bean的名称就是方法名。
@@ -586,16 +557,10 @@ Tom : 18
 > - 如果第三方bean需要依赖其它bean对象，直接在bean定义方法中设置形参即可，容器会根据类型自动装配。
 
 
-
 关于Bean大家只需要保持一个原则：
 
 - 如果是在项目当中我们自己定义的类，想将这些类交给IOC容器管理，我们直接使用@Component以及它的衍生注解来声明就可以。
 - 如果这个类它不是我们自己定义的，而是引入的第三方依赖当中提供的类，而且我们还想将这个类交给IOC容器管理。此时我们就需要在配置类中定义一个方法，在方法上加上一个@Bean注解，通过这种方式来声明第三方的bean对象。
-
-
-
-
-
 
 
 ## 3. SpringBoot原理
@@ -605,13 +570,11 @@ Tom : 18
 SpringBoot使我们能够集中精力地去关注业务功能的开发，而不用过多地关注框架本身的配置使用。而我们前面所讲解的都是面向应用层面的技术，接下来我们开始学习SpringBoot的原理，这部分内容偏向于底层的原理分析。
 
 
-
 在剖析SpringBoot的原理之前，我们先来快速回顾一下我们前面所讲解的Spring家族的框架。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114171304644.png)
 
 Spring是目前世界上最流行的Java框架，它可以帮助我们更加快速、更加容易的来构建Java项目。而在Spring家族当中提供了很多优秀的框架，而所有的框架都是基于一个基础框架的SpringFramework(也就是Spring框架)。而前面我们也提到，如果我们直接基于Spring框架进行项目的开发，会比较繁琐。
-
 
 
 这个繁琐主要体现在两个地方：
@@ -634,9 +597,7 @@ SpringBoot框架之所以使用起来更简单更快捷，是因为SpringBoot框
 > 通过自动配置的功能就可以大大的简化框架在使用时bean的声明以及bean的配置。我们只需要引入程序开发时所需要的起步依赖，项目开发时所用到常见的配置都已经有了，我们直接使用就可以了。
 
 
-
 简单回顾之后，接下来我们来学习下SpringBoot的原理。其实学习SpringBoot的原理就是来解析SpringBoot当中的起步依赖与自动配置的原理。我们首先来学习SpringBoot当中起步依赖的原理。
-
 
 
 ### 3.1 起步依赖
@@ -656,7 +617,6 @@ SpringBoot框架之所以使用起来更简单更快捷，是因为SpringBoot框
 > 项目中所引入的这些依赖，还需要保证版本匹配，否则就可能会出现版本冲突问题。
 
 
-
 如果我们使用了SpringBoot，就不需要像上面这么繁琐的引入依赖了。我们只需要引入一个依赖就可以了，那就是web开发的起步依赖：springboot-starter-web。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114174805852.png)
@@ -670,9 +630,6 @@ SpringBoot框架之所以使用起来更简单更快捷，是因为SpringBoot框
 > - 比如：springboot-starter-web，这是web开发的起步依赖，在web开发的起步依赖当中，就集成了web开发中常见的依赖：json、web、webmvc、tomcat等。我们只需要引入这一个起步依赖，其他的依赖都会自动的通过Maven的依赖传递进来。
 
 **结论：起步依赖的原理就是Maven的依赖传递。**
-
-
-
 
 
 ### 3.2 自动配置
@@ -704,7 +661,6 @@ SpringBoot的自动配置就是当Spring容器启动后，一些配置类、bean
 > 所以配置类最终也是SpringIOC容器当中的一个bean对象
 
 
-
 在IOC容器中除了我们自己定义的bean以外，还有很多配置类，这些配置类都是SpringBoot在启动的时候加载进来的配置类。这些配置类加载进来之后，它也会生成很多的bean对象。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114221341811.png)
@@ -712,7 +668,6 @@ SpringBoot的自动配置就是当Spring容器启动后，一些配置类、bean
 > 比如：配置类GsonAutoConfiguration里面有一个bean，bean的名字叫gson，它的类型是Gson。 
 >
 > com.google.gson.Gson是谷歌包中提供的用来处理JSON格式数据的。
-
 
 
 当我们想要使用这些配置类中生成的bean对象时，可以使用@Autowired就自动注入了：
@@ -744,15 +699,12 @@ public class AutoConfigurationTests {
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114222245520.png)
 
 
-
 问题：在当前项目中我们并没有声明谷歌提供的Gson这么一个bean对象，然后我们却可以通过@Autowired从Spring容器中注入bean对象，那么这个bean对象怎么来的？
 
 答案：SpringBoot项目在启动时通过自动配置完成了bean对象的创建。
 
 
-
 体验了SpringBoot的自动配置了，下面我们就来分析自动配置的原理。其实分析自动配置原理就是来解析在SpringBoot项目中，在引入依赖之后是如何将依赖jar包当中所定义的配置类以及bean加载到SpringIOC容器中的。
-
 
 
 #### 3.2.2 常见方案
@@ -762,7 +714,6 @@ public class AutoConfigurationTests {
 我们知道了什么是自动配置之后，接下来我们就要来剖析自动配置的原理。解析自动配置的原理就是分析在 SpringBoot项目当中，我们引入对应的依赖之后，是如何将依赖jar包当中所提供的bean以及配置类直接加载到当前项目的SpringIOC容器当中的。
 
 接下来，我们就直接通过代码来分析自动配置原理。
-
 
 
 > 准备工作：在Idea中导入"资料\03. 自动配置原理"下的itheima-utils工程
@@ -779,7 +730,6 @@ public class TokenParser {
     }
 }
 ~~~
-
 
 
 2、在测试类中，添加测试方法
@@ -802,7 +752,6 @@ public class AutoConfigurationTests {
 ~~~
 
 
-
 3、执行测试方法
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114225018255.png)
@@ -812,7 +761,6 @@ public class AutoConfigurationTests {
 > 说明：在Spring容器中没有找到com.example.TokenParse类型的bean对象
 
 
-
 思考：引入进来的第三方依赖当中的bean以及配置类为什么没有生效？
 
 - 原因在我们之前讲解IOC的时候有提到过，在类上添加@Component注解来声明bean对象时，还需要保证@Component注解能被Spring的组件扫描到。
@@ -820,12 +768,10 @@ public class AutoConfigurationTests {
 - 当前包：com.itheima， 第三方依赖中提供的包：com.example（扫描不到）
 
 
-
 那么如何解决以上问题的呢？
 
 - 方案1：@ComponentScan 组件扫描
 - 方案2：@Import 导入（使用@Import导入的类会被Spring加载到IOC容器中）
-
 
 
 ##### 3.2.2.2 方案一
@@ -857,7 +803,6 @@ public class SpringbootWebConfig2Application {
 > **结论：SpringBoot中并没有采用以上这种方案。**
 
 
-
 ##### 3.2.2.3 方案二
 
 @Import导入
@@ -866,7 +811,6 @@ public class SpringbootWebConfig2Application {
   1. 导入普通类
   2. 导入配置类
   3. 导入ImportSelector接口实现类
-
 
 
 1). 使用@Import导入普通类：
@@ -884,7 +828,6 @@ public class SpringbootWebConfig2Application {
 > 重新执行测试方法，控制台日志输出：
 >
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114231709392.png)
-
 
 
 2). 使用@Import导入配置类：
@@ -945,7 +888,6 @@ public class AutoConfigurationTests {
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114233252259.png)
 
 
-
 3). 使用@Import导入ImportSelector接口实现类：
 
 - ImportSelector接口实现类
@@ -978,7 +920,6 @@ public class SpringbootWebConfig2Application {
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114234222946.png)
 
 
-
 我们使用@Import注解通过这三种方式都可以导入第三方依赖中所提供的bean或者是配置类。
 
 思考：如果基于以上方式完成自动配置，当要引入一个第三方依赖时，是不是还要知道第三方依赖中有哪些配置类和哪些Bean对象？
@@ -986,15 +927,12 @@ public class SpringbootWebConfig2Application {
 - 答案：是的。 （对程序员来讲，很不友好，而且比较繁琐）
 
 
-
 思考：当我们要使用第三方依赖，依赖中到底有哪些bean和配置类，谁最清楚？
 
 - 答案：第三方依赖自身最清楚。
 
 
-
 > **结论：我们不用自己指定要导入哪些bean对象和配置类了，让第三方依赖它自己来指定。**
-
 
 
 怎么让第三方依赖自己指定bean对象和配置类？
@@ -1035,7 +973,6 @@ public class SpringbootWebConfig2Application {
 以上四种方式都可以完成导入操作，但是第4种方式会更方便更优雅，而这种方式也是SpringBoot当中所采用的方式。
 
 
-
 #### 3.2.3 原理分析
 
 ##### 3.2.3.1 源码跟踪
@@ -1047,11 +984,9 @@ public class SpringbootWebConfig2Application {
 > 在跟踪框架源码的时候，一定要抓住关键点，找到核心流程。一定不要从头到尾一行代码去看，一个方法的去研究，一定要找到关键流程，抓住关键点，先在宏观上对整个流程或者整个原理有一个认识，有精力再去研究其中的细节。
 
 
-
 要搞清楚SpringBoot的自动配置原理，要从SpringBoot启动类上使用的核心注解@SpringBootApplication开始分析：
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115001439110.png)
-
 
 
 在@SpringBootApplication注解中包含了：
@@ -1060,7 +995,6 @@ public class SpringbootWebConfig2Application {
 - @SpringBootConfiguration
 - @EnableAutoConfiguration
 - @ComponentScan
-
 
 
 我们先来看第一个注解：@SpringBootConfiguration
@@ -1072,7 +1006,6 @@ public class SpringbootWebConfig2Application {
 > @Indexed注解，是用来加速应用启动的（不用关心）。
 
 
-
 接下来再先看@ComponentScan注解：
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115002450993.png)
@@ -1082,11 +1015,9 @@ public class SpringbootWebConfig2Application {
 > SpringBoot启动类，之所以具备扫描包功能，就是因为包含了@ComponentScan注解。
 
 
-
 最后我们来看看@EnableAutoConfiguration注解（自动配置核心注解）：
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115002743115.png)
-
 
 
 > 使用@Import注解，导入了实现ImportSelector接口的实现类。
@@ -1112,7 +1043,6 @@ AutoConfigurationImportSelector类中重写了ImportSelector接口的selectImpor
 > 获取所有基于META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports文件、META-INF/spring.factories文件中配置类的集合
 
 
-
 META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports文件和META-INF/spring.factories文件这两个文件在哪里呢？
 
 - 通常在引入的起步依赖中，都有包含以上两个文件
@@ -1122,13 +1052,11 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115064329460.png)
 
 
-
 在前面在给大家演示自动配置的时候，我们直接在测试类当中注入了一个叫gson的bean对象，进行JSON格式转换。虽然我们没有配置bean对象，但是我们是可以直接注入使用的。原因就是因为在自动配置类当中做了自动配置。到底是在哪个自动配置类当中做的自动配置呢？我们通过搜索来查询一下。
 
 在META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports配置文件中指定了第三方依赖Gson的配置类：GsonAutoConfiguration
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115005159530.png)
-
 
 
 第三方依赖中提供的GsonAutoConfiguration类：
@@ -1140,9 +1068,6 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115065247287.png)
 
 看到这里，大家就应该明白为什么可以完成自动配置了，原理就是在配置类中定义一个@Bean标识的方法，而Spring会自动调用配置类中使用@Bean标识的方法，并把方法的返回值注册到IOC容器中。
-
-
-
 
 
 **自动配置源码小结**
@@ -1158,17 +1083,12 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
     - 在实现类重写的selectImports()方法，读取当前项目下所有依赖jar包中META-INF/spring.factories、META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports两个文件里面定义的配置类（配置类中定义了@Bean注解标识的方法）。
 
 
-
 当SpringBoot程序启动时，就会加载配置文件当中所定义的配置类，并将这些配置类信息(类的全限定名)封装到String类型的数组中，最终通过@Import注解将这些配置类全部加载到Spring的IOC容器中，交给IOC容器管理。
-
 
 
 > 最后呢给大家抛出一个问题：在META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports文件中定义的配置类非常多，而且每个配置类中又可以定义很多的bean，那这些bean都会注册到Spring的IOC容器中吗？
 >
 > 答案：并不是。 在声明bean对象时，上面有加一个以@Conditional开头的注解，这种注解的作用就是按照条件进行装配，只有满足条件之后，才会将bean注册到Spring的IOC容器中（下面会详细来讲解）
-
-
-
 
 
 ##### 3.2.3.2 @Conditional
@@ -1183,7 +1103,6 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
   - @ConditionalOnClass：判断环境中有对应字节码文件，才注册bean到IOC容器。
   - @ConditionalOnMissingBean：判断环境中没有对应的bean(类型或名称)，才注册bean到IOC容器。
   - @ConditionalOnProperty：判断配置文件中有对应属性和值，才注册bean到IOC容器。
-
 
 
 下面我们通过代码来演示下Conditional注解的使用：
@@ -1239,7 +1158,6 @@ public class AutoConfigurationTests {
 > 因为io.jsonwebtoken.Jwts字节码文件在启动SpringBoot程序时已存在，所以创建HeaderParser对象并注册到IOC容器中。
 
 
-
 - @ConditionalOnMissingBean注解
 
 ~~~java
@@ -1263,7 +1181,6 @@ public class HeaderConfig {
 > SpringBoot在调用@Bean标识的headerParser()前，IOC容器中是没有HeaderParser类型的bean，所以HeaderParser对象正常创建，并注册到IOC容器中。
 
 
-
 再次修改@ConditionalOnMissingBean注解：
 
 ~~~java
@@ -1285,7 +1202,6 @@ public class HeaderConfig {
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115211351681.png)
 >
 > 因为在SpringBoot环境中不存在名字叫deptController2的bean对象，所以创建HeaderParser对象并注册到IOC容器中。
-
 
 
 再次修改@ConditionalOnMissingBean注解：
@@ -1328,7 +1244,6 @@ public class AutoConfigurationTests {
 > 当IOC容器中有HeaderConfig类型的bean存在时，不会把创建HeaderParser对象注册到IOC容器中。而IOC容器中没有HeaderParser类型的对象时，通过getBean(HeaderParser.class)方法获取bean对象时，引发异常：NoSuchBeanDefinitionException
 
 
-
 - @ConditionalOnProperty注解（这个注解和配置文件当中配置的属性有关系）
 
 先在application.yml配置文件中添加如下的键值对：
@@ -1361,9 +1276,6 @@ public class HeaderConfig {
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115220235511.png)
 
 
-
-
-
 修改@ConditionalOnProperty注解：  havingValue的值修改为"itheima2"
 
 ~~~java
@@ -1381,13 +1293,9 @@ public HeaderParser headerParser(){
 > 因为application.yml配置文件中，不存在： name:  itheima2，所以HeaderParser对象在IOC容器中不存在
 
 
-
-
-
 我们再回头看看之前讲解SpringBoot源码时提到的一个配置类：GsonAutoConfiguration
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115222128740.png)
-
 
 
 最后再给大家梳理一下自动配置原理：
@@ -1415,9 +1323,6 @@ public HeaderParser headerParser(){
 > - 而前面我们也提到过这些所有的自动配置类当中，所有的 bean都会加载到 spring 的 IOC 容器当中吗？其实并不会，因为这些配置类当中，在声明 bean 的时候，通常会加上这么一类@Conditional 开头的注解。这个注解就是进行条件装配。所以SpringBoot非常的智能，它会根据 @Conditional 注解来进行条件装配。只有条件成立，它才会声明这个bean，才会将这个 bean 交给 IOC 容器管理。
 
 
-
-
-
 #### 3.2.4 案例
 
 ##### 3.2.4.1 自定义starter分析
@@ -1440,15 +1345,11 @@ public HeaderParser headerParser(){
 > 第三组织提供的starter命名：  xxxx-spring-boot-starter
 
 
-
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115225703863.png)
 
 > Mybatis提供了配置类，并且也提供了springboot会自动读取的配置文件。当SpringBoot项目启动时，会读取到spring.factories配置文件中的配置类并加载配置类，生成相关bean对象注册到IOC容器中。
 >
 > 结果：我们可以直接在SpringBoot程序中使用Mybatis自动配置的bean对象。
-
-
-
 
 
 在自定义一个起步依赖starter的时候，按照规范需要定义两个模块：
@@ -1457,9 +1358,7 @@ public HeaderParser headerParser(){
 2. autoconfigure模块（自动配置）
 
 
-
 > 将来在项目当中进行相关功能开发时，只需要引入一个起步依赖就可以了，因为它会将autoconfigure自动配置的依赖给传递下来。
-
 
 
 上面我们简单介绍了自定义starter的场景，以及自定义starter时涉及到的模块之后，接下来我们就来完成一个自定义starter的案例。
@@ -1467,7 +1366,6 @@ public HeaderParser headerParser(){
 需求：自定义aliyun-oss-spring-boot-starter，完成阿里云OSS操作工具类AliyunOSSUtils的自动配置。
 
 目标：引入起步依赖引入之后，要想使用阿里云OSS，注入AliyunOSSUtils直接使用即可。
-
 
 
 之前阿里云OSS的使用：
@@ -1544,7 +1442,6 @@ public class AliOSSUtils {
 所以这个时候我们就可以制作一个公共组件(自定义starter)。starter定义好之后，将来要使用阿里云OSS进行文件上传，只需要将起步依赖引入进来之后，就可以直接注入AliOSSUtils使用了。
 
 
-
 需求明确了，接下来我们再来分析一下具体的实现步骤：
 
 - 第1步：创建自定义starter模块（进行依赖管理）
@@ -1558,15 +1455,11 @@ public class AliOSSUtils {
 我们分析完自定义阿里云OSS自动配置的操作步骤了，下面我们就按照分析的步骤来实现自定义starter。
 
 
-
-
-
 ##### 3.2.4.2 自定义starter实现
 
 自定义starter的步骤我们刚才已经分析了，接下来我们就按照分析的步骤来完成自定义starter的开发。
 
 首先我们先来创建两个Maven模块：
-
 
 
 1). aliyun-oss-spring-boot-starter模块
@@ -1612,7 +1505,6 @@ public class AliOSSUtils {
 ~~~
 
 
-
 2). aliyun-oss-spring-boot-autoconfigure模块
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116000302319.png)
@@ -1620,11 +1512,9 @@ public class AliOSSUtils {
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230115235921014.png)
 
 
-
 创建完starter模块后，删除多余的文件，最终保留内容如下：
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116000542905.png)
-
 
 
 删除pom.xml文件中多余的内容后：
@@ -1658,7 +1548,6 @@ public class AliOSSUtils {
 
 </project>
 ~~~
-
 
 
 按照我们之前的分析，是需要在starter模块中来引入autoconfigure这个模块的。打开starter模块中的pom文件：
@@ -1701,9 +1590,7 @@ public class AliOSSUtils {
 ~~~
 
 
-
 前两步已经完成了，接下来是最关键的就是第三步：
-
 
 
 在autoconfigure模块当中来完成自动配置操作。
@@ -1711,7 +1598,6 @@ public class AliOSSUtils {
 >  我们将之前案例中所使用的阿里云OSS部分的代码直接拷贝到autoconfigure模块下，然后进行改造就行了。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116001622679.png)
-
 
 
 拷贝过来后，还缺失一些相关的依赖，需要把相关依赖也拷贝过来：
@@ -1782,13 +1668,11 @@ public class AliOSSUtils {
 ~~~
 
 
-
 现在大家思考下，在类上添加的@Component注解还有用吗？
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116002417105.png)
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116002442736.png)
-
 
 
 答案：没用了。  在SpringBoot项目中，并不会去扫描com.aliyun.oss这个包，不扫描这个包那类上的注解也就失去了作用。
@@ -1806,11 +1690,9 @@ public class AliOSSUtils {
 > ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116003046768.png)
 
 
-
 下面我们就要定义一个自动配置类了，在自动配置类当中来声明AliOSSUtils的bean对象。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116003513900.png)
-
 
 
  AliOSSAutoConfiguration类：
@@ -1832,7 +1714,6 @@ public class AliOSSAutoConfiguration {
 ~~~
 
 
-
 AliOSSProperties类：
 
 ~~~java
@@ -1850,7 +1731,6 @@ public class AliOSSProperties {
     private String bucketName;
 }
 ~~~
-
 
 
 AliOSSUtils类：
@@ -1887,7 +1767,6 @@ public class AliOSSUtils {
 ~~~
 
 
-
 在aliyun-oss-spring-boot-autoconfigure模块中的resources下，新建自动配置文件：
 
 - META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
@@ -1897,9 +1776,6 @@ public class AliOSSUtils {
   ~~~
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116004957697.png)
-
-
-
 
 
 ##### 3.2.4.3 自定义starter测试
@@ -1957,7 +1833,6 @@ public class AliOSSUtils {
    ~~~
 
 
-
 编写完代码后，我们启动当前的SpringBoot测试工程：
 
 - 随着SpringBoot项目启动，自动配置会把AliOSSUtils的bean对象装配到IOC容器中
@@ -1973,13 +1848,6 @@ public class AliOSSUtils {
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230116011501201.png)
 
 
-
-
-
-
-
-
-
 ## 4. Web后端开发总结
 
 到此基于SpringBoot进行web后端开发的相关知识我们已经学习完毕了。下面我们一起针对这段web课程做一个总结。
@@ -1993,11 +1861,9 @@ web后端开发现在基本上都是基于标准的三层架构进行开发的�
 > 在三层架构当中，前端发起请求首先会到达Controller(不进行逻辑处理)，然后Controller会直接调用Service 进行逻辑处理， Service再调用Dao完成数据访问操作。
 
 
-
 如果我们在执行具体的业务处理之前，需要去做一些通用的业务处理，比如：我们要进行统一的登录校验，我们要进行统一的字符编码等这些操作时，我们就可以借助于Javaweb当中三大组件之一的过滤器Filter或者是Spring当中提供的拦截器Interceptor来实现。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114191737227.png)
-
 
 
 而为了实现三层架构层与层之间的解耦，我们学习了Spring框架当中的第一大核心：IOC控制反转与DI依赖注入。
@@ -2007,11 +1873,9 @@ web后端开发现在基本上都是基于标准的三层架构进行开发的�
 > 而DI依赖注入指的是容器为程序提供运行时所需要的资源。
 
 
-
 除了IOC与DI我们还讲到了AOP面向切面编程，还有Spring中的事务管理、全局异常处理器，以及传递会话技术Cookie、Session以及新的会话跟踪解决方案JWT令牌，阿里云OSS对象存储服务，以及通过Mybatis持久层架构操作数据库等技术。
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114192921673.png)
-
 
 
 我们在学习这些web后端开发技术的时候，我们都是基于主流的SpringBoot进行整合使用的。而SpringBoot又是用来简化开发，提高开发效率的。像过滤器、拦截器、IOC、DI、AOP、事务管理等这些技术到底是哪个框架提供的核心功能？
@@ -2027,13 +1891,11 @@ web后端开发现在基本上都是基于标准的三层架构进行开发的�
 > Mybatis就是一个持久层的框架，是用来操作数据库的。
 
 
-
 在Spring框架的生态中，对web程序开发提供了很好的支持，如：全局异常处理器、拦截器这些都是Spring框架中web开发模块所提供的功能，而Spring框架的web开发模块，我们也称为：SpringMVC
 
 ![](file:///D:/Java/data/JavaWeb/07-SpringBoot原理/image-20230114195143418.png)
 
 > SpringMVC不是一个单独的框架，它是Spring框架的一部分，是Spring框架中的web开发模块，是用来简化原始的Servlet程序开发的。
-
 
 
 外界俗称的SSM，就是由：SpringMVC、Spring Framework、Mybatis三块组成。

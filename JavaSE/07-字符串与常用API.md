@@ -373,7 +373,6 @@ public class Test6反转字符串 {
         例如，键盘录入 abc，输出结果 cba*/
 
 
-
         //1.定义一个字符串
         Scanner sc = new Scanner(System.in);
         System.out.println("请输入一个字符串");
@@ -650,7 +649,11 @@ public class StringDemo11 {
 }
 ```
 
-## 3.StringBuilder 用于高效拼接字符串，与 [[10-集合框架]] 中的可变参数配合使用很常见。
+## 3.StringBuilder 用于高效拼接字符串，与
+
+[[10-集合框架]]
+中的可变参数配合使用很常见。
+
 
 StringBuilder 可以看成是一个容器，创建之后里面的内容是可变的。
 
@@ -746,7 +749,6 @@ public class StringBuilderDemo6 {
 }
 
 ```
-
 
 
 ### 3.4 练习2：拼接字符串 

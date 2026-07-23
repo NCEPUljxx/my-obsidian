@@ -97,7 +97,6 @@
  ![](file:///D:/Java/data/JavaSE/01-Java基础入门/3.png)
 
 
-
 第四步：找系统变量里面的PATH
 
  ![](file:///D:/Java/data/JavaSE/01-Java基础入门/4.png)
@@ -315,7 +314,6 @@ public class HelloWorld{
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/image-20210923091654365.png)
 
 
-
 以前下载的老版本的JDK是没有自动配置的，而且自动配置的也只包含了4个工具而已，所以我们需要删掉已经配置完毕的，再次重新配置Path环境变量。
 
 ①**JAVA_HOME**：告诉操作系统JDK安装在了哪个位置（未来其他技术要通过这个找JDK）
@@ -325,7 +323,6 @@ public class HelloWorld{
 ②**Path**：告诉操作系统JDK提供的javac(编译)、java(执行)命令安装到了哪个位置
 
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/image-20210923091721035.png)
-
 
 
 #### 1.5.3win10的bug
@@ -445,7 +442,6 @@ JDK（Java Development Kit）称为Java开发工具，包含了JRE和开发工�
 
 
 ---
-
 
 
 ## 1. 注释
@@ -1225,7 +1221,6 @@ public class ScannerDemo1{
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/idea15.png)
 
 
-
 - 最下面会弹出控制台。
 
   所有输出语句中的内容，都会在控制台上展示。
@@ -1386,7 +1381,6 @@ public class ScannerDemo1{
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/修改模块名5.png)
 
 
-
 #### 8.6.5 导入模块
 
 - 点击File，选择Project Structure
@@ -1430,13 +1424,11 @@ public class ScannerDemo1{
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/导入模块8.png)
 
 
-
 - 展开模块点击模块中的Java文件，会发现代码报错。
 
   是因为导入模块跟JDK没有关联导致。
 
 ![](file:///D:/Java/data/JavaSE/01-Java基础入门/导入模块9.png)
-
 
 
 - 可以点击右上角的Setup SDK

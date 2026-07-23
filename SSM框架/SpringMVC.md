@@ -65,7 +65,6 @@ SSM整合是把咱们所学习的SpringMVC+Spring+Mybatis整合在一起来完�
 ![1630427769938](file:///D:/Java/data/SSM/SpringMVC/1630427769938.png)
 
 
-
 * 因为是异步调用，所以后端不需要返回view视图，将其去除
 * 前端如果通过异步调用的方式进行交互，后台就需要将返回的数据转换成json格式进行返回
 * SpringMVC==主要==负责的就是
@@ -244,6 +243,7 @@ public class ServletContainersInitConfig extends AbstractDispatcherServletInitia
 浏览器输入`http://localhost/save`进行访问，会报如下错误:
 
 #### ![1630430401561](file:///D:/Java/data/SSM/SpringMVC/1630430401561.png)
+
 
 页面报错的原因是后台没有指定返回的页面，目前只需要关注控制台看`user save ...`有没有被执行即可。
 
@@ -696,7 +696,6 @@ public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatc
     }
 }
 ```
-
 
 
 ### 知识点1：@ComponentScan
@@ -1741,7 +1740,6 @@ public String dataParam(Date date,
 ![1630495507353](file:///D:/Java/data/SSM/SpringMVC/1630495507353.png)
 
 
-
 #### 知识点1：@DateTimeFormat
 
 | 名称     | @DateTimeFormat                 |
@@ -1943,6 +1941,7 @@ SpringMVC接收到请求和数据后，进行一些了的处理，当然这个�
 
 #### 4.6.2 响应页面[了解]
 
+
 ##### 步骤1:设置返回页面
 
 ```java
@@ -1970,6 +1969,7 @@ public class UserController {
 ![1630497496785](file:///D:/Java/data/SSM/SpringMVC/1630497496785.png)
 
 #### 4.6.3 返回文本数据[了解]
+
 
 ##### 步骤1:设置返回文本内容
 
@@ -3503,7 +3503,6 @@ public class BookServiceImpl implements BookService {
   * 设置错误提示级别
 
     ![](file:///D:/Java/data/SSM/SpringMVC/1630600227357.png)
-
 
 
 #### 步骤5:编写Contorller类
