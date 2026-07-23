@@ -1,0 +1,13 @@
+# Obsidian workspace cache
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian plugin data (local state, may contain sensitive paths)
+.obsidian/plugins/*/data.json
+
+# Trash
+.Trash-*/
+
+# OS
+.DS_Store
+Thumbs.db
