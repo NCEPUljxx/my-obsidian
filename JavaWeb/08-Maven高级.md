@@ -10,7 +10,7 @@ Web开发讲解完毕之后，我们再来学习Maven高级。其实在前面的
 Maven高级内容包括:
 
 - 分模块设计与开发
-- 继承与Maven 聚合工程在 [[05-SpringBootWeb案例与登录认证]] 的大型项目中广泛使用。
+- 继承与Maven 聚合工程在 [[JavaWeb/05-案例与登录/05-案例-员工管理(上)]] 的大型项目中广泛使用。
 - 私服
 
 ---
@@ -1636,4 +1636,4 @@ mvn deploy
 
 ---
 
-> 📎 **相关笔记**：[[03-Maven与SpringBoot入门|Maven 基础]] · [[05-SpringBootWeb案例与登录认证]] · [[SSM框架/SpringBoot]] · [[SSM框架/Spring框架]]
+> 📎 **相关笔记**：[[03-Maven与SpringBoot入门|Maven 基础]] · [[JavaWeb/05-案例与登录/05-案例-员工管理(上)]] · [[SSM框架/SpringBoot]] · [[SSM框架/Spring框架/day01-IOC与DI]]

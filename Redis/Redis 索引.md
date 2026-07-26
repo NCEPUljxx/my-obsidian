@@ -1,14 +1,10 @@
 # Redis 知识体系
 
-> Redis 从入门到原理，四篇覆盖完整知识链路。
-
-| 笔记 | 内容概要 |
-|------|----------|
-| [[Redis-入门篇]] | NoSQL 概念、Redis 安装、5 种数据类型、Jedis/SpringDataRedis 客户端 |
-| [[Redis-实战篇]] | 黑马点评项目：短信登录、商户查询缓存、优惠券秒杀、达人探店、UV 统计 |
-| [[Redis-高级篇]] | 持久化(RDB/AOF)、分布式缓存(主从/哨兵/分片)、多级缓存、最佳实践、集群 |
-| [[Redis-原理篇]] | SDS、IntSet、Dict、ZipList、QuickList、SkipList、RedisObject、网络模型 |
+| [[Redis/Redis-入门篇]] | NoSQL概念、安装、5种数据类型、Jedis/SpringDataRedis |
+| [[Redis/Redis-原理篇]] | SDS/IntSet/Dict/ZipList/SkipList/RedisObject/网络模型 |
+| **实战篇** | 短信登录、商户缓存、优惠券秒杀、消息队列、达人探店、UV统计等12个模块 | [[Redis/实战篇/实战-UV统计|实战-UV统计]] · [[Redis/实战篇/实战-优惠券秒杀|实战-优惠券秒杀]] · [[Redis/实战篇/实战-分布式锁|实战-分布式锁]] · [[Redis/实战篇/实战-分布式锁-redission|实战-分布式锁-redission]] · [[Redis/实战篇/实战-商户查询缓存|实战-商户查询缓存]] · [[Redis/实战篇/实战-好友关注|实战-好友关注]] · [[Redis/实战篇/实战-消息队列|实战-消息队列]] · [[Redis/实战篇/实战-用户签到|实战-用户签到]] · [[Redis/实战篇/实战-短信登录|实战-短信登录]] · [[Redis/实战篇/实战-秒杀优化|实战-秒杀优化]] · [[Redis/实战篇/实战-达人探店|实战-达人探店]] · [[Redis/实战篇/实战-附近商户|实战-附近商户]] |
+| **高级篇** | 分布式缓存(主从/哨兵/分片)、多级缓存、最佳实践、Redis集群 | [[Redis/高级篇/高级-分布式缓存|高级-分布式缓存]] · [[Redis/高级篇/高级-多级缓存|高级-多级缓存]] · [[Redis/高级篇/高级-最佳实践|高级-最佳实践]] · [[Redis/高级篇/高级-集群|高级-集群]] |
 
 ---
 
-> 📎 [[MySQL/MySQL-运维篇|MySQL 运维]] · [[JavaWeb/05-SpringBootWeb案例与登录认证|JavaWeb 案例]] · [[SSM框架/SpringBoot|SpringBoot]]
+> 📎 [[JavaSE/JavaSE 索引|JavaSE]] · [[JavaWeb/JavaWeb 索引|JavaWeb]] · [[MySQL/MySQL 索引|MySQL]] · [[SSM框架/SSM框架 索引|SSM框架]]

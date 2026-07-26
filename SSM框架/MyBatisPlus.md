@@ -2705,4 +2705,4 @@ class Mybatisplus04GeneratorApplicationTests {
 
 ---
 
-> 📎 **相关笔记**：[[Spring框架]] · [[SpringBoot]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]
+> 📎 **相关笔记**：[[SSM框架/Spring框架/day01-IOC与DI]] · [[SpringBoot]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]

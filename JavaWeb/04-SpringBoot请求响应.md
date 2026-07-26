@@ -9,7 +9,7 @@
 
 ![](file:///D:/Java/data/JavaWeb/04-SpringBoot请求响应/image-20220826161735076.png)
 
-其实呢，是我们在浏览器发起请求，请求了我们的后端web服务器(也就是内置的Tomcat)。而我们在开发web程序时呢，定义了一个控制器类Controller，请求会被部署在Tomcat中的Controller接收，然后Controller再给浏览器一个响应，响应一个字符串 “Hello World”。 而在请求响应的过程中是遵循HTTP 协议是 [[01-Web前端基础]] 前后端通信的基石。协议的。
+其实呢，是我们在浏览器发起请求，请求了我们的后端web服务器(也就是内置的Tomcat)。而我们在开发web程序时呢，定义了一个控制器类Controller，请求会被部署在Tomcat中的Controller接收，然后Controller再给浏览器一个响应，响应一个字符串 “Hello World”。 而在请求响应的过程中是遵循HTTP 协议是 [[JavaWeb/01-Web前端/01-HTML与CSS]] 前后端通信的基石。协议的。
 
 但是呢，这里要告诉大家的时，其实在Tomcat这类Web服务器中，是不识别我们自己定义的Controller的。但是我们前面讲到过Tomcat是一个Servlet容器，是支持Serlvet规范的，所以呢，在tomcat中是可以识别 Servlet程序的。 那我们所编写的XxxController 是如何处理请求的，又与Servlet之间有什么联系呢？
 
@@ -1669,4 +1669,4 @@ public class EmpDaoA implements EmpDao {
 
 ---
 
-> 📎 **相关笔记**：[[03-Maven与SpringBoot入门]] · [[05-SpringBootWeb案例与登录认证]]
+> 📎 **相关笔记**：[[03-Maven与SpringBoot入门]] · [[JavaWeb/05-案例与登录/05-案例-员工管理(上)]]

@@ -2913,4 +2913,4 @@ switchType
 ---
 
 
-> 📎 **相关笔记**：[[MySQL-基础篇]] · [[MySQL-进阶篇]] · [[MySQL 索引]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]
+> 📎 **相关笔记**：[[MySQL-基础篇]] · [[MySQL/进阶篇/01-存储引擎]] · [[MySQL 索引]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]

@@ -605,7 +605,7 @@ createtime  datetime
 ## 6. 身份证号（二代身份证号均为18位，身份证中有X这样的字符）
 
 
-## 7. 入职时间（取值年月日即可）
+## 3. 入职时间（取值年月日即可）
 
 
 对应的建表语句如下 :
@@ -2020,7 +2020,7 @@ revoke all on itcast.* from 'heima '@ '% ';
 ```
 
 
-## 3. 函数
+## 4. 函数
 
 
 函数  是指一段可以直接被另一段程序调用的程序或代码。   也就意味着，这一段程序或代码在MySQL中已经给我们提供了，我们要做的就是在合适的业务场景调用对应的函数完成对应的业务需求即可。    那么，函数到底在哪儿使用呢？
@@ -2343,7 +2343,7 @@ MySQL的常见函数我们学习完了，那接下来，我们就来分析一下
 答案 : case ... when ...
 
 
-## 4. 约束
+## 6. 约束
 
 
 ### 4.1 概述
@@ -2610,7 +2610,7 @@ alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references d
 这就是SET NULL这种删除/更新行为的效果。
 
 
-## 5. 多表查询
+## 7. 多表查询
 
 
 我们之前在讲解SQL语句的时候，讲解了DQL语句，也就是数据查询语句，但是之前讲解的查询都是单表查询，而本章节我们要学习的则是多表查询操作，主要从以下几个方面进行讲解。
@@ -3676,7 +3676,7 @@ select s.name , s.no , c.name from student s , student_course sc , course c wher
 备注 : 以上需求的实现方式可能会很多 , SQL写法也有很多，只要能满足我们的需求，查询出符合条件的记录即可。
 
 
-## 6. 事务
+## 8. 事务
 
 
 ### 6.1 事务简介
@@ -3924,4 +3924,4 @@ SET  [ SESSION | GLOBAL ]  TRANSACTION  ISOLATION  LEVEL  { READ UNCOMMITTED |RE
 ---
 
 
-> 📎 **相关笔记**：[[MySQL-进阶篇]] · [[MySQL-运维篇]] · [[MySQL 索引]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]
+> 📎 **相关笔记**：[[MySQL/进阶篇/01-存储引擎]] · [[MySQL-运维篇]] · [[MySQL 索引]] · [[JavaWeb/02-数据库与持久层|JavaWeb 持久层]]

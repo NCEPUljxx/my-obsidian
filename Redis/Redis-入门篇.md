@@ -2891,4 +2891,4 @@ select 0
 
 ---
 
-> 📎 **相关笔记**：[[Redis 索引]] · [[Redis-实战篇]] · [[Redis-高级篇]] · [[Redis-原理篇]] · [[JavaWeb/05-SpringBootWeb案例与登录认证|JavaWeb]] · [[MySQL/MySQL-基础篇|MySQL]]
+> 📎 **相关笔记**：[[Redis 索引]] · [[Redis/实战篇/实战-短信登录]] · [[Redis/高级篇/高级-分布式缓存]] · [[Redis-原理篇]] · [[JavaWeb/05-案例与登录/05-案例-员工管理(上)|JavaWeb]] · [[MySQL/MySQL-基础篇|MySQL]]
