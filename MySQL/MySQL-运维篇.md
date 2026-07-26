@@ -83,14 +83,12 @@ show variables like '%binlog_format% ';
 由于日志是以二进制方式存储的，不能直接读取，需要通过二进制日志查询工具  mysqlbinlog 来查看，具体语法：
 
 
-```sql
 mysqlbinlog  [ 参数选项 ]  logfilename
 参数选项：
 -d      指定数据库名称，只列出指定的数据库相关操作。
 -o      忽略掉日志中的前n行命令。
 -v      将行事件(数据变更)重构为SQL语句
 -vv     将行事件(数据变更)重构为SQL语句，并输出注释信息
-```
 
 
 #### 1.2.4 删除
@@ -123,7 +121,8 @@ show variables like '%binlog_expire_logs_seconds% ';
 如果需要开启查询日志，可以修改MySQL的配置文件  /etc/my.cnf 文件，添加如下内容：
 
 
-| 1   #该选项用来开启查询日志 ， 可选值 ： 0 或者 1 ； 0 代表关闭， 1 代表开启2   general_log=13   #设置日志的文件名 ， 如果没有指定， 默认的文件名为 host_name.log
+#该选项用来开启查询日志 ， 可选值 ： 0 或者 1 ； 0 代表关闭， 1 代表开启2   general_log=13   #设置日志的文件名 ， 如果没有指定， 默认的文件名为 host_name.log
+
 
 general_log_file=mysql_query.log
 
@@ -680,7 +679,6 @@ logs：存放mycat的日志文件
 <user name="root" defaultAccount="true">
 <property name="password">123456</property>
 <property name="schemas">DB01</property>
-< !-- 表级 DML 权限设置 -->
 < !--
 <privileges check="true">
 <schema name="DB01" dml="0110" >
@@ -695,6 +693,8 @@ logs：存放mycat的日志文件
 <property name="readOnly">true</property>
 </user>
 ```
+
+< !-- 表级 DML 权限设置 -->
 
 
 上述的配置表示，定义了两个用户  root 和  user ，这两个用户都可以访问   DB01 这个逻辑库，访问密码都是123456，但是root用户访问DB01逻辑库，既可以读，又可以写，但是  user用户访问
@@ -808,8 +808,11 @@ INSERT INTO TB_ORDER (id,title) VALUES (15000001, 'goods15000001 ');
 #### 3.4.1 schema.xml
 
 
+```sql
 schema.xml 作为MyCat中最重要的配置文件之一  , 涵盖了MyCat的逻辑库  、  逻辑表  、  分片规则、分片节点及数据源的配置。
 
+
+```
 
 ![](file:///D:/Java/data/MySQL/运维篇/image62.jpeg)
 
@@ -835,8 +838,11 @@ datahost标签
 ![](file:///D:/Java/data/MySQL/运维篇/image66.jpeg)
 
 
+```sql
 schema 标签用于定义  MyCat实例中的逻辑库   , 一个MyCat实例中 , 可以有多个逻辑库   , 可以通过  schema 标签来划分不同的逻辑库。 MyCat中的逻辑库的概念，等同于MySQL中的database概念  , 需要操作某个逻辑库下的表时 , 也需要切换逻辑库 (use xxx)。
 
+
+```
 
 核心属性：
 
@@ -1054,7 +1060,8 @@ server.xml配置文件包含了MyCat的系统配置信息，主要有两个重�
 重新启动MyCat后，在mycat的命令行中，通过source指令导入表结构，以及对应的数据，查看数据分布情况。
 
 
-| 1   source /root/shopping-table.sql
+source /root/shopping-table.sql
+
 
 source /root/shopping-insert.sql
 
@@ -1133,7 +1140,8 @@ tb_areas_region 三个逻辑表，增加  type 属性，配置为global，就代
 2). 通过source指令，导入表及数据
 
 
-| 1   source /root/shopping-table.sql
+source /root/shopping-table.sql
+
 
 source /root/shopping-insert.sql
 
@@ -1211,7 +1219,6 @@ tb_log表最终落在3个节点中，分别是  dn4、dn5、dn6 ，而具体的�
 <user name="root" defaultAccount="true">
 <property name="password">123456</property>
 <property name="schemas">SHOPPING,ITCAST</property>
-< !-- 表级 DML 权限设置 -->
 < !--
 <privileges check="true">
 <schema name="DB01" dml="0110" >
@@ -1221,6 +1228,8 @@ tb_log表最终落在3个节点中，分别是  dn4、dn5、dn6 ，而具体的�
 -->
 </user>
 ```
+
+< !-- 表级 DML 权限设置 -->
 
 
 3.5.2.4 测试
@@ -1232,21 +1241,14 @@ tb_log表最终落在3个节点中，分别是  dn4、dn5、dn6 ，而具体的�
 ```sql
 CREATE TABLE tb_log (
 id bigint (20) NOT NULL COMMENT 'ID ',
-model_name varchar (200) DEFAULT NULL COMMENT '模块名 ',
-model_value varchar (200) DEFAULT NULL COMMENT '模块值 ',
-return_value varchar (200) DEFAULT NULL COMMENT '返回值 ',
-return_class varchar (200) DEFAULT NULL COMMENT '返回值类型 ',
-operate_user varchar (20) DEFAULT NULL COMMENT '操作用户 ',
-operate_time varchar (20) DEFAULT NULL COMMENT '操作时间 ',
-param_and_value varchar (500) DEFAULT NULL COMMENT '请求参数名及参数值 ',
-operate_class varchar (200) DEFAULT NULL COMMENT '操作类 ',
-operate_method varchar (200) DEFAULT NULL COMMENT '操作方法 ',
-cost_time bigint (20) DEFAULT NULL COMMENT '执行方法耗时, 单位 ms ',
-source int (1) DEFAULT NULL COMMENT '来源  : 1 PC , 2 Android , 3 IOS ',
 PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE tb_log (
 id bigint (20) NOT NULL COMMENT 'ID ',
+PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
 model_name varchar (200) DEFAULT NULL COMMENT '模块名 ',
 model_value varchar (200) DEFAULT NULL COMMENT '模块值 ',
 return_value varchar (200) DEFAULT NULL COMMENT '返回值 ',
@@ -1258,9 +1260,17 @@ operate_class varchar (200) DEFAULT NULL COMMENT '操作类 ',
 operate_method varchar (200) DEFAULT NULL COMMENT '操作方法 ',
 cost_time bigint (20) DEFAULT NULL COMMENT '执行方法耗时, 单位 ms ',
 source int (1) DEFAULT NULL COMMENT '来源  : 1 PC , 2 Android , 3 IOS ',
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-```
+model_name varchar (200) DEFAULT NULL COMMENT '模块名 ',
+model_value varchar (200) DEFAULT NULL COMMENT '模块值 ',
+return_value varchar (200) DEFAULT NULL COMMENT '返回值 ',
+return_class varchar (200) DEFAULT NULL COMMENT '返回值类型 ',
+operate_user varchar (20) DEFAULT NULL COMMENT '操作用户 ',
+operate_time varchar (20) DEFAULT NULL COMMENT '操作时间 ',
+param_and_value varchar (500) DEFAULT NULL COMMENT '请求参数名及参数值 ',
+operate_class varchar (200) DEFAULT NULL COMMENT '操作类 ',
+operate_method varchar (200) DEFAULT NULL COMMENT '操作方法 ',
+cost_time bigint (20) DEFAULT NULL COMMENT '执行方法耗时, 单位 ms ',
+source int (1) DEFAULT NULL COMMENT '来源  : 1 PC , 2 Android , 3 IOS ',
 
 
 ```sql
@@ -1359,16 +1369,22 @@ VALUES ( '6 ', 'user ', 'find ', 'success ', 'java.lang.String ', '10001 ', '202
 2). 配置
 
 
+```sql
 schema.xml逻辑表配置：
 
+
+```
 
 ```sql
 <table name="TB_ORDER" dataNode="dn1,dn2,dn3" rule="auto-sharding-long" />
 ```
 
 
+```sql
 schema.xml数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn1" dataHost="dhost1" database="db01" />
@@ -1439,16 +1455,22 @@ rule.xml分片规则配置：
 2). 配置
 
 
+```sql
 schema.xml逻辑表配置：
 
+
+```
 
 ```sql
 <table name="tb_log" dataNode="dn4,dn5,dn6" primaryKey="id" rule="mod-long" />
 ```
 
 
+```sql
 schema.xml数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1507,17 +1529,24 @@ rule.xml分片规则配置：
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 一致性hash -->
 <table name="tb_order" dataNode="dn4,dn5,dn6" rule="sharding-by-murmur" />
 ```
 
+< !-- 一致性hash -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1537,11 +1566,12 @@ rule.xml中分片规则配置：
 </rule>
 </tableRule>
 <function name="murmur" class="io.mycat.route.function.PartitionByMurmurHash">
-<property name="seed">0</property>< !-- 默认是0 -->
 <property name="count">3</property>
 <property name="virtualBucketTimes">160</property>
 </function>
 ```
+
+<property name="seed">0</property>< !-- 默认是0 -->
 
 
 分片规则属性含义：
@@ -1629,17 +1659,24 @@ INSERT INTO tb_order (id, money, content) VALUES ( 'b978840f-6fc4-11ec-b831- 482
 ![](file:///D:/Java/data/MySQL/运维篇/image108.jpeg)
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 枚举 -->
 <table name="tb_user" dataNode="dn4,dn5,dn6" rule="sharding-by-intfile-enumstatus" />
 ```
 
+< !-- 枚举 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1658,7 +1695,6 @@ rule.xml中分片规则配置：
 <algorithm>hash-int</algorithm>
 </rule>
 </tableRule>
-< !-- 自己增加 tableRule -->
 <tableRule name="sharding-by-intfile-enumstatus">
 <rule>
 <columns>status</columns>
@@ -1671,9 +1707,14 @@ rule.xml中分片规则配置：
 </function>
 ```
 
+< !-- 自己增加 tableRule -->
 
+
+```sql
 partition-hash-int.txt ，内容如下   :
 
+
+```
 
 ```sql
 1=
@@ -1703,7 +1744,6 @@ partition-hash-int.txt ，内容如下   :
 ```sql
 CREATE TABLE tb_user (
 id bigint (20) NOT NULL COMMENT 'ID ',
-username varchar (200) DEFAULT NULL COMMENT '姓名 ',
 status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -1714,7 +1754,6 @@ insert into tb_user (id,username ,status) values (4, 'Coco ',2);
 insert into tb_user (id,username ,status) values (5, 'Lily ',1);
 CREATE TABLE tb_user (
 id bigint (20) NOT NULL COMMENT 'ID ',
-username varchar (200) DEFAULT NULL COMMENT '姓名 ',
 status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -1724,6 +1763,9 @@ insert into tb_user (id,username ,status) values (3, 'Rose ',3);
 insert into tb_user (id,username ,status) values (4, 'Coco ',2);
 insert into tb_user (id,username ,status) values (5, 'Lily ',1);
 ```
+
+username varchar (200) DEFAULT NULL COMMENT '姓名 ',
+username varchar (200) DEFAULT NULL COMMENT '姓名 ',
 
 
 ```sql
@@ -1755,17 +1797,24 @@ insert into tb_user (id,username ,status) values (10, 'Lily ',1);
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 应用指定算法 -->
 <table name="tb_app" dataNode="dn4,dn5,dn6" rule="sharding-by-substring" />
 ```
 
+< !-- 应用指定算法 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1821,11 +1870,12 @@ id=05-100000002 , 在此配置中代表根据id中从  startIndex=0，开始，�
 ```sql
 CREATE TABLE tb_app (
 id varchar (10) NOT NULL COMMENT 'ID ',
-name varchar (200) DEFAULT NULL COMMENT '名称 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 insert into tb_app (id,name) values ( '0000001 ', 'Testx00001 ');   insert into tb_app (id,name) values ( '0100001 ', 'Test100001 ');   insert into tb_app (id,name) values ( '0100002 ', 'Test200001 ');   insert into tb_app (id,name) values ( '0200001 ', 'Test300001 ');   insert into tb_app (id,name) values ( '0200002 ', 'TesT400001 ');
 ```
+
+name varchar (200) DEFAULT NULL COMMENT '名称 ',
 
 
 3.5.3.6 固定分片hash算法
@@ -1858,17 +1908,24 @@ insert into tb_app (id,name) values ( '0000001 ', 'Testx00001 ');   insert into 
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 固定分片hash算法 -->
 <table name="tb_longhash" dataNode="dn4,dn5,dn6" rule="sharding-by-long-hash" />
 ```
 
+< !-- 固定分片hash算法 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1887,12 +1944,13 @@ rule.xml中分片规则配置：
 <algorithm>sharding-by-long-hash</algorithm>
 </rule>
 </tableRule>
-< !-- 分片总长度为1024，count与length数组长度必须一致； -->
 <function name="sharding-by-long-hash"class="io.mycat.route.function.PartitionByLong">
 <property name="partitionCount">2,1</property>
 <property name="partitionLength">256,512</property>
 </function>
 ```
+
+< !-- 分片总长度为1024，count与length数组长度必须一致； -->
 
 
 分片规则属性含义：
@@ -1933,12 +1991,13 @@ rule.xml中分片规则配置：
 ```sql
 CREATE TABLE tb_longhash (
 id int (11) NOT NULL COMMENT 'ID ',
-name varchar (200) DEFAULT NULL COMMENT '名称 ',
-firstChar char (1)  COMMENT '首字母 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 insert into tb_longhash (id,name,firstChar) values (1, '七匹狼 ', 'Q ');   insert into tb_longhash (id,name,firstChar) values (2, '八匹狼 ', 'B ');   insert into tb_longhash (id,name,firstChar) values (3, '九匹狼 ', 'J ');   insert into tb_longhash (id,name,firstChar) values (4, '十匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (5, '六匹狼 ', 'L ');   insert into tb_longhash (id,name,firstChar) values (6, '五匹狼 ', 'W ');   insert into tb_longhash (id,name,firstChar) values (7, '四匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (8, '三匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (9, '两匹狼 ', 'L ');
 ```
+
+name varchar (200) DEFAULT NULL COMMENT '名称 ',
+firstChar char (1)  COMMENT '首字母 ',
 
 
 3.5.3.7 字符串hash解析算法
@@ -1956,17 +2015,24 @@ insert into tb_longhash (id,name,firstChar) values (1, '七匹狼 ', 'Q ');   in
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 字符串hash解析算法 -->
 <table name="tb_strhash" dataNode="dn4,dn5" rule="sharding-by-stringhash" />
 ```
 
+< !-- 字符串hash解析算法 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2039,17 +2105,24 @@ INSERT INTO tb_strhash (name,content) VALUES ( 'T1001 ', UUID ());   INSERT INTO
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 按天分片 -->
 <table name="tb_datepart" dataNode="dn4,dn5,dn6" rule="sharding-by-date" />
 ```
 
+< !-- 按天分片 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2094,10 +2167,11 @@ rule.xml中分片规则配置：
 ```sql
 create table tb_datepart (
 id   bigint  not null comment 'ID '  primary key,
-name varchar (100) null comment '姓名 ',
 create   time date  null
 );   insert into tb_datepart (id,name ,create_time) values (1, 'Tom ', '2022-01-01 ');   insert into tb_datepart (id,name ,create_time) values (2, 'Cat ', '2022-01-10 ');   insert into tb_datepart (id,name ,create_time) values (3, 'Rose ', '2022-01-11 ');   insert into tb_datepart (id,name ,create_time) values (4, 'Coco ', '2022-01-20 ');   insert into tb_datepart (id,name ,create_time) values (5, 'Rose2 ', '2022-01-21 ');   insert into tb_datepart (id,name ,create_time) values (6, 'Coco2 ', '2022-01-30 ');   insert into tb_datepart (id,name ,create_time) values (7, 'Coco3 ', '2022-01-31 ');
 ```
+
+name varchar (100) null comment '姓名 ',
 
 
 3.5.3.9 自然月分片
@@ -2115,17 +2189,24 @@ create   time date  null
 2). 配置
 
 
+```sql
 schema.xml中逻辑表配置：
 
 
+```
+
 ```sql
-< !-- 按自然月分片 -->
 <table name="tb_monthpart" dataNode="dn4,dn5,dn6" rule="sharding-by-month" />
 ```
 
+< !-- 按自然月分片 -->
 
+
+```sql
 schema.xml中数据节点配置：
 
+
+```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2150,10 +2231,11 @@ rule.xml中分片规则配置：
 <property name="sEndDate">2022-03-31</property>
 </function>
 < !--
-从开始时间开始，一个月为一个分片，到达结束时间之后，会重复开始分片插入
-配置表的 dataNode 的分片，必须和分片规则数量一致，例如 2022-01-01 到 2022-12-31 ，一共需要12个分片。
 -->
 ```
+
+从开始时间开始，一个月为一个分片，到达结束时间之后，会重复开始分片插入
+配置表的 dataNode 的分片，必须和分片规则数量一致，例如 2022-01-01 到 2022-12-31 ，一共需要12个分片。
 
 
 分片规则属性含义：
@@ -2177,10 +2259,11 @@ rule.xml中分片规则配置：
 ```sql
 create table tb_monthpart (
 id   bigint  not null comment 'ID '  primary key,
-name varchar (100) null comment '姓名 ',
 create   time date  null
 );   insert into tb_monthpart (id,name ,create_time) values (1, 'Tom ', '2022-01-01 ');   insert into tb_monthpart (id,name ,create_time) values (2, 'Cat ', '2022-01-10 ');   insert into tb_monthpart (id,name ,create_time) values (3, 'Rose ', '2022-01-31 ');   insert into tb_monthpart (id,name ,create_time) values (4, 'Coco ', '2022-02-20 ');   insert into tb_monthpart (id,name ,create_time) values (5, 'Rose2 ', '2022-02-25 ');   insert into tb_monthpart (id,name ,create_time) values (6, 'Coco2 ', '2022-03-10 ');   insert into tb_monthpart (id,name ,create_time) values (7, 'Coco3 ', '2022-03-31 ');   insert into tb_monthpart (id,name ,create_time) values (8, 'Coco4 ', '2022-04-10 ');   insert into tb_monthpart (id,name ,create_time) values (9, 'Coco5 ', '2022-04-30 ');
 ```
+
+name varchar (100) null comment '姓名 ',
 
 
 ### 3.6 MyCat管理及监控
@@ -2274,9 +2357,7 @@ http://192.168.200.210:8082/mycat
 1). 开启MyCat的实时统计功能 (server.xml)
 
 
-```sql
 <property name="useSqlStat">1</property>  < !-- 1为开启实时统计、0为关闭 -->
-```
 
 
 2). 在Mycat监控界面配置服务地址
@@ -2375,7 +2456,6 @@ MyCat控制后台数据库的读写分离和负载均衡由schema.xml文件datah
 
 
 ```sql
-< !-- 配置逻辑库 -->
 <schema name="ITCAST_RW" checkSQLschema="true" sqlMaxLimit="100" dataNode="dn7">
 </schema>
 <dataNode name="dn7" dataHost="dhost7" database="itcast" />
@@ -2386,6 +2466,8 @@ MyCat控制后台数据库的读写分离和负载均衡由schema.xml文件datah
 </writeHost>
 </dataHost>
 ```
+
+< !-- 配置逻辑库 -->
 
 
 上述配置的具体关联对应情况如下：
@@ -2423,7 +2505,8 @@ writeHost代表的是写操作对应的数据库， readHost代表的是读操�
 | 13 | </user> |
 | 4.3.3 测试配置完毕MyCat后，重新启动MyCat。 |  |
 
-| 1   bin/mycat stop
+bin/mycat stop
+
 
 bin/mycat start
 
@@ -2490,7 +2573,8 @@ systemctl disable firewalld
 A. 修改配置文件  /etc/my.cnf
 
 
-| 1   #mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，默认为12   server-id=13   #指定同步的数据库4   binlog-do-db=db
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，默认为12   server-id=13   #指定同步的数据库4   binlog-do-db=db
+
 
 ```sql
 binlog-do-db=db
@@ -2536,7 +2620,8 @@ show  master  status ;
 A. 修改配置文件  /etc/my.cnf
 
 
-| 1   #mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，默认为12   server-id=33   #指定同步的数据库4   binlog-do-db=db
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，默认为12   server-id=33   #指定同步的数据库4   binlog-do-db=db
+
 
 ```sql
 binlog-do-db=db
@@ -2662,9 +2747,7 @@ start slave;   show  slave  status \G;
 ![](file:///D:/Java/data/MySQL/运维篇/image148.jpeg)
 
 
-```sql
 Master2 复制 Master1，Master1 复制 Master2。
-```
 
 
 A. 在  Master1(192.168.200.211)上执行
@@ -2837,7 +2920,6 @@ switchType
 <user name="root" defaultAccount="true">
 <property name="password">123456</property>
 <property name="schemas">SHOPPING,ITCAST,ITCAST_RW2</property>
-< !-- 表级 DML 权限设置 -->
 < !--
 <privileges check="true">
 <schema name="DB01" dml="0110" >
@@ -2847,6 +2929,8 @@ switchType
 -->
 </user>
 ```
+
+< !-- 表级 DML 权限设置 -->
 
 
 #### 4.5.2 测试

@@ -169,7 +169,10 @@ MySQL安装完成之后，在系统启动时，会自动启动MySQL服务，我�
 当然，也可以手动的通过指令启动停止，以管理员身份运行cmd，进入命令行执行如下指令：
 
 
-| 1   net start mysql
+```bash
+net start mysql
+```
+
 
 net stop mysql80
 
@@ -194,12 +197,13 @@ net stop mysql80
 
 ```sql
 mysql  [-h 127.0.0.1]  [-P 3306]  -u root -p
+```
+
 参数：
 -h : MySQL服务所在的主机IP
 -P : MySQL服务端口号， 默认33
 -u : MySQL数据库用户名
 -p ： MySQL数据库用户名对应的密码
-```
 
 
 []内为可选参数，如果需要连接远程的MySQL，需要加上这两个参数来指定远程主机IP、端口，如果连接本地的MySQL，则无需指定这两个参数。
@@ -457,6 +461,8 @@ show create table 表名 ;
 
 ```sql
 CREATE TABLE  表名 (
+```
+
 字段
 字段1类型  [ COMMENT  字段1注释 ],
 字段
@@ -465,7 +471,6 @@ CREATE TABLE  表名 (
 字段3类型 [COMMENT  字段3注释 ],
 字段n  字段n类型 [COMMENT  字段n注释 ]
 ) [ COMMENT  表注释 ] ;
-```
 
 
 注意 : [    ] 内为可选参数，最后一个字段后面没有逗号
@@ -479,12 +484,13 @@ CREATE TABLE  表名 (
 
 ```sql
 create table tb_user (
+```
+
 id int comment '编号 ',
 name varchar (50) comment '姓名 ',
 age int comment '年龄 ',
 gender varchar (1) comment '性别 '
 ) comment '用户表 ';
-```
 
 
 2.3.2.2 表操作-数据类型
@@ -511,12 +517,13 @@ MySQL中的数据类型有很多，主要分为三类：数值类型、字符串
 | DECIMAL |  | 依赖于M(精度)和D (标度)的值 | 依赖于M(精度)和D (标度)的值 | 小数值 (精确定点数) |
 
 ```sql
-如 :
-1). 年龄字段 -- 不会出现负数, 而且人的年龄不会太大
 age tinyint unsigned
-2). 分数 -- 总分100分, 最多出现一位小数
 score double (4,1)
 ```
+
+如 :
+1). 年龄字段 -- 不会出现负数, 而且人的年龄不会太大
+2). 分数 -- 总分100分, 最多出现一位小数
 
 
 2). 字符串类型
@@ -535,18 +542,22 @@ score double (4,1)
 | LONGBLOB | 0-4 294 967 295 bytes | 二进制形式的极大文本数据 |
 | LONGTEXT | 0-4 294 967 295 bytes | 极大文本数据 |
 
+```sql
 char 与  varchar 都可以描述字符串， char是定长字符串，指定长度多长，就占用多少个字符，和字段值的长度无关  。而varchar是变长字符串，指定的长度为最大占用长度  。相对来说， char的性能会更高些。
 
 
+```
+
 ```sql
-如：
-1). 用户名 username ------> 长度不定, 最长不会超过
 username varchar (50)
-2). 性别 gender ---------> 存储值, 不是男,就是女
 gender char (1)
-3). 手机号 phone --------> 固定长度为
 phone char (11)
 ```
+
+如：
+1). 用户名 username ------> 长度不定, 最长不会超过
+2). 性别 gender ---------> 存储值, 不是男,就是女
+3). 手机号 phone --------> 固定长度为
 
 
 3). 日期时间类型
@@ -560,7 +571,8 @@ phone char (11)
 | DATETIME | 8 | 1000-01-01 00:00:00 至9999-12-31 23:59:59 | YYYY-MM-DDHH:MM:SS | 混合日期和时间值 |
 | TIMESTAMP | 4 | 1970-01-01 00:00:01 至2038-01-19 03:14:07 | YYYY-MM-DDHH:MM:SS | 混合日期和时间值，时间戳 |
 
-| 1   如 :2       1). 生日字段 birthday
+如 :2       1). 生日字段 birthday
+
 
 birthday date45       2). 创建时间 createtime
 
@@ -599,6 +611,8 @@ createtime  datetime
 
 ```sql
 create table emp (
+```
+
 id int comment '编号 ',
 workno varchar (10) comment '工号 ',
 name varchar (10) comment '姓名 ',
@@ -607,7 +621,6 @@ age tinyint unsigned comment '年龄 ',
 idcard char (18) comment '身份证号 ',
 entrydate date comment '入职时间 '
 ) comment '员工表 ';
-```
 
 
 SQL语句编写完毕之后，就可以在MySQL的命令行中执行SQL，然后也可以通过  desc 指令查询表结构信息：
@@ -1120,19 +1133,14 @@ DQL英文全称是Data Query Language(数据查询语言)，数据查询语言�
 ```sql
 drop table if exists employee;
 create table emp (
-id int comment '编号 ',
-workno varchar (10) comment '工号 ',
-name varchar (10) comment '姓名 ',
-gender char (1) comment '性别 ',
-age tinyint unsigned comment '年龄 ',
-idcard char (18) comment '身份证号 ',
-workaddress varchar (50) comment '工作地址 ',
-entrydate date comment '入职时间 '
-)comment '员工表 ';
 INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (1, '00001 ', '柳岩666 ', '女 ', 20, '123456789012345678 ', '北京 ', '2000-01- 01 ');
 INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (2, '00002 ', '张无忌 ', '男 ', 18, '123456789012345670 ', '北京 ', '2005-09-01 ');
 drop table if exists employee;
 create table emp (
+INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (1, '00001 ', '柳岩666 ', '女 ', 20, '123456789012345678 ', '北京 ', '2000-01- 01 ');
+INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (2, '00002 ', '张无忌 ', '男 ', 18, '123456789012345670 ', '北京 ', '2005-09-01 ');
+```
+
 id int comment '编号 ',
 workno varchar (10) comment '工号 ',
 name varchar (10) comment '姓名 ',
@@ -1142,9 +1150,15 @@ idcard char (18) comment '身份证号 ',
 workaddress varchar (50) comment '工作地址 ',
 entrydate date comment '入职时间 '
 )comment '员工表 ';
-INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (1, '00001 ', '柳岩666 ', '女 ', 20, '123456789012345678 ', '北京 ', '2000-01- 01 ');
-INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (2, '00002 ', '张无忌 ', '男 ', 18, '123456789012345670 ', '北京 ', '2005-09-01 ');
-```
+id int comment '编号 ',
+workno varchar (10) comment '工号 ',
+name varchar (10) comment '姓名 ',
+gender char (1) comment '性别 ',
+age tinyint unsigned comment '年龄 ',
+idcard char (18) comment '身份证号 ',
+workaddress varchar (50) comment '工作地址 ',
+entrydate date comment '入职时间 '
+)comment '员工表 ';
 
 
 ```sql
@@ -1190,20 +1204,21 @@ DQL 查询语句，语法结构如下：
 
 ```sql
 SELECT
-字段列表
 FROM
-表名列表
 WHERE
-条件列表
 GROUP  BY
-分组字段列表
 HAVING
-分组后条件列表
 ORDER BY
-排序字段列表
 LIMIT
-分页参数
 ```
+
+字段列表
+表名列表
+条件列表
+分组字段列表
+分组后条件列表
+排序字段列表
+分页参数
 
 
 我们在讲解这部分内容的时候，会将上面的完整语法进行拆分，分为以下几个部分：
@@ -1249,15 +1264,18 @@ SELECT  *  FROM   表名 ;
 
 ```sql
 SELECT   字段
+```
+
 [ AS  别名1 ] , 字段
 [ AS  别名2 ]        FROM   表名;
-```
+
 
 ```sql
 SELECT   字段
+```
+
 [ 别名1 ] , 字段
 [ 别名2 ]       FROM   表名;
-```
 
 
 3). 去除重复记录
@@ -1606,16 +1624,20 @@ select workaddress, gender, count (*) '数量 ' from emp group by gender , worka
 
 ```sql
 SELECT  字段列表  FROM   表名  ORDER  BY  字段
+```
+
 排序方式1 , 字段
 排序方式2 ;
-```
 
 
 2). 排序方式
 
 
+```sql
 ASC : 升序 (默认值)
 
+
+```
 
 ```sql
 DESC: 降序
@@ -1812,8 +1834,11 @@ select e.name ename , e.age eage from emp e where e.age > 15 order by eage asc;
 综上所述，我们可以看到DQL语句的执行顺序为：   from ... where ... group by ...
 
 
+```sql
 having ... select ... order by ... limit ...
 
+
+```
 
 ### 2.7 DCL
 
@@ -2044,16 +2069,17 @@ MySQL中内置了很多字符串函数，常用的几个如下：
 
 ```sql
 select concat ( 'Hello ' , ' MySQL ');
-B. lower : 全部转小写
 select lower ( 'Hello ');
-C. upper : 全部转大写
 select upper ( 'Hello ');
-D. lpad : 左填充
 select lpad ( '01 ', 5, '- ');
-E. rpad : 右填充
 select rpad ( '01 ', 5, '- ');
-F. trim : 去除空格
 ```
+
+B. lower : 全部转小写
+C. upper : 全部转大写
+D. lpad : 左填充
+E. rpad : 右填充
+F. trim : 去除空格
 
 
 ```sql
@@ -2270,7 +2296,10 @@ C. case when then else end
 需求 : 查询emp表的员工姓名和工作地址   (北京/上海   ----> 一线城市   , 其他  ----> 二线城市)
 
 
-| 1   select
+```sql
+select
+```
+
 
 name,3        ( case workaddress when '北京 ' then '一线城市 ' when '上海 ' then '一线城市 ' else '二线城市 ' end ) as '工作地址 '4   from emp;
 
@@ -2281,18 +2310,22 @@ name,3        ( case workaddress when '北京 ' then '一线城市 ' when '上�
 ```sql
 create table score (
 id int comment 'ID ',
+```
+
 name varchar (20) comment '姓名 ',
 math int comment '数学 ',
 english int comment '英语 ',
 chinese int comment '语文 '
 ) comment '学员成绩表 ';   insert into score (id, name, math, english, chinese) VALUES (1, 'Tom ', 67, 88, 95 ), (2, 'Rose ' , 23, 66, 90), (3, 'Jack ', 56, 98, 76);
-```
 
 
 具体的SQL语句如下 :
 
 
-| 1   select
+```sql
+select
+```
+
 
 id,3       name,4        (case when math >= 85 then '优秀 ' when math >=60 then '及格 ' else '不及格 ' end ) '数学 ',5        (case when english >= 85 then '优秀 ' when english >=60 then '及格 ' else '不及格 ' end ) '英语 ',6        (case when chinese >= 85 then '优秀 ' when chinese >=60 then '及格 ' else '不及格 ' end ) '语文 '7   from score;
 
@@ -2360,13 +2393,14 @@ MySQL的常见函数我们学习完了，那接下来，我们就来分析一下
 
 ```sql
 CREATE TABLE tb_user (
+status char (1) default  '1 '  COMMENT  '状态 ',
+);
+```
+
 id int AUTO_INCREMENT PRIMARY KEY  COMMENT  'ID唯一标识 ',
 name varchar (10) NOT NULL UNIQUE  COMMENT  '姓名 ' ,
 age int check (age > 0 && age <= 120)  COMMENT   '年龄 ' ,
-status char (1) default  '1 '  COMMENT  '状态 ',
 gender char (1)  COMMENT  '性别 '
-);
-```
 
 
 在为字段添加约束时，我们只需要在字段之后加上约束的关键字即可，需要关注其语法。我们执行上面的SQL把表结构创建完成，然后接下来，就可以通过一组数据进行测试，从而验证一下，约束是否可以生效。
@@ -2410,9 +2444,11 @@ insert into tb_user (name,age,status,gender) values ( 'Tom1 ',19, '1 ', '男 '),
 ```sql
 create table dept (
 id   int auto_increment comment 'ID ' primary key,
+id  int auto_increment comment 'ID ' primary key,
+```
+
 name varchar (50) not null comment '部门名称 '
 )comment '部门表 ';   INSERT INTO dept (id, name) VALUES (1, '研发部 '), (2, '市场部 '), (3, '财务部 '), (4, '销售部 '), (5, '总经办 ');   create table emp (
-id  int auto_increment comment 'ID ' primary key,
 name varchar (50) not null comment '姓名 ',
 age  int comment '年龄 ',
 job varchar (20) comment '职位 ',
@@ -2424,7 +2460,6 @@ dept_id int comment '部门ID '
 (1, '金庸 ', 66, '总裁 ',20000, '2000-01-01 ', null,5), (2, '张无忌 ', 20, '项目经理 ',12500, '2005-12-05 ', 1,1),
 (3, '杨逍 ', 33, '开发 ', 8400, '2000-11-03 ', 2,1), (4, '韦一笑 ', 48, '开发 ',11000, '2002-02-05 ', 2,1),
 (5, '常遇春 ', 43, '开发 ',10500, '2004-09-07 ', 3,1), (6, '小昭 ', 19, '程序员鼓励师 ',6600, '2004-10-12 ', 2,1);
-```
 
 
 ![](file:///D:/Java/data/MySQL/基础篇/image106.jpeg)
@@ -2447,14 +2482,15 @@ dept_id int comment '部门ID '
 
 ```sql
 CREATE TABLE 表名 (
-字段名     数据类型,
-[CONSTRAINT]   [外键名称]  FOREIGN  KEY (外键字段名)   REFERENCES   主表  (主表列名)
 ALTER   TABLE  表名    ADD  CONSTRAINT   外键名称    FOREIGN   KEY (外键字段名) REFERENCES  主表  (主表列名) ;
 CREATE TABLE 表名 (
-字段名     数据类型,
-[CONSTRAINT]   [外键名称]  FOREIGN  KEY (外键字段名)   REFERENCES   主表  (主表列名)
 ALTER   TABLE  表名    ADD  CONSTRAINT   外键名称    FOREIGN   KEY (外键字段名) REFERENCES  主表  (主表列名) ;
 ```
+
+字段名     数据类型,
+[CONSTRAINT]   [外键名称]  FOREIGN  KEY (外键字段名)   REFERENCES   主表  (主表列名)
+字段名     数据类型,
+[CONSTRAINT]   [外键名称]  FOREIGN  KEY (外键字段名)   REFERENCES   主表  (主表列名)
 
 
 案例 :
@@ -2547,9 +2583,10 @@ A. 修改父表id为1的记录，将id修改为6
 |  |
 
 ```sql
-我们发现，父表的数据删除成功了，但是子表中关联的记录也被级联删除了。2). SET NULL在进行测试之前，我们先需要删除上面建立的外键  fk_emp_dept_id。然后再通过数据脚本，将emp、dept表的数据恢复了。
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept (id) on update set null on delete set null ;
 ```
+
+我们发现，父表的数据删除成功了，但是子表中关联的记录也被级联删除了。2). SET NULL在进行测试之前，我们先需要删除上面建立的外键  fk_emp_dept_id。然后再通过数据脚本，将emp、dept表的数据恢复了。
 
 
 接下来，我们删除id为1的数据，看看会发生什么样的现象。
@@ -2623,48 +2660,50 @@ alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references d
 
 ```sql
 create table student (
-id int auto_increment primary key comment '主键ID ',
-name varchar (10) comment '姓名 ',
-no varchar (10) comment '学号 '
-) comment '学生表 ';
 insert into student values (null, '黛绮丝 ', '2000100101 '), (null, '谢逊 ','2000100102 '), (null, '殷天正 ', '2000100103 '), (null, '韦一笑 ', '2000100104 ');
 create table course (
-id int auto_increment primary key comment '主键ID ',
-name varchar (10) comment '课程名称 '
-) comment '课程表 ';
 insert into course values (null, 'Java '), (null, 'PHP '), (null , 'MySQL ') , (null, 'Hadoop ');
 create table student_course (
 create table student (
-id int auto_increment primary key comment '主键ID ',
-name varchar (10) comment '姓名 ',
-no varchar (10) comment '学号 '
-) comment '学生表 ';
 insert into student values (null, '黛绮丝 ', '2000100101 '), (null, '谢逊 ','2000100102 '), (null, '殷天正 ', '2000100103 '), (null, '韦一笑 ', '2000100104 ');
 create table course (
-id int auto_increment primary key comment '主键ID ',
-name varchar (10) comment '课程名称 '
-) comment '课程表 ';
 insert into course values (null, 'Java '), (null, 'PHP '), (null , 'MySQL ') , (null, 'Hadoop ');
 create table student_course (
 ```
 
+id int auto_increment primary key comment '主键ID ',
+name varchar (10) comment '姓名 ',
+no varchar (10) comment '学号 '
+) comment '学生表 ';
+id int auto_increment primary key comment '主键ID ',
+name varchar (10) comment '课程名称 '
+) comment '课程表 ';
+id int auto_increment primary key comment '主键ID ',
+name varchar (10) comment '姓名 ',
+no varchar (10) comment '学号 '
+) comment '学生表 ';
+id int auto_increment primary key comment '主键ID ',
+name varchar (10) comment '课程名称 '
+) comment '课程表 ';
+
 
 ```sql
-id int auto_increment comment '主键 ' primary key,
-studentid int not null comment '学生ID ',
-courseid  int not null comment '课程ID ',
 constraint fk_courseid foreign key (courseid) references course (id),
 constraint fk_studentid foreign key (studentid) references student (id)
-)comment '学生课程中间表 ';
 insert into student_course values (null,1,1), (null,1,2), (null,1,3), (null,2,2), (null,2,3), (null,3,4);
-id int auto_increment comment '主键 ' primary key,
-studentid int not null comment '学生ID ',
-courseid  int not null comment '课程ID ',
 constraint fk_courseid foreign key (courseid) references course (id),
 constraint fk_studentid foreign key (studentid) references student (id)
-)comment '学生课程中间表 ';
 insert into student_course values (null,1,1), (null,1,2), (null,1,3), (null,2,2), (null,2,3), (null,3,4);
 ```
+
+id int auto_increment comment '主键 ' primary key,
+studentid int not null comment '学生ID ',
+courseid  int not null comment '课程ID ',
+)comment '学生课程中间表 ';
+id int auto_increment comment '主键 ' primary key,
+studentid int not null comment '学生ID ',
+courseid  int not null comment '课程ID ',
+)comment '学生课程中间表 ';
 
 
 #### 5.1.3 一对一
@@ -2687,64 +2726,66 @@ insert into student_course values (null,1,1), (null,1,2), (null,1,3), (null,2,2)
 
 ```sql
 create table tb_user (
-id int auto_increment primary key comment '主键ID ',
-name varchar (10) comment '姓名 ',
-age int comment '年龄 ',
-gender char (1) comment '1: 男 , 2: 女 ',
-phone char (11) comment '手机号 '
-) comment '用户基本信息表 ';
 create table tb_user_edu (
-id int auto_increment primary key comment '主键ID ',
-degree varchar (20) comment '学历 ',
-major varchar (50) comment '专业 ',
-primaryschool varchar (50) comment '小学 ',
-middleschool varchar (50) comment '中学 ',
 create table tb_user (
+create table tb_user_edu (
+```
+
 id int auto_increment primary key comment '主键ID ',
 name varchar (10) comment '姓名 ',
 age int comment '年龄 ',
 gender char (1) comment '1: 男 , 2: 女 ',
 phone char (11) comment '手机号 '
 ) comment '用户基本信息表 ';
-create table tb_user_edu (
 id int auto_increment primary key comment '主键ID ',
 degree varchar (20) comment '学历 ',
 major varchar (50) comment '专业 ',
 primaryschool varchar (50) comment '小学 ',
 middleschool varchar (50) comment '中学 ',
-```
+id int auto_increment primary key comment '主键ID ',
+name varchar (10) comment '姓名 ',
+age int comment '年龄 ',
+gender char (1) comment '1: 男 , 2: 女 ',
+phone char (11) comment '手机号 '
+) comment '用户基本信息表 ';
+id int auto_increment primary key comment '主键ID ',
+degree varchar (20) comment '学历 ',
+major varchar (50) comment '专业 ',
+primaryschool varchar (50) comment '小学 ',
+middleschool varchar (50) comment '中学 ',
 
 
 ```sql
-university varchar (50) comment '大学 ',
-userid int unique comment '用户ID ',
 constraint fk_userid foreign key (userid) references tb_user (id)
-) comment '用户教育信息表 ';
 insert into tb_user (id, name, age, gender, phone) values
-(null, '黄渤 ',45, '1 ', '18800001111 '),
-(null, '冰冰 ',35, '2 ', '18800002222 '),
-(null, '码云 ',55, '1 ', '18800008888 '),
-(null, '李彦宏 ',50, '1 ', '18800009999 ');
 insert into tb_user_edu (id, degree, major, primaryschool, middleschool, university, userid) values
-(null, '本科 ', '舞蹈 ', '静安区第一小学 ', '静安区第一中学 ', '北京舞蹈学院 ',1),
-(null, '硕士 ', '表演 ', '朝阳区第一小学 ', '朝阳区第一中学 ', '北京电影学院 ',2),
-(null, '本科 ', '英语 ', '杭州市第一小学 ', '杭州市第一中学 ', '杭州师范大学 ',3),
-(null, '本科 ', '应用数学 ', '阳泉第一小学 ', '阳泉区第一中学 ', '清华大学 ',4);
-university varchar (50) comment '大学 ',
-userid int unique comment '用户ID ',
 constraint fk_userid foreign key (userid) references tb_user (id)
-) comment '用户教育信息表 ';
 insert into tb_user (id, name, age, gender, phone) values
-(null, '黄渤 ',45, '1 ', '18800001111 '),
-(null, '冰冰 ',35, '2 ', '18800002222 '),
-(null, '码云 ',55, '1 ', '18800008888 '),
-(null, '李彦宏 ',50, '1 ', '18800009999 ');
 insert into tb_user_edu (id, degree, major, primaryschool, middleschool, university, userid) values
-(null, '本科 ', '舞蹈 ', '静安区第一小学 ', '静安区第一中学 ', '北京舞蹈学院 ',1),
-(null, '硕士 ', '表演 ', '朝阳区第一小学 ', '朝阳区第一中学 ', '北京电影学院 ',2),
-(null, '本科 ', '英语 ', '杭州市第一小学 ', '杭州市第一中学 ', '杭州师范大学 ',3),
-(null, '本科 ', '应用数学 ', '阳泉第一小学 ', '阳泉区第一中学 ', '清华大学 ',4);
 ```
+
+university varchar (50) comment '大学 ',
+userid int unique comment '用户ID ',
+) comment '用户教育信息表 ';
+(null, '黄渤 ',45, '1 ', '18800001111 '),
+(null, '冰冰 ',35, '2 ', '18800002222 '),
+(null, '码云 ',55, '1 ', '18800008888 '),
+(null, '李彦宏 ',50, '1 ', '18800009999 ');
+(null, '本科 ', '舞蹈 ', '静安区第一小学 ', '静安区第一中学 ', '北京舞蹈学院 ',1),
+(null, '硕士 ', '表演 ', '朝阳区第一小学 ', '朝阳区第一中学 ', '北京电影学院 ',2),
+(null, '本科 ', '英语 ', '杭州市第一小学 ', '杭州市第一中学 ', '杭州师范大学 ',3),
+(null, '本科 ', '应用数学 ', '阳泉第一小学 ', '阳泉区第一中学 ', '清华大学 ',4);
+university varchar (50) comment '大学 ',
+userid int unique comment '用户ID ',
+) comment '用户教育信息表 ';
+(null, '黄渤 ',45, '1 ', '18800001111 '),
+(null, '冰冰 ',35, '2 ', '18800002222 '),
+(null, '码云 ',55, '1 ', '18800008888 '),
+(null, '李彦宏 ',50, '1 ', '18800009999 ');
+(null, '本科 ', '舞蹈 ', '静安区第一小学 ', '静安区第一中学 ', '北京舞蹈学院 ',1),
+(null, '硕士 ', '表演 ', '朝阳区第一小学 ', '朝阳区第一中学 ', '北京电影学院 ',2),
+(null, '本科 ', '英语 ', '杭州市第一小学 ', '杭州市第一中学 ', '杭州师范大学 ',3),
+(null, '本科 ', '应用数学 ', '阳泉第一小学 ', '阳泉区第一中学 ', '清华大学 ',4);
 
 
 ### 5.2 多表查询概述
@@ -2763,63 +2804,64 @@ insert into tb_user_edu (id, degree, major, primaryschool, middleschool, univers
 
 
 ```sql
-name varchar (50) not null comment '姓名 ',
-age  int comment '年龄 ',
-job varchar (20) comment '职位 ',
-salary int comment '薪资 ',
-entrydate date comment '入职时间 ',
-managerid int comment '直属领导ID ',
-dept_id int comment '部门ID '
-)comment '员工表 ';
 -- 添加外键
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept (id);
 INSERT INTO emp (id, name, age, job,salary, entrydate, managerid, dept_id)VALUES
-(1, '金庸 ', 66, '总裁 ',20000, '2000-01-01 ', null,5),
-(2, '张无忌 ', 20, '项目经理 ',12500, '2005-12-05 ', 1,1),
-(3, '杨逍 ', 33, '开发 ', 8400, '2000-11-03 ', 2,1),
-(4, '韦一笑 ', 48, '开发 ',11000, '2002-02-05 ', 2,1),
-(5, '常遇春 ', 43, '开发 ',10500, '2004-09-07 ', 3,1),
-(6, '小昭 ', 19, '程序员鼓励师 ',6600, '2004-10-12 ', 2,1),
-(7, '灭绝 ', 60, '财务总监 ',8500, '2002-09-12 ', 1,3),
-(8, '周芷若 ', 19, '会计 ',48000, '2006-06-02 ', 7,3),
-(9, '丁敏君 ', 23, '出纳 ',5250, '2009-05-13 ', 7,3),
-(10, '赵敏 ', 20, '市场部总监 ',12500, '2004-10-12 ', 1,2),
-(11, '鹿杖客 ', 56, '职员 ',3750, '2006-10-03 ', 10,2),
-(12, '鹤笔翁 ', 19, '职员 ',3750, '2007-05-09 ', 10,2),
-(13, '方东白 ', 19, '职员 ',5500, '2009-02-12 ', 10,2),
-(14, '张三丰 ', 88, '销售总监 ',14000, '2004-10-12 ', 1,4),
-(15, '俞莲舟 ', 38, '销售 ',4600, '2004-10-12 ', 14,4),
-(16, '宋远桥 ', 40, '销售 ',4600, '2004-10-12 ', 14,4),
-(17, '陈友谅 ', 42, null,2000, '2011-10-12 ', 1,null);
-name varchar (50) not null comment '姓名 ',
-age  int comment '年龄 ',
-job varchar (20) comment '职位 ',
-salary int comment '薪资 ',
-entrydate date comment '入职时间 ',
-managerid int comment '直属领导ID ',
-dept_id int comment '部门ID '
-)comment '员工表 ';
 -- 添加外键
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept (id);
 INSERT INTO emp (id, name, age, job,salary, entrydate, managerid, dept_id)VALUES
-(1, '金庸 ', 66, '总裁 ',20000, '2000-01-01 ', null,5),
-(2, '张无忌 ', 20, '项目经理 ',12500, '2005-12-05 ', 1,1),
-(3, '杨逍 ', 33, '开发 ', 8400, '2000-11-03 ', 2,1),
-(4, '韦一笑 ', 48, '开发 ',11000, '2002-02-05 ', 2,1),
-(5, '常遇春 ', 43, '开发 ',10500, '2004-09-07 ', 3,1),
-(6, '小昭 ', 19, '程序员鼓励师 ',6600, '2004-10-12 ', 2,1),
-(7, '灭绝 ', 60, '财务总监 ',8500, '2002-09-12 ', 1,3),
-(8, '周芷若 ', 19, '会计 ',48000, '2006-06-02 ', 7,3),
-(9, '丁敏君 ', 23, '出纳 ',5250, '2009-05-13 ', 7,3),
-(10, '赵敏 ', 20, '市场部总监 ',12500, '2004-10-12 ', 1,2),
-(11, '鹿杖客 ', 56, '职员 ',3750, '2006-10-03 ', 10,2),
-(12, '鹤笔翁 ', 19, '职员 ',3750, '2007-05-09 ', 10,2),
-(13, '方东白 ', 19, '职员 ',5500, '2009-02-12 ', 10,2),
-(14, '张三丰 ', 88, '销售总监 ',14000, '2004-10-12 ', 1,4),
-(15, '俞莲舟 ', 38, '销售 ',4600, '2004-10-12 ', 14,4),
-(16, '宋远桥 ', 40, '销售 ',4600, '2004-10-12 ', 14,4),
-(17, '陈友谅 ', 42, null,2000, '2011-10-12 ', 1,null);
 ```
+
+name varchar (50) not null comment '姓名 ',
+age  int comment '年龄 ',
+job varchar (20) comment '职位 ',
+salary int comment '薪资 ',
+entrydate date comment '入职时间 ',
+managerid int comment '直属领导ID ',
+dept_id int comment '部门ID '
+)comment '员工表 ';
+(1, '金庸 ', 66, '总裁 ',20000, '2000-01-01 ', null,5),
+(2, '张无忌 ', 20, '项目经理 ',12500, '2005-12-05 ', 1,1),
+(3, '杨逍 ', 33, '开发 ', 8400, '2000-11-03 ', 2,1),
+(4, '韦一笑 ', 48, '开发 ',11000, '2002-02-05 ', 2,1),
+(5, '常遇春 ', 43, '开发 ',10500, '2004-09-07 ', 3,1),
+(6, '小昭 ', 19, '程序员鼓励师 ',6600, '2004-10-12 ', 2,1),
+(7, '灭绝 ', 60, '财务总监 ',8500, '2002-09-12 ', 1,3),
+(8, '周芷若 ', 19, '会计 ',48000, '2006-06-02 ', 7,3),
+(9, '丁敏君 ', 23, '出纳 ',5250, '2009-05-13 ', 7,3),
+(10, '赵敏 ', 20, '市场部总监 ',12500, '2004-10-12 ', 1,2),
+(11, '鹿杖客 ', 56, '职员 ',3750, '2006-10-03 ', 10,2),
+(12, '鹤笔翁 ', 19, '职员 ',3750, '2007-05-09 ', 10,2),
+(13, '方东白 ', 19, '职员 ',5500, '2009-02-12 ', 10,2),
+(14, '张三丰 ', 88, '销售总监 ',14000, '2004-10-12 ', 1,4),
+(15, '俞莲舟 ', 38, '销售 ',4600, '2004-10-12 ', 14,4),
+(16, '宋远桥 ', 40, '销售 ',4600, '2004-10-12 ', 14,4),
+(17, '陈友谅 ', 42, null,2000, '2011-10-12 ', 1,null);
+name varchar (50) not null comment '姓名 ',
+age  int comment '年龄 ',
+job varchar (20) comment '职位 ',
+salary int comment '薪资 ',
+entrydate date comment '入职时间 ',
+managerid int comment '直属领导ID ',
+dept_id int comment '部门ID '
+)comment '员工表 ';
+(1, '金庸 ', 66, '总裁 ',20000, '2000-01-01 ', null,5),
+(2, '张无忌 ', 20, '项目经理 ',12500, '2005-12-05 ', 1,1),
+(3, '杨逍 ', 33, '开发 ', 8400, '2000-11-03 ', 2,1),
+(4, '韦一笑 ', 48, '开发 ',11000, '2002-02-05 ', 2,1),
+(5, '常遇春 ', 43, '开发 ',10500, '2004-09-07 ', 3,1),
+(6, '小昭 ', 19, '程序员鼓励师 ',6600, '2004-10-12 ', 2,1),
+(7, '灭绝 ', 60, '财务总监 ',8500, '2002-09-12 ', 1,3),
+(8, '周芷若 ', 19, '会计 ',48000, '2006-06-02 ', 7,3),
+(9, '丁敏君 ', 23, '出纳 ',5250, '2009-05-13 ', 7,3),
+(10, '赵敏 ', 20, '市场部总监 ',12500, '2004-10-12 ', 1,2),
+(11, '鹿杖客 ', 56, '职员 ',3750, '2006-10-03 ', 10,2),
+(12, '鹤笔翁 ', 19, '职员 ',3750, '2007-05-09 ', 10,2),
+(13, '方东白 ', 19, '职员 ',5500, '2009-02-12 ', 10,2),
+(14, '张三丰 ', 88, '销售总监 ',14000, '2004-10-12 ', 1,4),
+(15, '俞莲舟 ', 38, '销售 ',4600, '2004-10-12 ', 14,4),
+(16, '宋远桥 ', 40, '销售 ',4600, '2004-10-12 ', 14,4),
+(17, '陈友谅 ', 42, null,2000, '2011-10-12 ', 1,null);
 
 
 dept表共6条记录， emp表共17条记录。
@@ -2916,9 +2958,10 @@ WHERE   条件      ;
 
 ```sql
 SELECT  字段列表    FROM   表
+```
+
 [ INNER ]  JOIN 表
 ON  连接条件      ;
-```
 
 
 案例 :
@@ -2986,8 +3029,9 @@ select e.name, d.name from emp e join dept d  on e.dept_id = d.id;
 ```sql
 SELECT  字段列表    FROM   表
 LEFT   [ OUTER ]  JOIN 表
-ON  条件      ;
 ```
+
+ON  条件      ;
 
 
 左外连接相当于查询表1(左表)的所有数据，当然也包含表1和表2交集部分的数据。
@@ -2999,8 +3043,9 @@ ON  条件      ;
 ```sql
 SELECT  字段列表    FROM   表
 RIGHT   [ OUTER ]  JOIN 表
-ON  条件      ;
 ```
+
+ON  条件      ;
 
 
 右外连接相当于查询表2(右表)的所有数据，当然也包含表1和表2交集部分的数据。
@@ -3109,8 +3154,11 @@ SELECT  字段列表  FROM   表B      ;
 对于联合查询的多张表的列数必须保持一致，字段类型也需要保持一致。
 
 
+```sql
 union all 会将全部的数据直接合并在一起，union 会对合并之后的数据去重。
 
+
+```
 
 案例 :
 
@@ -3121,7 +3169,10 @@ A. 将薪资低于  5000 的员工   , 和  年龄大于   50 岁的员工全部
 当前对于这个需求，我们可以直接使用多条件查询，使用逻辑运算符  or 连接即可。   那这里呢，我们也可以通过union/union all来联合查询 .
 
 
-| 1   select * from emp where salary < 50002   union all
+```sql
+select * from emp where salary < 50002   union all
+```
+
 
 ```sql
 select * from emp where age > 50;
@@ -3131,10 +3182,13 @@ select * from emp where age > 50;
 ![](file:///D:/Java/data/MySQL/基础篇/image150.jpeg)
 
 
+```sql
 union all查询出来的结果，仅仅进行简单的合并，并未去重。
 
 
-| 1   select * from emp where salary < 50002   union
+select * from emp where salary < 50002   union
+
+```
 
 ```sql
 select * from emp where age > 50;
@@ -3144,8 +3198,11 @@ select * from emp where age > 50;
 ![](file:///D:/Java/data/MySQL/基础篇/image151.jpeg)
 
 
+```sql
 union 联合查询，会对查询出来的结果进行去重处理。
 
+
+```
 
 注意：
 
@@ -3168,7 +3225,10 @@ union 联合查询，会对查询出来的结果进行去重处理。
 SQL语句中嵌套SELECT语句，称为嵌套查询，又称子查询。
 
 
-| 1   SELECT  *  FROM   t
+```sql
+SELECT  *  FROM   t
+```
+
 
 ```sql
 WHERE  column1 =   ( SELECT  column
@@ -3431,8 +3491,9 @@ create table salgrade (
 grade int,
 losal int,
 hisal int
-) comment '薪资等级表 ';   insert into salgrade values (1,0,3000);   insert into salgrade values (2,3001,5000);   insert into salgrade values (3,5001,8000);   insert into salgrade values (4,8001,10000);   insert into salgrade values (5,10001,15000);   insert into salgrade values (6,15001,20000);   insert into salgrade values (7,20001,25000);   insert into salgrade values (8,25001,30000);
 ```
+
+) comment '薪资等级表 ';   insert into salgrade values (1,0,3000);   insert into salgrade values (2,3001,5000);   insert into salgrade values (3,5001,8000);   insert into salgrade values (4,8001,10000);   insert into salgrade values (5,10001,15000);   insert into salgrade values (6,15001,20000);   insert into salgrade values (7,20001,25000);   insert into salgrade values (8,25001,30000);
 
 
 在这个案例中，我们主要运用上面所讲解的多表查询的语法，完成以下的12个需求即可，而这里主要涉及到的表就三张： emp员工表、 dept部门表、 salgrade薪资等级表  。
@@ -3655,10 +3716,11 @@ select s.name , s.no , c.name from student s , student_course sc , course c wher
 ```sql
 drop  table if exists account;   create table account (
 id int primary key AUTO_INCREMENT comment 'ID ',
+```
+
 name varchar (10) comment '姓名 ',
 money double (10,2) comment '余额 '
 ) comment '账户表 ';   insert into account (name, money) VALUES ( '张三 ',2000), ( '李四 ',2000);
-```
 
 
 #### 6.2.1 未控制事务
