@@ -169,7 +169,7 @@ MySQL安装完成之后，在系统启动时，会自动启动MySQL服务，我�
 当然，也可以手动的通过指令启动停止，以管理员身份运行cmd，进入命令行执行如下指令：
 
 
-```bash
+```sql
 net start mysql
 ```
 
@@ -198,6 +198,7 @@ net stop mysql80
 ```sql
 mysql  [-h 127.0.0.1]  [-P 3306]  -u root -p
 ```
+
 
 参数：
 -h : MySQL服务所在的主机IP
@@ -463,6 +464,7 @@ show create table 表名 ;
 CREATE TABLE  表名 (
 ```
 
+
 字段
 字段1类型  [ COMMENT  字段1注释 ],
 字段
@@ -485,6 +487,7 @@ CREATE TABLE  表名 (
 ```sql
 create table tb_user (
 ```
+
 
 id int comment '编号 ',
 name varchar (50) comment '姓名 ',
@@ -521,6 +524,7 @@ age tinyint unsigned
 score double (4,1)
 ```
 
+
 如 :
 1). 年龄字段 -- 不会出现负数, 而且人的年龄不会太大
 2). 分数 -- 总分100分, 最多出现一位小数
@@ -542,17 +546,15 @@ score double (4,1)
 | LONGBLOB | 0-4 294 967 295 bytes | 二进制形式的极大文本数据 |
 | LONGTEXT | 0-4 294 967 295 bytes | 极大文本数据 |
 
-```sql
 char 与  varchar 都可以描述字符串， char是定长字符串，指定长度多长，就占用多少个字符，和字段值的长度无关  。而varchar是变长字符串，指定的长度为最大占用长度  。相对来说， char的性能会更高些。
 
-
-```
 
 ```sql
 username varchar (50)
 gender char (1)
 phone char (11)
 ```
+
 
 如：
 1). 用户名 username ------> 长度不定, 最长不会超过
@@ -612,6 +614,7 @@ createtime  datetime
 ```sql
 create table emp (
 ```
+
 
 id int comment '编号 ',
 workno varchar (10) comment '工号 ',
@@ -1141,6 +1144,7 @@ INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) 
 INSERT INTO emp (id, workno, name, gender, age, idcard, workaddress, entrydate) VALUES (2, '00002 ', '张无忌 ', '男 ', 18, '123456789012345670 ', '北京 ', '2005-09-01 ');
 ```
 
+
 id int comment '编号 ',
 workno varchar (10) comment '工号 ',
 name varchar (10) comment '姓名 ',
@@ -1212,6 +1216,7 @@ ORDER BY
 LIMIT
 ```
 
+
 字段列表
 表名列表
 条件列表
@@ -1249,9 +1254,10 @@ LIMIT
 
 
 ```sql
-SELECT   字段1, 字段2, 字段
 FROM   表名 ;
 ```
+
+SELECT   字段1, 字段2, 字段
 
 
 ```sql
@@ -1262,17 +1268,15 @@ SELECT  *  FROM   表名 ;
 | 注意   : * 号代表查询所有字段，在实际开发中尽量少用（不直观、影响效率）。 |
 | 2). 字段设置别名 |
 
-```sql
 SELECT   字段
-```
+
 
 [ AS  别名1 ] , 字段
 [ AS  别名2 ]        FROM   表名;
 
 
-```sql
 SELECT   字段
-```
+
 
 [ 别名1 ] , 字段
 [ 别名2 ]       FROM   表名;
@@ -1626,6 +1630,7 @@ select workaddress, gender, count (*) '数量 ' from emp group by gender , worka
 SELECT  字段列表  FROM   表名  ORDER  BY  字段
 ```
 
+
 排序方式1 , 字段
 排序方式2 ;
 
@@ -1633,15 +1638,10 @@ SELECT  字段列表  FROM   表名  ORDER  BY  字段
 2). 排序方式
 
 
-```sql
 ASC : 升序 (默认值)
 
 
-```
-
-```sql
 DESC: 降序
-```
 
 
 注意事项：
@@ -1836,9 +1836,8 @@ select e.name ename , e.age eage from emp e where e.age > 15 order by eage asc;
 
 ```sql
 having ... select ... order by ... limit ...
-
-
 ```
+
 
 ### 2.7 DCL
 
@@ -2074,6 +2073,7 @@ select upper ( 'Hello ');
 select lpad ( '01 ', 5, '- ');
 select rpad ( '01 ', 5, '- ');
 ```
+
 
 B. lower : 全部转小写
 C. upper : 全部转大写
@@ -2312,6 +2312,7 @@ create table score (
 id int comment 'ID ',
 ```
 
+
 name varchar (20) comment '姓名 ',
 math int comment '数学 ',
 english int comment '英语 ',
@@ -2393,9 +2394,11 @@ MySQL的常见函数我们学习完了，那接下来，我们就来分析一下
 
 ```sql
 CREATE TABLE tb_user (
-status char (1) default  '1 '  COMMENT  '状态 ',
 );
 ```
+
+status char (1) default  '1 '  COMMENT  '状态 ',
+
 
 id int AUTO_INCREMENT PRIMARY KEY  COMMENT  'ID唯一标识 ',
 name varchar (10) NOT NULL UNIQUE  COMMENT  '姓名 ' ,
@@ -2447,6 +2450,7 @@ id   int auto_increment comment 'ID ' primary key,
 id  int auto_increment comment 'ID ' primary key,
 ```
 
+
 name varchar (50) not null comment '部门名称 '
 )comment '部门表 ';   INSERT INTO dept (id, name) VALUES (1, '研发部 '), (2, '市场部 '), (3, '财务部 '), (4, '销售部 '), (5, '总经办 ');   create table emp (
 name varchar (50) not null comment '姓名 ',
@@ -2486,6 +2490,7 @@ ALTER   TABLE  表名    ADD  CONSTRAINT   外键名称    FOREIGN   KEY (外键
 CREATE TABLE 表名 (
 ALTER   TABLE  表名    ADD  CONSTRAINT   外键名称    FOREIGN   KEY (外键字段名) REFERENCES  主表  (主表列名) ;
 ```
+
 
 字段名     数据类型,
 [CONSTRAINT]   [外键名称]  FOREIGN  KEY (外键字段名)   REFERENCES   主表  (主表列名)
@@ -2586,6 +2591,7 @@ A. 修改父表id为1的记录，将id修改为6
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept (id) on update set null on delete set null ;
 ```
 
+
 我们发现，父表的数据删除成功了，但是子表中关联的记录也被级联删除了。2). SET NULL在进行测试之前，我们先需要删除上面建立的外键  fk_emp_dept_id。然后再通过数据脚本，将emp、dept表的数据恢复了。
 
 
@@ -2671,6 +2677,7 @@ insert into course values (null, 'Java '), (null, 'PHP '), (null , 'MySQL ') , (
 create table student_course (
 ```
 
+
 id int auto_increment primary key comment '主键ID ',
 name varchar (10) comment '姓名 ',
 no varchar (10) comment '学号 '
@@ -2695,6 +2702,7 @@ constraint fk_courseid foreign key (courseid) references course (id),
 constraint fk_studentid foreign key (studentid) references student (id)
 insert into student_course values (null,1,1), (null,1,2), (null,1,3), (null,2,2), (null,2,3), (null,3,4);
 ```
+
 
 id int auto_increment comment '主键 ' primary key,
 studentid int not null comment '学生ID ',
@@ -2731,6 +2739,7 @@ create table tb_user (
 create table tb_user_edu (
 ```
 
+
 id int auto_increment primary key comment '主键ID ',
 name varchar (10) comment '姓名 ',
 age int comment '年龄 ',
@@ -2763,6 +2772,7 @@ constraint fk_userid foreign key (userid) references tb_user (id)
 insert into tb_user (id, name, age, gender, phone) values
 insert into tb_user_edu (id, degree, major, primaryschool, middleschool, university, userid) values
 ```
+
 
 university varchar (50) comment '大学 ',
 userid int unique comment '用户ID ',
@@ -2811,6 +2821,7 @@ INSERT INTO emp (id, name, age, job,salary, entrydate, managerid, dept_id)VALUES
 alter table emp add constraint fk_emp_dept_id foreign key (dept_id) references dept (id);
 INSERT INTO emp (id, name, age, job,salary, entrydate, managerid, dept_id)VALUES
 ```
+
 
 name varchar (50) not null comment '姓名 ',
 age  int comment '年龄 ',
@@ -2960,6 +2971,7 @@ WHERE   条件      ;
 SELECT  字段列表    FROM   表
 ```
 
+
 [ INNER ]  JOIN 表
 ON  连接条件      ;
 
@@ -3028,8 +3040,10 @@ select e.name, d.name from emp e join dept d  on e.dept_id = d.id;
 
 ```sql
 SELECT  字段列表    FROM   表
-LEFT   [ OUTER ]  JOIN 表
 ```
+
+LEFT   [ OUTER ]  JOIN 表
+
 
 ON  条件      ;
 
@@ -3042,8 +3056,10 @@ ON  条件      ;
 
 ```sql
 SELECT  字段列表    FROM   表
-RIGHT   [ OUTER ]  JOIN 表
 ```
+
+RIGHT   [ OUTER ]  JOIN 表
+
 
 ON  条件      ;
 
@@ -3154,11 +3170,8 @@ SELECT  字段列表  FROM   表B      ;
 对于联合查询的多张表的列数必须保持一致，字段类型也需要保持一致。
 
 
-```sql
 union all 会将全部的数据直接合并在一起，union 会对合并之后的数据去重。
 
-
-```
 
 案例 :
 
@@ -3183,12 +3196,11 @@ select * from emp where age > 50;
 
 
 ```sql
+select * from emp where salary < 50002   union
+```
+
 union all查询出来的结果，仅仅进行简单的合并，并未去重。
 
-
-select * from emp where salary < 50002   union
-
-```
 
 ```sql
 select * from emp where age > 50;
@@ -3198,11 +3210,8 @@ select * from emp where age > 50;
 ![](file:///D:/Java/data/MySQL/基础篇/image151.jpeg)
 
 
-```sql
 union 联合查询，会对查询出来的结果进行去重处理。
 
-
-```
 
 注意：
 
@@ -3493,6 +3502,7 @@ losal int,
 hisal int
 ```
 
+
 ) comment '薪资等级表 ';   insert into salgrade values (1,0,3000);   insert into salgrade values (2,3001,5000);   insert into salgrade values (3,5001,8000);   insert into salgrade values (4,8001,10000);   insert into salgrade values (5,10001,15000);   insert into salgrade values (6,15001,20000);   insert into salgrade values (7,20001,25000);   insert into salgrade values (8,25001,30000);
 
 
@@ -3718,6 +3728,7 @@ drop  table if exists account;   create table account (
 id int primary key AUTO_INCREMENT comment 'ID ',
 ```
 
+
 name varchar (10) comment '姓名 ',
 money double (10,2) comment '余额 '
 ) comment '账户表 ';   insert into account (name, money) VALUES ( '张三 ',2000), ( '李四 ',2000);
@@ -3824,9 +3835,10 @@ select * from account where name = '张三 ';   -- 2. 张三的余额减少10
 update account set money = money - 1000 where name = '张三 ';   -- 3. 李四的余额增加100
 update account set money = money + 1000 where name = '李四 ';1
 -- 如果正常执行完毕, 则提交事务
-commit;   -- 如果执行过程中报错, 则回滚事务
 -- rollback;
 ```
+
+commit;   -- 如果执行过程中报错, 则回滚事务
 
 
 ### 6.3 事务四大特性

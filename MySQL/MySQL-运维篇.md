@@ -146,11 +146,12 @@ min_examined_row_limit 的所有的SQL语句的日志，默认未开启。 long_
 
 
 ```sql
-#慢查询日志
 slow_query_log=
-#执行时间参数
 long_query_time=2
 ```
+
+#慢查询日志
+#执行时间参数
 
 
 默认情况下，不会记录管理语句，也不会记录不使用索引进行查找的查询。可以使用
@@ -160,11 +161,12 @@ log_slow_admin_statements和  更改此行为  log_queries_not_using_indexes，�
 
 
 ```sql
-#记录执行较慢的管理语句
 log_slow_admin_statements =
-#记录执行较慢的未使用索引的语句
 log_queries_not_using_indexes = 1
 ```
+
+#记录执行较慢的管理语句
+#记录执行较慢的未使用索引的语句
 
 
 上述所有的参数配置完成之后，都需要重新启动MySQL服务器才可以生效。
@@ -243,15 +245,16 @@ MySQL主从复制的核心就是  二进制日志，具体的过程如下：
 
 
 ```sql
-#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
 server-id=
-#是否只读,1 代表只读, 0 代表读写
 read-only=
+```
+
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
+#是否只读,1 代表只读, 0 代表读写
 #忽略的数据, 指不需要同步的数据库
 #binlog-ignore-db=mysql
 #指定同步的数据库
 #binlog-do-db=db01
-```
 
 
 ## 2. 重启MySQL服务器
@@ -266,10 +269,11 @@ systemctl  restart  mysqld
 
 
 ```sql
-#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 CREATE  USER  'itcast '@ '% ' IDENTIFIED WITH mysql_native_password BY 'Root@123456 ';   #为 'itcast '@ '% ' 用户分配主从复制权限
 GRANT  REPLICATION  SLAVE  ON  *.*  TO  'itcast '@ '% ';
 ```
+
+#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 
 
 ## 4. 通过指令，查看二进制日志坐标
@@ -302,11 +306,12 @@ binlog_ignore_db : 指定不需要同步的数据库
 
 
 ```sql
-#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，和主库不一样即可
 server-id=
-#是否只读,1 代表只读, 0 代表读写
 read-only=1
 ```
+
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 2^32-1，和主库不一样即可
+#是否只读,1 代表只读, 0 代表读写
 
 
 ## 2. 重新启动MySQL服务
@@ -344,19 +349,15 @@ CHANGE MASTER TO MASTER_HOST= '192.168.200.200 ', MASTER_USER= 'itcast ', MASTER
 ## 4. 开启同步操作
 
 
-```sql
 start replica ; #8.0.22之后
 start  slave ;  #8.0.22之前
-```
 
 
 ## 5. 查看主从同步状态
 
 
-```sql
 show replica  status ;  #8.0.22之后
 show  slave  status ;   #8.0.22之前
-```
 
 
 ![](file:///D:/Java/data/MySQL/运维篇/image17.jpeg)
@@ -694,6 +695,7 @@ logs：存放mycat的日志文件
 </user>
 ```
 
+
 < !-- 表级 DML 权限设置 -->
 
 
@@ -713,11 +715,12 @@ DB01逻辑库是只读的。
 
 
 ```sql
-#启动
 bin/mycat  start
-#停止
 bin/mycat  stop
 ```
+
+#启动
+#停止
 
 
 Mycat启动之后，占用端口号  8066。
@@ -808,11 +811,8 @@ INSERT INTO TB_ORDER (id,title) VALUES (15000001, 'goods15000001 ');
 #### 3.4.1 schema.xml
 
 
-```sql
 schema.xml 作为MyCat中最重要的配置文件之一  , 涵盖了MyCat的逻辑库  、  逻辑表  、  分片规则、分片节点及数据源的配置。
 
-
-```
 
 ![](file:///D:/Java/data/MySQL/运维篇/image62.jpeg)
 
@@ -838,11 +838,8 @@ datahost标签
 ![](file:///D:/Java/data/MySQL/运维篇/image66.jpeg)
 
 
-```sql
 schema 标签用于定义  MyCat实例中的逻辑库   , 一个MyCat实例中 , 可以有多个逻辑库   , 可以通过  schema 标签来划分不同的逻辑库。 MyCat中的逻辑库的概念，等同于MySQL中的database概念  , 需要操作某个逻辑库下的表时 , 也需要切换逻辑库 (use xxx)。
 
-
-```
 
 核心属性：
 
@@ -1229,6 +1226,7 @@ tb_log表最终落在3个节点中，分别是  dn4、dn5、dn6 ，而具体的�
 </user>
 ```
 
+
 < !-- 表级 DML 权限设置 -->
 
 
@@ -1248,6 +1246,7 @@ id bigint (20) NOT NULL COMMENT 'ID ',
 PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+
 
 model_name varchar (200) DEFAULT NULL COMMENT '模块名 ',
 model_value varchar (200) DEFAULT NULL COMMENT '模块值 ',
@@ -1369,22 +1368,16 @@ VALUES ( '6 ', 'user ', 'find ', 'success ', 'java.lang.String ', '10001 ', '202
 2). 配置
 
 
-```sql
 schema.xml逻辑表配置：
 
-
-```
 
 ```sql
 <table name="TB_ORDER" dataNode="dn1,dn2,dn3" rule="auto-sharding-long" />
 ```
 
 
-```sql
 schema.xml数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn1" dataHost="dhost1" database="db01" />
@@ -1426,12 +1419,13 @@ rule.xml分片规则配置：
 
 
 ```sql
-# range start-end ,data node index
-# K=1000,M=10000.
 0-500M=
 500M-1000M=
 1000M-1500M=2
 ```
+
+# range start-end ,data node index
+# K=1000,M=10000.
 
 
 含义： 0-500万之间的值，存储在0号数据节点(数据节点的索引从0开始) ；  500万-1000万之间的数据存储在1号数据节点  ；  1000万-1500万的数据节点存储在2号节点  ；
@@ -1455,22 +1449,16 @@ rule.xml分片规则配置：
 2). 配置
 
 
-```sql
 schema.xml逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_log" dataNode="dn4,dn5,dn6" primaryKey="id" rule="mod-long" />
 ```
 
 
-```sql
 schema.xml数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1529,24 +1517,19 @@ rule.xml分片规则配置：
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_order" dataNode="dn4,dn5,dn6" rule="sharding-by-murmur" />
 ```
 
+
 < !-- 一致性hash -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1570,6 +1553,7 @@ rule.xml中分片规则配置：
 <property name="virtualBucketTimes">160</property>
 </function>
 ```
+
 
 <property name="seed">0</property>< !-- 默认是0 -->
 
@@ -1659,24 +1643,19 @@ INSERT INTO tb_order (id, money, content) VALUES ( 'b978840f-6fc4-11ec-b831- 482
 ![](file:///D:/Java/data/MySQL/运维篇/image108.jpeg)
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_user" dataNode="dn4,dn5,dn6" rule="sharding-by-intfile-enumstatus" />
 ```
 
+
 < !-- 枚举 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1707,14 +1686,12 @@ rule.xml中分片规则配置：
 </function>
 ```
 
+
 < !-- 自己增加 tableRule -->
 
 
-```sql
 partition-hash-int.txt ，内容如下   :
 
-
-```
 
 ```sql
 1=
@@ -1744,7 +1721,6 @@ partition-hash-int.txt ，内容如下   :
 ```sql
 CREATE TABLE tb_user (
 id bigint (20) NOT NULL COMMENT 'ID ',
-status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 insert into tb_user (id,username ,status) values (1, 'Tom ',1);
@@ -1754,7 +1730,6 @@ insert into tb_user (id,username ,status) values (4, 'Coco ',2);
 insert into tb_user (id,username ,status) values (5, 'Lily ',1);
 CREATE TABLE tb_user (
 id bigint (20) NOT NULL COMMENT 'ID ',
-status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 insert into tb_user (id,username ,status) values (1, 'Tom ',1);
@@ -1763,6 +1738,10 @@ insert into tb_user (id,username ,status) values (3, 'Rose ',3);
 insert into tb_user (id,username ,status) values (4, 'Coco ',2);
 insert into tb_user (id,username ,status) values (5, 'Lily ',1);
 ```
+
+status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
+status int (2) DEFAULT '1 ' COMMENT '1: 未启用, 2: 已启用, 3: 已关闭 ',
+
 
 username varchar (200) DEFAULT NULL COMMENT '姓名 ',
 username varchar (200) DEFAULT NULL COMMENT '姓名 ',
@@ -1797,24 +1776,19 @@ insert into tb_user (id,username ,status) values (10, 'Lily ',1);
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_app" dataNode="dn4,dn5,dn6" rule="sharding-by-substring" />
 ```
 
+
 < !-- 应用指定算法 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1875,6 +1849,7 @@ PRIMARY KEY (`id`)
 insert into tb_app (id,name) values ( '0000001 ', 'Testx00001 ');   insert into tb_app (id,name) values ( '0100001 ', 'Test100001 ');   insert into tb_app (id,name) values ( '0100002 ', 'Test200001 ');   insert into tb_app (id,name) values ( '0200001 ', 'Test300001 ');   insert into tb_app (id,name) values ( '0200002 ', 'TesT400001 ');
 ```
 
+
 name varchar (200) DEFAULT NULL COMMENT '名称 ',
 
 
@@ -1908,24 +1883,19 @@ name varchar (200) DEFAULT NULL COMMENT '名称 ',
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_longhash" dataNode="dn4,dn5,dn6" rule="sharding-by-long-hash" />
 ```
 
+
 < !-- 固定分片hash算法 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -1949,6 +1919,7 @@ rule.xml中分片规则配置：
 <property name="partitionLength">256,512</property>
 </function>
 ```
+
 
 < !-- 分片总长度为1024，count与length数组长度必须一致； -->
 
@@ -1996,6 +1967,7 @@ PRIMARY KEY (`id`)
 insert into tb_longhash (id,name,firstChar) values (1, '七匹狼 ', 'Q ');   insert into tb_longhash (id,name,firstChar) values (2, '八匹狼 ', 'B ');   insert into tb_longhash (id,name,firstChar) values (3, '九匹狼 ', 'J ');   insert into tb_longhash (id,name,firstChar) values (4, '十匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (5, '六匹狼 ', 'L ');   insert into tb_longhash (id,name,firstChar) values (6, '五匹狼 ', 'W ');   insert into tb_longhash (id,name,firstChar) values (7, '四匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (8, '三匹狼 ', 'S ');   insert into tb_longhash (id,name,firstChar) values (9, '两匹狼 ', 'L ');
 ```
 
+
 name varchar (200) DEFAULT NULL COMMENT '名称 ',
 firstChar char (1)  COMMENT '首字母 ',
 
@@ -2015,24 +1987,19 @@ firstChar char (1)  COMMENT '首字母 ',
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_strhash" dataNode="dn4,dn5" rule="sharding-by-stringhash" />
 ```
 
+
 < !-- 字符串hash解析算法 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2105,24 +2072,19 @@ INSERT INTO tb_strhash (name,content) VALUES ( 'T1001 ', UUID ());   INSERT INTO
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_datepart" dataNode="dn4,dn5,dn6" rule="sharding-by-date" />
 ```
 
+
 < !-- 按天分片 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2171,6 +2133,7 @@ create   time date  null
 );   insert into tb_datepart (id,name ,create_time) values (1, 'Tom ', '2022-01-01 ');   insert into tb_datepart (id,name ,create_time) values (2, 'Cat ', '2022-01-10 ');   insert into tb_datepart (id,name ,create_time) values (3, 'Rose ', '2022-01-11 ');   insert into tb_datepart (id,name ,create_time) values (4, 'Coco ', '2022-01-20 ');   insert into tb_datepart (id,name ,create_time) values (5, 'Rose2 ', '2022-01-21 ');   insert into tb_datepart (id,name ,create_time) values (6, 'Coco2 ', '2022-01-30 ');   insert into tb_datepart (id,name ,create_time) values (7, 'Coco3 ', '2022-01-31 ');
 ```
 
+
 name varchar (100) null comment '姓名 ',
 
 
@@ -2189,24 +2152,19 @@ name varchar (100) null comment '姓名 ',
 2). 配置
 
 
-```sql
 schema.xml中逻辑表配置：
 
-
-```
 
 ```sql
 <table name="tb_monthpart" dataNode="dn4,dn5,dn6" rule="sharding-by-month" />
 ```
 
+
 < !-- 按自然月分片 -->
 
 
-```sql
 schema.xml中数据节点配置：
 
-
-```
 
 ```sql
 <dataNode name="dn4" dataHost="dhost1" database="itcast" />
@@ -2233,6 +2191,7 @@ rule.xml中分片规则配置：
 < !--
 -->
 ```
+
 
 从开始时间开始，一个月为一个分片，到达结束时间之后，会重复开始分片插入
 配置表的 dataNode 的分片，必须和分片规则数量一致，例如 2022-01-01 到 2022-12-31 ，一共需要12个分片。
@@ -2262,6 +2221,7 @@ id   bigint  not null comment 'ID '  primary key,
 create   time date  null
 );   insert into tb_monthpart (id,name ,create_time) values (1, 'Tom ', '2022-01-01 ');   insert into tb_monthpart (id,name ,create_time) values (2, 'Cat ', '2022-01-10 ');   insert into tb_monthpart (id,name ,create_time) values (3, 'Rose ', '2022-01-31 ');   insert into tb_monthpart (id,name ,create_time) values (4, 'Coco ', '2022-02-20 ');   insert into tb_monthpart (id,name ,create_time) values (5, 'Rose2 ', '2022-02-25 ');   insert into tb_monthpart (id,name ,create_time) values (6, 'Coco2 ', '2022-03-10 ');   insert into tb_monthpart (id,name ,create_time) values (7, 'Coco3 ', '2022-03-31 ');   insert into tb_monthpart (id,name ,create_time) values (8, 'Coco4 ', '2022-04-10 ');   insert into tb_monthpart (id,name ,create_time) values (9, 'Coco5 ', '2022-04-30 ');
 ```
+
 
 name varchar (100) null comment '姓名 ',
 
@@ -2467,6 +2427,7 @@ MyCat控制后台数据库的读写分离和负载均衡由schema.xml文件datah
 </dataHost>
 ```
 
+
 < !-- 配置逻辑库 -->
 
 
@@ -2578,8 +2539,9 @@ A. 修改配置文件  /etc/my.cnf
 
 ```sql
 binlog-do-db=db
-binlog-do-db=db037   # 在作为从数据库的时候，有写入操作也要更新二进制日志文件8   log-slave-updates
 ```
+
+binlog-do-db=db037   # 在作为从数据库的时候，有写入操作也要更新二进制日志文件8   log-slave-updates
 
 
 B. 重启MySQL服务器
@@ -2594,10 +2556,11 @@ C. 创建账户并授权
 
 
 ```sql
-#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 CREATE  USER  'itcast '@ '% ' IDENTIFIED WITH mysql_native_password BY 'Root@123456 ';   #为 'itcast '@ '% ' 用户分配主从复制权限
 GRANT  REPLICATION  SLAVE  ON  *.*  TO  'itcast '@ '% ';
 ```
+
+#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 
 
 通过指令，查看两台主库的二进制日志坐标
@@ -2625,8 +2588,9 @@ A. 修改配置文件  /etc/my.cnf
 
 ```sql
 binlog-do-db=db
-binlog-do-db=db037   # 在作为从数据库的时候，有写入操作也要更新二进制日志文件8   log-slave-updates
 ```
+
+binlog-do-db=db037   # 在作为从数据库的时候，有写入操作也要更新二进制日志文件8   log-slave-updates
 
 
 B. 重启MySQL服务器
@@ -2641,10 +2605,11 @@ C. 创建账户并授权
 
 
 ```sql
-#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 CREATE  USER  'itcast '@ '% ' IDENTIFIED WITH mysql_native_password BY 'Root@123456 ';   #为 'itcast '@ '% ' 用户分配主从复制权限
 GRANT  REPLICATION  SLAVE  ON  *.*  TO  'itcast '@ '% ';
 ```
+
+#创建itcast用户，并设置密码，该用户可在任意主机连接该MySQL服务
 
 
 通过指令，查看两台主库的二进制日志坐标
@@ -2671,9 +2636,10 @@ A. 修改配置文件  /etc/my.cnf
 
 
 ```sql
-#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
 server-id=2
 ```
+
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
 
 
 B. 重新启动MySQL服务器
@@ -2689,9 +2655,10 @@ A. 修改配置文件  /etc/my.cnf
 
 
 ```sql
-#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
 server-id=4
 ```
+
+#mysql 服务ID，保证整个集群环境中唯一，取值范围：1 – 232-1，默认为
 
 
 B. 重新启动MySQL服务器
@@ -2929,6 +2896,7 @@ switchType
 -->
 </user>
 ```
+
 
 < !-- 表级 DML 权限设置 -->
 
