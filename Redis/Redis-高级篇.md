@@ -4204,7 +4204,7 @@ end
 
 ```nginx
 # 共享字典，也就是本地缓存，名称叫做：item_cache，大小150m
-lua_shared_dict item_cache 150m; 
+lua_shared_dict item_cache 150m; 
 ```
 
 ---

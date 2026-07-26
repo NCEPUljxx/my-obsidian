@@ -708,7 +708,7 @@ IDEA工具为了方便程序员使用maven生命周期，在右侧的maven工具
 
 >  思考：当运行package生命周期时，clean、compile生命周期会不会运行？
 >
-> ​		clean不会运行，compile会运行。  因为compile与package属于同一套生命周期，而clean与package不属于同一套生命周期。
+> 		clean不会运行，compile会运行。  因为compile与package属于同一套生命周期，而clean与package不属于同一套生命周期。
 
 
 #### 4.4.2 执行

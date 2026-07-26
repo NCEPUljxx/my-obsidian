@@ -3822,7 +3822,7 @@ B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cooki
 
 > 跨域介绍：
 >
-> ​	 <img src="assets/image-20230112103840467.png" alt="image-20230112103840467" style="zoom:80%;" /> 
+> 	 <img src="assets/image-20230112103840467.png" alt="image-20230112103840467" style="zoom:80%;" /> 
 >
 > - 现在的项目，大部分都是前后端分离的，前后端最终也会分开部署，前端部署在服务器 192.168.150.200 上，端口 80，后端部署在 192.168.150.100上，端口 8080
 > - 我们打开浏览器直接访问前端工程，访问url：http://192.168.150.200/login.html
@@ -3844,13 +3844,13 @@ B. 访问c2接口 http://localhost:8080/c2，此时浏览器会自动的将Cooki
 >
 > 举例：
 >
-> ​	http://192.168.150.200/login.html ----------> https://192.168.150.200/login   		[协议不同，跨域]
+> 	http://192.168.150.200/login.html ----------> https://192.168.150.200/login   		[协议不同，跨域]
 >
-> ​	http://192.168.150.200/login.html ----------> http://192.168.150.100/login     		[IP不同，跨域]
+> 	http://192.168.150.200/login.html ----------> http://192.168.150.100/login     		[IP不同，跨域]
 >
-> ​	http://192.168.150.200/login.html ----------> http://192.168.150.200:8080/login   [端口不同，跨域]
+> 	http://192.168.150.200/login.html ----------> http://192.168.150.200:8080/login   [端口不同，跨域]
 >
-> ​    http://192.168.150.200/login.html ----------> http://192.168.150.200/login    		 [不跨域]   
+>     http://192.168.150.200/login.html ----------> http://192.168.150.200/login    		 [不跨域]   
 
 
 ##### 2.2.2.2 方案二 - Session
@@ -3948,11 +3948,11 @@ B. 访问 s2 接口，http://localhost:8080/s2
 
 > 服务器集群环境为何无法使用Session？
 >
-> ​	<img src="assets/image-20230112112557480.png" alt="image-20230112112557480" style="zoom:67%;" /> 
+> 	<img src="assets/image-20230112112557480.png" alt="image-20230112112557480" style="zoom:67%;" /> 
 >
 > - 首先第一点，我们现在所开发的项目，一般都不会只部署在一台服务器上，因为一台服务器会存在一个很大的问题，就是单点故障。所谓单点故障，指的就是一旦这台服务器挂了，整个应用都没法访问了。
 >
-> ​    ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112112740131.png) 
+>     ![](file:///D:/Java/data/JavaWeb/05-SpringBootWeb案例与登录认证/image-20230112112740131.png) 
 >
 > - 所以在现在的企业项目开发当中，最终部署的时候都是以集群的形式来进行部署，也就是同一个项目它会部署多份。比如这个项目我们现在就部署了 3 份。
 >
@@ -4444,7 +4444,7 @@ public class TliasWebManagementApplication {
 
 > 注意事项：
 >
-> ​	在过滤器Filter中，如果不执行放行操作，将无法访问后面的资源。 放行操作：chain.doFilter(request, response);
+> 	在过滤器Filter中，如果不执行放行操作，将无法访问后面的资源。 放行操作：chain.doFilter(request, response);
 
 
 现在我们已完成了Filter过滤器的基本使用，下面我们将学习Filter过滤器在使用过程中的一些细节。
@@ -4972,11 +4972,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
 > 注意：
 >
-> ​	preHandle方法：目标资源方法执行前执行。 返回true：放行    返回false：不放行
+> 	preHandle方法：目标资源方法执行前执行。 返回true：放行    返回false：不放行
 >
-> ​	postHandle方法：目标资源方法执行后执行
+> 	postHandle方法：目标资源方法执行后执行
 >
-> ​	afterCompletion方法：视图渲染完毕后执行，最后执行
+> 	afterCompletion方法：视图渲染完毕后执行，最后执行
 
 
 **注册配置拦截器**：实现WebMvcConfigurer接口，并重写addInterceptors方法
