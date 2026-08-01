@@ -1544,4 +1544,4 @@ spring:
 
 ---
 
-> 📎 **相关笔记**：[[SSM框架/Spring框架/day01-IOC与DI]] · [[SSM框架/SpringMVC/day01-基础]] · [[JavaWeb/07-SpringBoot原理|JavaWeb SpringBoot原理]]
+> 📎 [[SpringBoot2/SpringBoot2 索引|SpringBoot2]] ·  **相关笔记**：[[SSM框架/Spring框架/day01-IOC与DI]] · [[SSM框架/SpringMVC/day01-基础]] · [[JavaWeb/07-SpringBoot原理|JavaWeb SpringBoot原理]]

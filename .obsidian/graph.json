@@ -76,18 +76,46 @@
         "a": 1,
         "rgb": 16729181
       }
+    },
+    {
+      "query": "path:SpringBoot2/SpringBoot2 索引",
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
+    },
+    {
+      "query": "path:SpringBoot2",
+      "color": {
+        "a": 1,
+        "rgb": 10092543
+      }
+    },
+    {
+      "query": "path:SpringBoot2/SpringBoot2 索引",
+      "color": {
+        "a": 1,
+        "rgb": 16766720
+      }
+    },
+    {
+      "query": "path:SpringBoot2",
+      "color": {
+        "a": 1,
+        "rgb": 10092543
+      }
     }
   ],
   "collapse-display": false,
   "showArrow": true,
   "textFadeMultiplier": 0,
-  "nodeSizeMultiplier": 2,
-  "lineSizeMultiplier": 2.5,
+  "nodeSizeMultiplier": 1.5,
+  "lineSizeMultiplier": 1.8,
   "collapse-forces": false,
-  "centerStrength": 0.18,
+  "centerStrength": 0.15,
   "repelStrength": 20,
   "linkStrength": 1,
-  "linkDistance": 130,
-  "scale": 0.32097395818009805,
+  "linkDistance": 120,
+  "scale": 0.16329931618554472,
   "close": true
 }

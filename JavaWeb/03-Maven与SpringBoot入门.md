@@ -1623,4 +1623,4 @@ Spring的官方提供了很多现成的starter(起步依赖)，我们在开发�
 
 ---
 
-> 📎 **相关笔记**：[[JavaWeb 索引]] · [[04-SpringBoot请求响应]] · [[02-数据库与持久层]] · [[08-Maven高级]] · [[SSM框架/Spring框架/day01-IOC与DI]] · [[SSM框架/SpringBoot]]
+> 📎 [[SpringBoot2/SpringBoot2 索引|SpringBoot2]] ·  **相关笔记**：[[JavaWeb 索引]] · [[04-SpringBoot请求响应]] · [[02-数据库与持久层]] · [[08-Maven高级]] · [[SSM框架/Spring框架/day01-IOC与DI]] · [[SSM框架/SpringBoot]]
